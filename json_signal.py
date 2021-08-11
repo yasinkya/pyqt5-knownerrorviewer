@@ -1,7 +1,8 @@
 from os import close, read
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget
-import sys,json,importlib, tabwidget
+import sys,json,importlib
+import uis.tabwidget as tabWidget
 
 class NewWindow(QMainWindow):
     def __init__(self,cntr_x,cntr_y,width, height):
@@ -20,9 +21,8 @@ class NewWindow(QMainWindow):
         self.b1.setText("button")
         self.b1.clicked.connect(self.clicked)
 
-        self.tabbar=tabwidget.Ui_MainWindow()
+        self.tabbar=tabWidget.Ui_MainWindow()
         self.tabbar.setupUi(self)
-        self.tabbar.tabWidget.addTab(self.tabbar.tabWidget,"sdlşkf")
         
 
     def clicked(self):
