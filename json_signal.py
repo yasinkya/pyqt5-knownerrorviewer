@@ -21,12 +21,12 @@ class NewWindow(QMainWindow):
         self.b1.setText("button")
         self.b1.clicked.connect(self.clicked)
 
-        self.tabbar=tabWidget.Ui_MainWindow()
-        self.tabbar.setupUi(self)
+        # self.tabbar=tabWidget.Ui_MainWindow()
+        # self.tabbar.setupUi(self)
         
 
     def clicked(self):
-        self.label.setText(str(readJson("employee.json")))
+        self.label.setText(str(readJson("jsons/employee.json")))
         self.b1.isEnabledTo=False
         self.update()
 
