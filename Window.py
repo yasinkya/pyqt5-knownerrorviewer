@@ -17,6 +17,7 @@ class New(QMainWindow):
         # set mainui to window
         self.mainUI = mainUI.Ui_MainWindow()
         self.mainUI.setupUi(self)
+
         # tabWidget
         self.tab = self.mainUI.tabWidget
         # sync qtabwidget
@@ -35,12 +36,16 @@ class New(QMainWindow):
     # clicked tabbar
     def tabChanged(self,data): 
         tabLay = QVBoxLayout()
-        lbl=QLabel()
         for i in data["feeds"]:
             if self.tab.tabText(self.tab.currentIndex())==str(i["id"]):
-                #lbl.setText(str(i))
-                functions.newTab(tabLay,i["name"])
-                break     
+                #functions.newTab(tabLay,i["name"])
+                list=set()
+                for j in i:
+                    list.add(j)
+                print(list)
+                print(len(list))
+                break
+
         #tabLay.addWidget(lbl)
         #functions.newTab(tabLay)
         self.tab.currentWidget().setLayout(tabLay)
