@@ -25,8 +25,11 @@ class New(QMainWindow):
         # tabbar clicked
         self.tab.currentChanged.connect(self.tabChanged)
 
+        tabLay=QVBoxLayout()
+        lbl=QLabel("vertic")
+        tabLay.addWidget(lbl)
+        self.tab.currentWidget().setLayout(tabLay)
         
-
     def syncTabs(self):
         f = open("jsons/employee.json", "r")
         data = json.loads(f.read())
@@ -34,11 +37,11 @@ class New(QMainWindow):
         for i in data["feeds"]:
             tab = QWidget()
             
-            if i["id"]==2135:
-                tabLay=QVBoxLayout()
-                lbl=QLabel("vertic")
-                tabLay.addWidget(lbl)
-                tab.setLayout(tabLay)
+            # if i["id"]==2135:
+            #     tabLay=QVBoxLayout()
+            #     lbl=QLabel("vertic")
+            #     tabLay.addWidget(lbl)
+            #     tab.setLayout(tabLay)
             self.tab.addTab(tab, str(i["id"]))
             
 
@@ -46,3 +49,6 @@ class New(QMainWindow):
     def tabChanged(self):
         print(self.tab.tabText(self.tab.currentIndex()))
         self.tab.setTabText(self.tab.currentIndex(), "chanced")
+        
+        #tab.setLayout(tabLay)
+        
