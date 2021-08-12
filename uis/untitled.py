@@ -9,6 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget
+import sys,json,importlib
 
 
 class Ui_Form(object):
@@ -36,3 +38,6 @@ class Ui_Form(object):
         self.label.setText(_translate("Form", "TextLabel"))
         self.label_3.setText(_translate("Form", "TextLabel"))
         self.label_2.setText(_translate("Form", "TextLabel"))
+
+app= QApplication(sys.argv)
+win =Ui_Form()
