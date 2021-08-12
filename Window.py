@@ -23,7 +23,7 @@ class New(QMainWindow):
         # sync qtabwidget
         self.syncTabs(jsonData)
         # tabbar clicked
-        self.tab.currentChanged.connect(lambda: self.tabChanged(jsonData))
+        self.tab.currentChanged.connect(lambda: functions.tabChanged(self.tab,jsonData))
         
         
 
@@ -33,6 +33,7 @@ class New(QMainWindow):
             tab = QWidget()
             self.tab.addTab(tab, str(i["id"]))
 
+"""
     # clicked tabbar
     def tabChanged(self,data): 
         tabLay = QVBoxLayout()
@@ -51,4 +52,4 @@ class New(QMainWindow):
         #functions.newTab(tabLay)
         self.tab.currentWidget().setLayout(tabLay)
 
-
+"""
