@@ -38,16 +38,11 @@ class New(QMainWindow):
         lbl=QLabel()
         for i in data["feeds"]:
             if self.tab.tabText(self.tab.currentIndex())==str(i["id"]):
-                lbl.setText(str(i))
+                #lbl.setText(str(i))
+                functions.newTab(tabLay,i["name"])
                 break     
-        tabLay.addWidget(lbl)
-        functions.newTab(tabLay)
+        #tabLay.addWidget(lbl)
+        #functions.newTab(tabLay)
         self.tab.currentWidget().setLayout(tabLay)
-
-
-def tabNew(lay:QVBoxLayout):
-    tab=QTabWidget()
-    lay.addWidget(tab)
-
 
 

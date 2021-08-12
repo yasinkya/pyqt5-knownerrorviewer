@@ -8,6 +8,10 @@ def readJson():
     f.close()
     return data
 
-def newTab(layout:QVBoxLayout):
-    tab=QTabWidget()
-    layout.addWidget(tab)
+def newTab(layout:QVBoxLayout,tabName):
+    tabWid=QTabWidget()
+    layout.addWidget(tabWid)
+    newTab_lay=QVBoxLayout()
+    tab=QWidget()
+    tabWid.addTab(tab,tabName)
+    tabWid.currentWidget().setLayout(newTab_lay)
