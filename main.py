@@ -5,6 +5,7 @@ import sys, Window
 def main():
     app= QApplication(sys.argv)
     
+    # for the window is in center of th screen
     cp=QDesktopWidget().availableGeometry().center()
     res=app.desktop().availableGeometry()
     w,h=res.width()/2.5,res.height()/2.5
