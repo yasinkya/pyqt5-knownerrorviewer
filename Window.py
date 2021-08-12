@@ -44,6 +44,7 @@ class New(QMainWindow):
                     list.add(j)
                 print(list)
                 print(len(list))
+                functions.newTab(tabLay,list)
                 break
 
         #tabLay.addWidget(lbl)
