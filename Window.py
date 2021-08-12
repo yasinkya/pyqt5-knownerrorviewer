@@ -1,62 +1,53 @@
-from os import name
 from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtWidgets import QHBoxLayout, QLabel, QLayout, QMainWindow, QVBoxLayout, QWidget
-import uis.mainUI as mainUI
+from PyQt5.QtWidgets import QHBoxLayout, QLabel, QLayout, QMainWindow, QTabWidget, QVBoxLayout, QWidget
+import uis.mainUI as mainUI,functions,json
 from PyQt5.QtGui import QPalette, QColor
-import json
 
 
 class New(QMainWindow):
     def __init__(self, x, y, w, h):
         super(New, self).__init__()
-        self.setFixedSize(w,h)
         self.setGeometry(x, y, w, h)
+        self.setFixedSize(w,h) # cannot let resize the window
         self.setWindowTitle("Main")
         self.initUI()
 
     def initUI(self):
+        jsonData=functions.readJson()
         # set mainui to window
         self.mainUI = mainUI.Ui_MainWindow()
         self.mainUI.setupUi(self)
-
         # tabWidget
         self.tab = self.mainUI.tabWidget
         # sync qtabwidget
-        self.syncTabs()
+        self.syncTabs(jsonData)
         # tabbar clicked
-        self.tab.currentChanged.connect(self.tabChanged)
+        self.tab.currentChanged.connect(lambda: self.tabChanged(jsonData))
+        
+        
 
-    def syncTabs(self):
-        f = open("jsons/employee.json", "r")
-        data = json.loads(f.read())
-
+    # Add tabs and change the their text's through json
+    def syncTabs(self,data):
         for i in data["feeds"]:
             tab = QWidget()
-
-            # if i["id"]==2135:
-            #     tabLay=QVBoxLayout()
-            #     lbl=QLabel("vertic")
-            #     tabLay.addWidget(lbl)
-            #     tab.setLayout(tabLay)
             self.tab.addTab(tab, str(i["id"]))
 
     # clicked tabbar
-
-    def tabChanged(self):
-        
-        #print(self.tab.tabText(self.tab.currentIndex()))
-        #self.tab.setTabText(self.tab.currentIndex(), "chanced")
-
-        f = open("jsons/employee.json", "r")
-        data = json.loads(f.read())
+    def tabChanged(self,data): 
         tabLay = QVBoxLayout()
         lbl=QLabel()
         for i in data["feeds"]:
             if self.tab.tabText(self.tab.currentIndex())==str(i["id"]):
                 lbl.setText(str(i))
-                break
-        
+                break     
         tabLay.addWidget(lbl)
+        functions.newTab(tabLay)
         self.tab.currentWidget().setLayout(tabLay)
 
-        # tab.setLayout(tabLay)
+
+def tabNew(lay:QVBoxLayout):
+    tab=QTabWidget()
+    lay.addWidget(tab)
+
+
+
