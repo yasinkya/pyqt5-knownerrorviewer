@@ -46,7 +46,7 @@ def window():
 
     #Qlabel
     label=QtWidgets.QLabel(win)
-    label.setText("Label")
+    label.setText("Labesdfgsdfgsdl")
     label.move(10,10)
 
     #Signals & buttons
