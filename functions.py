@@ -16,12 +16,15 @@ def newTab(layout:QVBoxLayout,tabList:Set):
     for i in tabList:
         tab=QWidget()
         tabWid.addTab(tab,i)
+        tabWid.currentChanged.connect(lambda: tabChanced(tabWid,readJson()["feeds"]))
         tabWid.currentWidget().setLayout(newTab_lay)
 
-def tabChanged(self:QTabWidget,data):
+def tabChanced(clickedTab:QTabWidget,data):
     tabLay = QVBoxLayout()
-    for i in data["feeds"]:
-        if self.tabText(self.currentIndex())==str(i["id"]):
+    tabList=set()
+    for i in data:
+        tabList.add(i)
+        if clickedTab.tabText(clickedTab.currentIndex())==str(i):
             #functions.newTab(tabLay,i["name"])
             list=set()
             for j in i:
@@ -33,4 +36,4 @@ def tabChanged(self:QTabWidget,data):
 
         #tabLay.addWidget(lbl)
         #functions.newTab(tabLay)
-        self.currentWidget().setLayout(tabLay)
+        clickedTab.currentWidget().setLayout(tabLay)
