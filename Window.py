@@ -1,3 +1,4 @@
+from os import name
 from PyQt5 import QtWidgets,QtGui
 from PyQt5.QtWidgets import QMainWindow, QWidget
 import uis.mainUI as mainUI
@@ -15,16 +16,17 @@ class New(QMainWindow):
         self.mainUI.setupUi(self)
         self.tab=self.mainUI.tabWidget
 
-        tab= QWidget()
-        self.tab.addTab(tab,"adsdf")
-
         self.syncTabs()
+        self.tab.currentChanged.connect(self.tabChanged)
         
     def syncTabs(self):
         f= open("jsons/employee.json","r")
         data= json.loads(f.read())
 
         for i in data["feeds"]:
-            print(i["id"])
             tab= QWidget()
             self.tab.addTab(tab,str(i["id"]))
+            
+
+    def tabChanged(self):
+        print(self.tab.tabText(self.tab.currentIndex()))
