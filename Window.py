@@ -1,5 +1,5 @@
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5 import QtWidgets,QtGui
+from PyQt5.QtWidgets import QMainWindow, QWidget
 import uis.mainUI as mainUI
 
 class New(QMainWindow):
@@ -12,4 +12,9 @@ class New(QMainWindow):
     def initUI(self):
         self.mainUI= mainUI.Ui_MainWindow()
         self.mainUI.setupUi(self)
+        self.tab=self.mainUI.tabWidget
+
+        tab= QWidget()
+        self.tab.addTab(tab,"adsdf")
+        
         
