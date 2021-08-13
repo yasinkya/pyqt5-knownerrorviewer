@@ -2,7 +2,7 @@ from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QHBoxLayout, QLabel, QLayout, QMainWindow, QTabWidget, QVBoxLayout, QWidget
 import uis.mainUI as mainUI,functions,json
 from PyQt5.QtGui import QPalette, QColor
-
+import jsonPy_global
 
 class New(QMainWindow):
     def __init__(self, x, y, w, h):
@@ -13,7 +13,7 @@ class New(QMainWindow):
         self.initUI()
 
     def initUI(self):
-        jsonData=functions.readJson()
+        jsonPy_global.jsondata=functions.readJson()
         # set mainui to window
         self.mainUI = mainUI.Ui_MainWindow()
         self.mainUI.setupUi(self)
@@ -21,9 +21,10 @@ class New(QMainWindow):
         # tabWidget
         self.tab = self.mainUI.tabWidget
         # sync qtabwidget
-        self.syncTabs(jsonData)
+        self.syncTabs(jsonPy_global.jsondata)
         # tabbar clicked
-        self.tab.currentChanged.connect(lambda: self.tabChanged(jsonData))
+        tab:QTabWidget
+        self.tab.currentChanged.connect(lambda idx: self.tabChanged(jsonPy_global.jsondata["feeds"][idx]))
         
         
 
@@ -36,16 +37,15 @@ class New(QMainWindow):
     # clicked tabbar
     def tabChanged(self,data): 
         tabLay = QVBoxLayout()
-        for i in data["feeds"]:
-            if self.tab.tabText(self.tab.currentIndex())==str(i["id"]):
-                #functions.newTab(tabLay,i["name"])
-                list=set()
-                for j in i:
-                    list.add(j)
-                print(list)
-                print(len(list))
-                functions.newTab(tabLay,list)
-                break
+        functions.newTab(tabLay, data.keys())
+        # for i in data:
+        #     # if self.tab.tabText(self.tab.currentIndex())==i:
+        #     #functions.newTab(tabLay,i["name"])
+        #     list=set()
+        #     for j in i:
+        #         list.add(j)
+        #
+        #     break
 
         #tabLay.addWidget(lbl)
         #functions.newTab(tabLay)

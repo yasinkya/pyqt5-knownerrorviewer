@@ -24,7 +24,7 @@ while k<10:
 print(a)
 """
 from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtWidgets import QApplication, QDesktopWidget, QMainWindow
+from PyQt5.QtWidgets import QApplication, QDesktopWidget, QMainWindow,QVBoxLayout,QHBoxLayout
 import sys,json,importlib
 
 #create window
@@ -40,30 +40,32 @@ def window():
     cntr_x,cntr_y=(cntr_p.x()-width/2),(cntr_p.y()-height/2)
     
     win.setGeometry(cntr_x,cntr_y,width,height)
+    win.setFixedSize(width,height)
+
+    layout =QVBoxLayout()
+    lay2=QHBoxLayout()
 
     #window prps
     win.setWindowTitle("PYQT5")
 
     #Qlabel
     label=QtWidgets.QLabel(win)
-    label.setText("Labesdfgsdfgsdl")
-    label.move(10,10)
+    label.setText("LabesdfgsdfgsdlLabesdfgsdfgsdlLabesdfgsdfgsdlLabesdfgsdfgsdlLabesdfgsdfgsdl")
 
-    #Signals & buttons
-    button=QtWidgets.QPushButton(win)
-    button.setText("Button")
-    button.move(label.x()+50,label.y()+20)
-    button.clicked.connect(btnclicked)
+
+    layout.addWidget(label)
+
+    win.setLayout(layout)
 
     win.show()
     sys.exit(app.exec())
     
 
-def btnclicked():
-    #actions
-    print("button clicked")
-window()
 
+# window()
+data=json.load(open("jsons/employee.json"),object_pairs_hook=list)
+total=data[1]
+print(type(total))
 
 #json import
 def readJson():
