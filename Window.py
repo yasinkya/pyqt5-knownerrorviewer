@@ -1,54 +1,52 @@
-from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtWidgets import QHBoxLayout, QLabel, QLayout, QMainWindow, QTabWidget, QVBoxLayout, QWidget
-import uis.mainUI as mainUI,functions,json
-from PyQt5.QtGui import QPalette, QColor
+from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QLabel
+import uis.mainUI
+import functions
 import jsonPy_global
+
 
 class New(QMainWindow):
     def __init__(self, x, y, w, h):
         super(New, self).__init__()
+        # cannot let resize the window
+        self.setFixedSize(w, h)
         self.setGeometry(x, y, w, h)
-        self.setFixedSize(w,h) # cannot let resize the window
         self.setWindowTitle("Main")
-        self.initUI()
 
-    def initUI(self):
-        jsonPy_global.jsondata=functions.readJson()
+        self.init_ui()
+
+    def init_ui(self):
+        jsonPy_global.jsondata = functions.read_json()
         # set mainui to window
-        self.mainUI = mainUI.Ui_MainWindow()
+        self.mainUI = uis.mainUI.Ui_MainWindow()
         self.mainUI.setupUi(self)
+
+        some_label = QLabel(self)
+        some_label.setObjectName("kek")
+
+        xx = self.findChild(type(QLabel))
 
         # tabWidget
         self.tab = self.mainUI.tabWidget
+
         # sync qtabwidget
-        self.syncTabs(jsonPy_global.jsondata)
-        # tabbar clicked
-        tab:QTabWidget
-        self.tab.currentChanged.connect(lambda idx: self.tabChanged(jsonPy_global.jsondata["feeds"][idx]))
-        
-        
+        self.sync_tabs(jsonPy_global.jsondata)
+        # tabbar clicked- idx current index of clicked tab
+        # jsonPy_global.tablay = QVBoxLayout()
+        self.tab.currentChanged.connect(lambda idx: self.tab_changed(jsonPy_global.jsondata["feeds"][idx], idx))
+        self.tab_changed(jsonPy_global.jsondata["feeds"][0], 0)
 
     # Add tabs and change the their text's through json
-    def syncTabs(self,data):
+    def sync_tabs(self, data):
         for i in data["feeds"]:
             tab = QWidget()
             self.tab.addTab(tab, str(i["id"]))
 
     # clicked tabbar
-    def tabChanged(self,data): 
-        tabLay = QVBoxLayout()
-        functions.newTab(tabLay, data.keys())
-        # for i in data:
-        #     # if self.tab.tabText(self.tab.currentIndex())==i:
-        #     #functions.newTab(tabLay,i["name"])
-        #     list=set()
-        #     for j in i:
-        #         list.add(j)
-        #
-        #     break
+    def tab_changed(self, data, currenttab_idx):
+        tablay = QVBoxLayout()
+        print(tablay)
 
-        #tabLay.addWidget(lbl)
-        #functions.newTab(tabLay)
-        self.tab.currentWidget().setLayout(tabLay)
+        functions.newtab(tablay, data.keys(), currenttab_idx)
 
-
+        if not self.tab.currentWidget().layout():
+            self.tab.currentWidget().setLayout(tablay)
