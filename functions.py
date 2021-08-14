@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QTabWidget, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QTabWidget, QVBoxLayout, QWidget, QLabel, QSizePolicy, QGridLayout
 import json
 import jsonPy_global
 
@@ -11,20 +11,45 @@ def read_json():
 
 
 def newtab(layout: QVBoxLayout, tablist: set, currenttab_idx):
-
+    # define a new tabwidget then add this to up tabwidget's layout
     tabwid = QTabWidget()
     layout.addWidget(tabwid)
-    newtab_lay = QVBoxLayout()
+
+    # then define a new layout for added tabwidget
+    # newtab_lay = QVBoxLayout()
+
+
+
+
+
+    # the tablist is the name of the tabs to be created
     for i in tablist:
         tab = QWidget()
         tabwid.addTab(tab, i)
-    tabwid.currentChanged.connect(lambda idx: tabchanced(tabwid, jsonPy_global.jsondata["feeds"][currenttab_idx]))
-    tabwid.currentWidget().setLayout(newtab_lay)
+
+    # set click signal for created tabs & set their layout
+    tabwid.currentChanged.connect(lambda: tabchanced(tabwid, jsonPy_global.jsondata["feeds"][currenttab_idx]))
+
+    # if not tabwid.currentWidget().layout():
+    #     tabwid.currentWidget().setLayout(newtab_lay)
 
 
 def tabchanced(clickedtab: QTabWidget, data):
+    # todo: ram usage for created tabs click
+    # todo: define layout for tabwidget and then add to another one gridlayout as child
 
-    print(data)
+    gridlayout = QGridLayout(clickedtab)
+    label = QLabel()
+    gridlayout.addWidget(label)
+    sizepolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+    sizepolicy.setVerticalPolicy(0)
+    sizepolicy.setHorizontalPolicy(0)
+    sizepolicy.setHeightForWidth(label.sizePolicy().hasHeightForWidth())
+    label.setSizePolicy(sizepolicy)
+    label.setText(str(data))
+
+    # print(clickedtab is jsonPy_global.current_clicked_up_tab)
+    # print(data)
 
     """
         tablay = QVBoxLayout()

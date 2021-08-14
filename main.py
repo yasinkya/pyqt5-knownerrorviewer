@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import QApplication, QDesktopWidget
 import sys
 import Window
+import jsonPy_global
+import functions
 
 
 def main():
@@ -17,5 +19,7 @@ def main():
     sys.exit(app.exec())
 
 
+# global variable for json data
+jsonPy_global.jsondata = functions.read_json()
 main()
     

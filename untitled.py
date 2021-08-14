@@ -15,29 +15,55 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(660, 441)
+
+        # create and set layout for main
         self.gridLayout = QtWidgets.QGridLayout(Form)
         self.gridLayout.setObjectName("gridLayout")
+
+
+
+        # create UP tabwidget
         self.tabWidget = QtWidgets.QTabWidget(Form)
         self.tabWidget.setObjectName("tabWidget")
+        # up tab for tabwidget
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
+        # create and set tab's layout
         self.gridLayout_2 = QtWidgets.QGridLayout(self.tab)
         self.gridLayout_2.setObjectName("gridLayout_2")
+
+
+
+        # create LOW tabwid
         self.tabWidget_2 = QtWidgets.QTabWidget(self.tab)
         self.tabWidget_2.setObjectName("tabWidget_2")
+        # create low tab for low tabwidget
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
+        # create and set layout for low tab
         self.gridLayout_3 = QtWidgets.QGridLayout(self.tab_2)
         self.gridLayout_3.setObjectName("gridLayout_3")
+
+        # create plaintextedit for low tab and insert it
         self.plainTextEdit = QtWidgets.QPlainTextEdit(self.tab_2)
         self.plainTextEdit.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.ArrowCursor))
         self.plainTextEdit.setReadOnly(True)
         self.plainTextEdit.setPlainText("")
         self.plainTextEdit.setObjectName("plainTextEdit")
+
+        # add this ted to layout of LOW tab
         self.gridLayout_3.addWidget(self.plainTextEdit, 0, 0, 1, 1)
+
+        # add this low tab to low tabwidget
         self.tabWidget_2.addTab(self.tab_2, "")
+
+        # add this low tabwidget to UP tab's layout
         self.gridLayout_2.addWidget(self.tabWidget_2, 0, 0, 1, 1)
+
+        # add UP tab to UP tabwidget
         self.tabWidget.addTab(self.tab, "")
+
+        # add up tabwidget to main layout
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
 
         self.retranslateUi(Form)
@@ -50,3 +76,4 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Form"))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_2), _translate("Form", "Tab 1"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("Form", "Tab 1"))
+
