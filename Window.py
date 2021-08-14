@@ -11,19 +11,19 @@ class New(QMainWindow):
         self.setFixedSize(w, h)
         self.setGeometry(x, y, w, h)
         self.setWindowTitle("Main")
-
+        self.mainUI = QMainWindow()
+        self.tab = QWidget()
         self.init_ui()
 
     def init_ui(self):
+        # global variable for json data
         jsonPy_global.jsondata = functions.read_json()
         # set mainui to window
-        self.mainUI = uis.mainUI.Ui_MainWindow()
-        self.mainUI.setupUi(self)
+        self.mainUI = uis.mainUI.UiMainWindow()
+        self.mainUI.setup_ui(self)
 
         some_label = QLabel(self)
         some_label.setObjectName("kek")
-
-        xx = self.findChild(type(QLabel))
 
         # tabWidget
         self.tab = self.mainUI.tabWidget
