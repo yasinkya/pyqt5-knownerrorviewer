@@ -24,17 +24,17 @@ def newtab(layout: QLayout, tab_main: QWidget, keys: set, idx_c):
 
     # set click signal for created tabs & set their layout
     tabwid_child.currentChanged.connect(lambda idx: instance_check(tabwid_child, jsonPy_global.jsondata["feeds"][idx_c], idx))
+    # tabwid_child.currentChanged.connect(lambda idx: tabchanced(tabwid_child, jsonPy_global.jsondata["feeds"][idx_c]))
 
     # tabchanced(tabwid_child, jsonPy_global.jsondata["feeds"][idx_c])
 
 def tabchanced(clickedtab: QTabWidget, data):
     # todo: ram usage for created tabs click
     # todo: define layout for tabwidget and then add to another one gridlayout as child
-    print(data)
     plaintext = QPlainTextEdit(clickedtab.currentWidget())
     plaintext.setReadOnly(True)
     plaintext.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.ArrowCursor))
-    plaintext.setPlainText(str(data))
+    plaintext.setPlainText(data)
 
     # todo: when the 'addwidget' outside of this condition, it's creating new layouts
     if not clickedtab.currentWidget().layout():
@@ -44,7 +44,6 @@ def tabchanced(clickedtab: QTabWidget, data):
 
 def instance_check(clickedtab: QTabWidget, data, current_idx):
     check_this = data[clickedtab.tabText(clickedtab.indexOf(clickedtab.currentWidget()))]
-
     if isinstance(check_this, dict):
         print("DİCT")
     elif isinstance(check_this, list):
@@ -52,5 +51,9 @@ def instance_check(clickedtab: QTabWidget, data, current_idx):
             layout = QGridLayout(clickedtab.currentWidget())
             newtab(layout, clickedtab.currentWidget(), check_this[0].keys(), current_idx)
     else:
-        tabchanced(clickedtab, check_this)
+        try:
+            raise tabchanced(clickedtab, str(check_this))
+        except tabchanced as exc:
+            print(exc)
+
         # plaintext.setPlainText(str(data[clickedtab.tabText(clickedtab.indexOf(clickedtab.currentWidget()))]))
