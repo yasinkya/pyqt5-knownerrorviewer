@@ -23,7 +23,7 @@ def newtab(layout: QVBoxLayout, tab_main: QWidget, keys: set, current_idx):
 
 
     # set click signal for created tabs & set their layout
-    tabwid_child.currentChanged.connect(lambda: tabchanced(tabwid_child, jsonPy_global.jsondata["feeds"][current_idx]))
+    tabwid_child.currentChanged.connect(lambda: instance_check(tabwid_child, jsonPy_global.jsondata["feeds"][current_idx]))
     tabchanced(tabwid_child, jsonPy_global.jsondata["feeds"][current_idx])
 
 def tabchanced(clickedtab: QTabWidget, data):
@@ -47,3 +47,12 @@ def tabchanced(clickedtab: QTabWidget, data):
         clickedtab.currentWidget().layout().addWidget(plaintext)
 
 
+def instance_check(clickedtab: QTabWidget, data):
+    check_this = data[clickedtab.tabText(clickedtab.indexOf(clickedtab.currentWidget()))]
+    if isinstance(check_this, dict):
+        print("DİCT")
+    elif isinstance(check_this, list):
+        print("List")
+    else:
+        tabchanced(clickedtab, data)
+        # plaintext.setPlainText(str(data[clickedtab.tabText(clickedtab.indexOf(clickedtab.currentWidget()))]))

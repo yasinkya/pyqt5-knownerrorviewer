@@ -18,7 +18,6 @@ def main():
     win.show()
     sys.exit(app.exec())
 
-
 # global variable for json data
 jsonPy_global.jsondata = functions.read_json()
 main()
