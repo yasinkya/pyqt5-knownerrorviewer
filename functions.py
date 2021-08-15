@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QTabWidget, QVBoxLayout, QWidget, QGridLayout, QPlainTextEdit
+from PyQt5.QtWidgets import QTabWidget, QLayout, QWidget, QGridLayout, QPlainTextEdit
 from PyQt5 import QtGui, QtCore
 import json
 import jsonPy_global
@@ -11,7 +11,7 @@ def read_json():
     return data
 
 
-def newtab(layout: QVBoxLayout, tab_main: QWidget, keys: set, current_idx):
+def newtab(layout: QLayout, tab_main: QWidget, keys: set, current_idx):
     # define a new tabwidget then add this to main tabwidget's layout
     tabwid_child = QTabWidget(tab_main)
     layout.addWidget(tabwid_child)
@@ -23,7 +23,7 @@ def newtab(layout: QVBoxLayout, tab_main: QWidget, keys: set, current_idx):
 
 
     # set click signal for created tabs & set their layout
-    tabwid_child.currentChanged.connect(lambda: instance_check(tabwid_child, jsonPy_global.jsondata["feeds"][current_idx]))
+    tabwid_child.currentChanged.connect(lambda idx: instance_check(tabwid_child, jsonPy_global.jsondata["feeds"][current_idx], idx))
     tabchanced(tabwid_child, jsonPy_global.jsondata["feeds"][current_idx])
 
 def tabchanced(clickedtab: QTabWidget, data):
@@ -47,12 +47,15 @@ def tabchanced(clickedtab: QTabWidget, data):
         clickedtab.currentWidget().layout().addWidget(plaintext)
 
 
-def instance_check(clickedtab: QTabWidget, data):
+def instance_check(clickedtab: QTabWidget, data, current_idx):
     check_this = data[clickedtab.tabText(clickedtab.indexOf(clickedtab.currentWidget()))]
+
     if isinstance(check_this, dict):
         print("DİCT")
     elif isinstance(check_this, list):
-        print("List")
+        if not clickedtab.currentWidget().layout():
+            layout = QGridLayout(clickedtab.currentWidget())
+        newtab(layout, clickedtab.currentWidget(), check_this[0].keys(), current_idx)
     else:
         tabchanced(clickedtab, data)
         # plaintext.setPlainText(str(data[clickedtab.tabText(clickedtab.indexOf(clickedtab.currentWidget()))]))
