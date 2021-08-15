@@ -10,12 +10,12 @@
             "multiMedia": [
                 {
                     "id": 3240,
-                    "name": "",
+                    "name": "yaska",
                     "description": null,
                     "url": "http://www.youtube.com/embed/mPhboJR0Llc",
                     "mediatype": 2,
                     "likeCount": 0,
-                    "place": null,
+                    "place": "yozgat",
                     "createAt": "0001-01-01T00:00:00"
                 }
             ],

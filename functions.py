@@ -11,7 +11,7 @@ def read_json():
     return data
 
 
-def newtab(layout: QLayout, tab_main: QWidget, keys: set, current_idx):
+def newtab(layout: QLayout, tab_main: QWidget, keys: set, idx_c):
     # define a new tabwidget then add this to main tabwidget's layout
     tabwid_child = QTabWidget(tab_main)
     layout.addWidget(tabwid_child)
@@ -23,23 +23,18 @@ def newtab(layout: QLayout, tab_main: QWidget, keys: set, current_idx):
 
 
     # set click signal for created tabs & set their layout
-    tabwid_child.currentChanged.connect(lambda idx: instance_check(tabwid_child, jsonPy_global.jsondata["feeds"][current_idx], idx))
-    tabchanced(tabwid_child, jsonPy_global.jsondata["feeds"][current_idx])
+    tabwid_child.currentChanged.connect(lambda idx: instance_check(tabwid_child, jsonPy_global.jsondata["feeds"][idx_c], idx))
+
+    # tabchanced(tabwid_child, jsonPy_global.jsondata["feeds"][idx_c])
 
 def tabchanced(clickedtab: QTabWidget, data):
     # todo: ram usage for created tabs click
     # todo: define layout for tabwidget and then add to another one gridlayout as child
-
+    print(data)
     plaintext = QPlainTextEdit(clickedtab.currentWidget())
     plaintext.setReadOnly(True)
     plaintext.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.ArrowCursor))
-
-    if isinstance(data[clickedtab.tabText(clickedtab.indexOf(clickedtab.currentWidget()))], dict):
-        plaintext.setPlainText("DİCT")
-    elif isinstance(data[clickedtab.tabText(clickedtab.indexOf(clickedtab.currentWidget()))], list):
-        plaintext.setPlainText("List")
-    else:
-        plaintext.setPlainText(str(data[clickedtab.tabText(clickedtab.indexOf(clickedtab.currentWidget()))]))
+    plaintext.setPlainText(str(data))
 
     # todo: when the 'addwidget' outside of this condition, it's creating new layouts
     if not clickedtab.currentWidget().layout():
@@ -55,7 +50,7 @@ def instance_check(clickedtab: QTabWidget, data, current_idx):
     elif isinstance(check_this, list):
         if not clickedtab.currentWidget().layout():
             layout = QGridLayout(clickedtab.currentWidget())
-        newtab(layout, clickedtab.currentWidget(), check_this[0].keys(), current_idx)
+            newtab(layout, clickedtab.currentWidget(), check_this[0].keys(), current_idx)
     else:
-        tabchanced(clickedtab, data)
+        tabchanced(clickedtab, check_this)
         # plaintext.setPlainText(str(data[clickedtab.tabText(clickedtab.indexOf(clickedtab.currentWidget()))]))
