@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QTabWidget, QVBoxLayout, QWidget, QLabel, QSizePolicy, QGridLayout
+from PyQt5.QtWidgets import QTabWidget, QVBoxLayout, QWidget, QLabel, QSizePolicy, QGridLayout, QPlainTextEdit
 import json
 import jsonPy_global
 
@@ -10,10 +10,17 @@ def read_json():
     return data
 
 
-def newtab(layout: QVBoxLayout, tablist: set, currenttab_idx):
+def newtab(layout: QVBoxLayout, tab_main: QWidget, keys: set, currenttab_idx):
     # define a new tabwidget then add this to up tabwidget's layout
-    tabwid = QTabWidget()
-    layout.addWidget(tabwid)
+    tabwid_child = QTabWidget(tab_main)
+
+    # the tablist is the name of the tabs to be created
+    for i in keys:
+        tab_child = QWidget()
+        tabwid_child.addTab(tab_child, i)
+
+
+    layout.addWidget(tabwid_child)
 
     # then define a new layout for added tabwidget
     # newtab_lay = QVBoxLayout()
@@ -21,14 +28,12 @@ def newtab(layout: QVBoxLayout, tablist: set, currenttab_idx):
 
 
 
+    if not tab_child.layout():
+        tabchild_lay = QGridLayout(tab_child)
 
-    # the tablist is the name of the tabs to be created
-    for i in tablist:
-        tab = QWidget()
-        tabwid.addTab(tab, i)
 
     # set click signal for created tabs & set their layout
-    tabwid.currentChanged.connect(lambda: tabchanced(tabwid, jsonPy_global.jsondata["feeds"][currenttab_idx]))
+    tabwid_child.currentChanged.connect(lambda: tabchanced(tabwid_child, jsonPy_global.jsondata["feeds"]))
 
     # if not tabwid.currentWidget().layout():
     #     tabwid.currentWidget().setLayout(newtab_lay)
@@ -38,6 +43,15 @@ def tabchanced(clickedtab: QTabWidget, data):
     # todo: ram usage for created tabs click
     # todo: define layout for tabwidget and then add to another one gridlayout as child
 
+    if not clickedtab.currentWidget().layout():
+        tabchild_lay = QGridLayout(clickedtab.currentWidget())
+
+    plaintext = QPlainTextEdit(clickedtab.currentWidget())
+    # plaintext.setReadOnly(True)
+    plaintext.setPlainText(str(data))
+
+    clickedtab.currentWidget().layout().addWidget(plaintext, 0, 0, 1, 1)
+    """
     gridlayout = QGridLayout(clickedtab)
     label = QLabel()
     gridlayout.addWidget(label)
@@ -47,6 +61,7 @@ def tabchanced(clickedtab: QTabWidget, data):
     sizepolicy.setHeightForWidth(label.sizePolicy().hasHeightForWidth())
     label.setSizePolicy(sizepolicy)
     label.setText(str(data))
+    """
 
     # print(clickedtab is jsonPy_global.current_clicked_up_tab)
     # print(data)
