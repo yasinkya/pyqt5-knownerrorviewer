@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import QTabWidget, QLayout, QWidget, QGridLayout, QPlainTextEdit
 from PyQt5 import QtGui, QtCore
 import json
-import jsonPy_global
 
 
 def read_json():
@@ -11,7 +10,7 @@ def read_json():
     return data
 
 
-def newtab(layout: QLayout, tab_main: QWidget, data, idx_c):
+def newtab(layout: QLayout, tab_main: QWidget, data):
     # define a new tabwidget then add this to main tabwidget's layout
     tabwid_child = QTabWidget(tab_main)
     layout.addWidget(tabwid_child)
@@ -20,13 +19,10 @@ def newtab(layout: QLayout, tab_main: QWidget, data, idx_c):
         tab_child = QWidget()
         tabwid_child.addTab(tab_child, i)
 
-
-
     # set click signal for created tabs & set their layout
     tabwid_child.currentChanged.connect(lambda idx: instance_check(tabwid_child, data, idx))
-    # tabwid_child.currentChanged.connect(lambda idx: tabchanced(tabwid_child, jsonPy_global.jsondata["feeds"][idx_c]))
+    instance_check(tabwid_child, data, tabwid_child.indexOf(tabwid_child.currentWidget()))
 
-    # tabchanced(tabwid_child, jsonPy_global.jsondata["feeds"][idx_c])
 
 def tabchanged(clickedtab: QTabWidget, data):
     # todo: ram usage for created tabs click
@@ -44,22 +40,15 @@ def tabchanged(clickedtab: QTabWidget, data):
 
 def instance_check(clickedtab: QTabWidget, data, current_idx):
     check_this = data[clickedtab.tabText(clickedtab.indexOf(clickedtab.currentWidget()))]
+
     if isinstance(check_this, dict):
-        print("DİCT")
         if not clickedtab.currentWidget().layout():
             layout = QGridLayout(clickedtab.currentWidget())
-            newtab(layout, clickedtab.currentWidget(), check_this, current_idx)
+            newtab(layout, clickedtab.currentWidget(), check_this)
     elif isinstance(check_this, list):
         if not clickedtab.currentWidget().layout():
             layout = QGridLayout(clickedtab.currentWidget())
-            newtab(layout, clickedtab.currentWidget(), check_this[0], current_idx)
+            newtab(layout, clickedtab.currentWidget(), check_this[0])
     else:
         print(check_this)
         tabchanged(clickedtab, str(check_this))
-        """
-        try:
-            raise tabchanged(clickedtab, str(check_this))
-        except tabchanged as exc:
-            print(exc)
-        """
-        # plaintext.setPlainText(str(data[clickedtab.tabText(clickedtab.indexOf(clickedtab.currentWidget()))]))
