@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtWidgets
-import os
+
 
 class UiMainWindow(object):
     def setup_ui(self, main_window):
@@ -22,7 +22,7 @@ class UiMainWindow(object):
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName("tabWidget")
 
-        f = open("../jsonPy/uis/tabwid_sheet.css","r")
+        f = open("../jsonPy/uis/tabwid_sheet.css", "r")
         data = f.read()
         self.tabWidget.setStyleSheet(data)
 
@@ -31,6 +31,8 @@ class UiMainWindow(object):
         self.menubar = QtWidgets.QMenuBar(main_window)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 622, 24))
         self.menubar.setObjectName("menubar")
+        # self.menubar.setStyleSheet("QMenuBar{ background: #fffafa; border-widht: 1px;"
+        #                            "border-style: solid; border-radius: 4px;}")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
         self.menuEdit = QtWidgets.QMenu(self.menubar)
@@ -51,8 +53,6 @@ class UiMainWindow(object):
         self.retranslate_ui(main_window)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(main_window)
-
-
 
     def retranslate_ui(self, main_window):
         _translate = QtCore.QCoreApplication.translate
