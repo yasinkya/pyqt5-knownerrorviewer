@@ -39,15 +39,4 @@ class New(QMainWindow):
         # TODO: when u clicked a tab, its create a new down tab but whats happening the old tab
         if not self.tabwid_main.currentWidget().layout():
             tabmain_lay = QVBoxLayout(self.tabwid_main.currentWidget())
-            functions.newtab(tabmain_lay, self.tabwid_main.currentWidget(), data.keys(), currenttab_idx)
-
-        """
-        tablay = QVBoxLayout(self.tabwid_main.currentWidget())
-        print(self.tabwid_main.currentWidget().layout())
-
-        functions.newtab(tablay, data.keys(), currenttab_idx)
-
-        # do not set defined layout to the current clicked tab again
-        if not self.tabwid_main.currentWidget().layout():
-            self.tabwid_main.currentWidget().setLayout(tablay)
-        """
+            functions.newtab(tabmain_lay, self.tabwid_main.currentWidget(), data, currenttab_idx)
