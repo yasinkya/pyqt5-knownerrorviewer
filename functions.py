@@ -20,8 +20,8 @@ def newtab(layout: QLayout, tab_main: QWidget, data):
         tabwid_child.addTab(tab_child, i)
 
     # set click signal for created tabs & set their layout
-    tabwid_child.currentChanged.connect(lambda idx: instance_check(tabwid_child, data, idx))
-    instance_check(tabwid_child, data, tabwid_child.indexOf(tabwid_child.currentWidget()))
+    tabwid_child.currentChanged.connect(lambda: instance_check(tabwid_child, data))
+    instance_check(tabwid_child, data)
 
 
 def tabchanged(clickedtab: QTabWidget, data):
@@ -38,7 +38,7 @@ def tabchanged(clickedtab: QTabWidget, data):
         clickedtab.currentWidget().layout().addWidget(plaintext)
 
 
-def instance_check(clickedtab: QTabWidget, data, current_idx):
+def instance_check(clickedtab: QTabWidget, data):
     check_this = data[clickedtab.tabText(clickedtab.indexOf(clickedtab.currentWidget()))]
 
     if isinstance(check_this, dict):

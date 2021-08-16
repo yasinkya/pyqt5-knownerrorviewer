@@ -5,11 +5,9 @@ import jsonPy_global
 
 
 class New(QMainWindow):
-    def __init__(self, x, y, w, h):
+    def __init__(self, w, h):
         super(New, self).__init__()
-        # cannot let resize the window
-        # self.setFixedSize(w, h)
-        # self.setGeometry(x, y, w, h)
+        self.setMinimumSize(w, h)
         self.setWindowTitle("Main")
         self.mainUI = QMainWindow()
         self.tabwid_main = QTabWidget()
