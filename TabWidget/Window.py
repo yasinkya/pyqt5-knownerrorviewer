@@ -37,4 +37,4 @@ class New(QMainWindow):
         # TODO: when u clicked a tab, its create a new down tab but whats happening the old tab
         if not self.tabwid_main.currentWidget().layout():
             tabmain_lay = QVBoxLayout(self.tabwid_main.currentWidget())
-            functions.newtab(tabmain_lay, self.tabwid_main.currentWidget(), data)
+            functions.newtab(tabmain_lay, self.tabwid_main.currentWidget(), data, "")

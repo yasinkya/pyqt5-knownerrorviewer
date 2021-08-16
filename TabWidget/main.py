@@ -10,7 +10,6 @@ def main():
     jsonPy_global.jsondata = functions.read_json()
 
     app = QApplication(sys.argv)
-    
     # window size
     res = app.desktop().availableGeometry()
     w, h = res.width()/2.5, res.height()/2

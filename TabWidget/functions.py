@@ -1,16 +1,16 @@
-from PyQt5.QtWidgets import QTabWidget, QLayout, QWidget, QGridLayout, QPlainTextEdit
-from PyQt5 import QtGui, QtCore
+from PyQt5.QtWidgets import QTabWidget, QLayout, QWidget, QGridLayout, QPlainTextEdit, QStyle
+from PyQt5 import QtGui, QtCore, QtWidgets
 import json
 
 
 def read_json():
-    f = open("jsons/employee.json", "r")
+    f = open("../jsonPy/jsons/employee.json", "r")
     data = json.loads(f.read())
     f.close()
     return data
 
 
-def newtab(layout: QLayout, tab_main: QWidget, data):
+def newtab(layout: QLayout, tab_main: QWidget, data, whats_type):
     # define a new tabwidget then add this to main tabwidget's layout
     tabwid_child = QTabWidget(tab_main)
     layout.addWidget(tabwid_child)
@@ -18,6 +18,12 @@ def newtab(layout: QLayout, tab_main: QWidget, data):
     for i in data.keys():
         tab_child = QWidget()
         tabwid_child.addTab(tab_child, i)
+        if whats_type == "tab":
+            painter = QtGui.QPainter(tab_child)
+            opt = QtWidgets.QStyleOptionTab()
+            tab_child.style().drawControl(
+                QStyle.CE_TabBarTabShape, opt, painter, tabwid_child.currentWidget()
+            )
 
     # set click signal for created tabs & set their layout
     tabwid_child.currentChanged.connect(lambda: instance_check(tabwid_child, data))
@@ -44,11 +50,11 @@ def instance_check(clickedtab: QTabWidget, data):
     if isinstance(check_this, dict):
         if not clickedtab.currentWidget().layout():
             layout = QGridLayout(clickedtab.currentWidget())
-            newtab(layout, clickedtab.currentWidget(), check_this)
+            newtab(layout, clickedtab.currentWidget(), check_this, "tab")
     elif isinstance(check_this, list):
         if not clickedtab.currentWidget().layout():
             layout = QGridLayout(clickedtab.currentWidget())
-            newtab(layout, clickedtab.currentWidget(), check_this[0])
+            newtab(layout, clickedtab.currentWidget(), check_this[0], "")
     else:
         print(check_this)
         tabchanged(clickedtab, str(check_this))

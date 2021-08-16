@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtWidgets
-
+import os
 
 class UiMainWindow(object):
     def setup_ui(self, main_window):
@@ -21,6 +21,10 @@ class UiMainWindow(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName("tabWidget")
+
+        f = open("../jsonPy/uis/tabwid_sheet.css","r")
+        data = f.read()
+        self.tabWidget.setStyleSheet(data)
 
         self.horizontalLayout.addWidget(self.tabWidget)
         main_window.setCentralWidget(self.centralwidget)
@@ -47,6 +51,8 @@ class UiMainWindow(object):
         self.retranslate_ui(main_window)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(main_window)
+
+
 
     def retranslate_ui(self, main_window):
         _translate = QtCore.QCoreApplication.translate
