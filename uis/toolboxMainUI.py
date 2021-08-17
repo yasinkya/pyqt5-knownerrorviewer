@@ -3,6 +3,7 @@ from PyQt5 import QtCore, QtWidgets
 
 class UIMainWindow(object):
     def setup_ui(self, main_window):
+        main_window.resize(720, 480)
         self.centralwidget = QtWidgets.QWidget(main_window)
         self.horizontal_lay = QtWidgets.QHBoxLayout(self.centralwidget)
         main_window.setCentralWidget(self.centralwidget)

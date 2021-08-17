@@ -21,11 +21,6 @@ class UiMainWindow(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName("tabWidget")
-
-        f = open("../jsonPy/uis/tabwid_sheet.css", "r")
-        data = f.read()
-        self.tabWidget.setStyleSheet(data)
-
         self.horizontalLayout.addWidget(self.tabWidget)
         main_window.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(main_window)

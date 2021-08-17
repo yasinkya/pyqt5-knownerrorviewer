@@ -1,6 +1,18 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication
 import sys
-from PyQt5 import QtWidgets
+import window
+import jsonPy_global as glb
+import json
+
+
 def main():
+    glb.jsondata = json.loads(open("../jsons/employee.json", "r").read())
     app = QApplication(sys.argv)
-    win =
+    win = window.Main_Window()
+
+    win.show()
+    sys.exit(app.exec())
+
+
+main()
+
