@@ -46,25 +46,7 @@ def instance_check(tabwid: QTabWidget, idx: None, data):
         colored_tabtext(tabwid, idx, QColor(200, 70, 200))
         if not tabwid.widget(idx).layout():
             tablay = QGridLayout(tabwid.widget(idx))
-            tablewidget = QTableWidget(tabwid.widget(idx))
-
-            tablewidget.setRowCount(len(data))
-            for i in range(len(data)):
-                tablewidget.setColumnCount(len(data[i].keys()))
-                item = QTableWidgetItem()
-                item.setText(str(i))
-                tablewidget.setVerticalHeaderItem(i, item)
-                for j in range(len(data[i])):
-                    item = QTableWidgetItem()
-                    key = str(list(data[i].keys())[j])
-                    item.setText(key)
-                    tablewidget.setHorizontalHeaderItem(j, item)
-
-                    insert_item = QTableWidgetItem()
-                    tablewidget.setItem(i, j, insert_item)
-                    insert_item.setText(str(data[i][key]))
-
-            tablay.addWidget(tablewidget)
+            init_toolbox(tablay, tabwid, idx, data)
 
 
     elif isinstance(data, dict):
@@ -79,3 +61,24 @@ def instance_check(tabwid: QTabWidget, idx: None, data):
 
 def colored_tabtext(tabwid: QTabWidget, idx, color: QColor()):
     tabwid.tabBar().setTabTextColor(idx, color)
+
+
+def init_toolbox(tablay: QLayout, tabwid: QTabWidget, idx, data):
+    tablewidget = QTableWidget(tabwid.widget(idx))
+    tablewidget.setRowCount(len(data))
+    for i in range(len(data)):
+        tablewidget.setColumnCount(len(data[i].keys()))
+        item = QTableWidgetItem()
+        item.setText(str(i))
+        tablewidget.setVerticalHeaderItem(i, item)
+        for j in range(len(data[i])):
+            item = QTableWidgetItem()
+            key = str(list(data[i].keys())[j])
+            item.setText(key)
+            tablewidget.setHorizontalHeaderItem(j, item)
+
+            insert_item = QTableWidgetItem()
+            tablewidget.setItem(i, j, insert_item)
+            insert_item.setText(str(data[i][key]))
+
+    tablay.addWidget(tablewidget)
