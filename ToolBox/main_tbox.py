@@ -1,13 +1,12 @@
 from PyQt5.QtWidgets import QApplication
 import sys
 import Window
-import jsonPy_global
 import functions
 
 
 def main():
     # global variable for json data
-    jsonPy_global.jsondata = functions.read_json()
+    functions.read_json()
 
     app = QApplication(sys.argv)
     # window size
@@ -20,4 +19,3 @@ def main():
 
 
 main()
-

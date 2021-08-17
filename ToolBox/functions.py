@@ -3,13 +3,12 @@ from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QTabWidget, QLayout, QWidget, QGridLayout, QPlainTextEdit, QTableWidget, QTableWidgetItem
 from PyQt5 import QtGui
 import json
+import jsonPy_global
 
 
 def read_json():
-    f = open("../jsons/employee.json", "r")
-    data = json.loads(f.read())
-    f.close()
-    return data
+    with open("../jsons/employee.json", "r") as file:
+        jsonPy_global.jsondata = json.loads(file.read())
 
 
 def newtab(layout: QLayout, tab_main: QWidget, data):
@@ -23,17 +22,12 @@ def newtab(layout: QLayout, tab_main: QWidget, data):
         tabwid_child.addTab(tab_child, i)
         instance_check(tabwid_child, tabwid_child.indexOf(tab_child), data[i])
 
-    # set click signal for created tabs & set their layout
-    # tabwid_child.currentChanged.connect(lambda: instance_check(tabwid_child, data))
-    # instance_check(tabwid_child, data)
-
 
 def init_tab(clickedtab: QTabWidget, idx,  data):
     # todo: ram usage for created tabs click
     # todo: define layout for tabwidget and then add to another one gridlayout as child
     plaintext = QPlainTextEdit(clickedtab.currentWidget())
     plaintext.setReadOnly(True)
-    # plaintext.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.ArrowCursor))
     plaintext.viewport().setCursor(QtGui.QCursor(Qt.ArrowCursor))
     plaintext.setPlainText(data)
 
@@ -67,40 +61,21 @@ def colored_tabtext(tabwid: QTabWidget, idx, color: QColor()):
 def init_toolbox(tablay: QLayout, tabwid: QTabWidget, idx, data):
 
     tablewidget = QTableWidget(tabwid.widget(idx))
-    #tablewidget.setRowCount(len(data))
 
     key_merge = set()
     for _dict in data:
         key_merge |= _dict.keys()
 
-    # tablewidget.setHorizontalHeader([key_merge])
     tablewidget.setColumnCount(len(key_merge))
     tablewidget.setHorizontalHeaderLabels(key_merge)
 
     # Row: 0, 1, 2...
     for i, dt in enumerate(data):
         tablewidget.insertRow(i)
-        for idx, key in enumerate(key_merge): # TODO: bunu unutma
+        # TODO: bunu unutma
+        for idx, key in enumerate(key_merge):
             insert_item = QTableWidgetItem()
-            #print(dt.get(key))
             insert_item.setText(str(dt.get(key)))
             tablewidget.setItem(i, idx, insert_item)
-
-    # for i in range(len(data)):
-    #
-    #     # Column: id, name, mm, ...
-    #     # todo: check columns' rows; diff?
-    #     for j in range(len(data[i])):
-    #
-    #         item = QTableWidgetItem()
-    #         key = str(list(data[i].keys())[j])
-    #         item.setText(key)
-    #         tablewidget.setHorizontalHeaderItem(j, item)
-    #
-    #         print(tablewidget.verticalHeaderItem(j))
-    #
-    #         insert_item = QTableWidgetItem()
-    #         tablewidget.setItem(i, j, insert_item)
-    #         insert_item.setText(str(data[i][key]))
 
     tablay.addWidget(tablewidget)

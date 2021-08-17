@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QTabWidget, QPushButton
+from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QTabWidget
 import uis.mainUI
 import functions
 import jsonPy_global
@@ -26,10 +26,10 @@ class New(QMainWindow, uis.mainUI.UiMainWindow):
         # sync qtabwidget
         self.sync_tabs(jsonPy_global.jsondata)
         # tabbar clicked- idx current index of clicked tab
-        self.tabwid_main.currentChanged.connect(lambda idx: self.init_tab(idx, jsonPy_global.jsondata["feeds"][idx]))
+        self.tabwid_main.currentChanged.connect(lambda idx: self.init_tab(jsonPy_global.jsondata["feeds"][idx]))
 
         # set current clicked
-        self.init_tab(0, jsonPy_global.jsondata["feeds"][0])
+        self.init_tab(jsonPy_global.jsondata["feeds"][0])
 
     # Add tabs and change the their text's through json
     def sync_tabs(self, data):
@@ -37,7 +37,7 @@ class New(QMainWindow, uis.mainUI.UiMainWindow):
             self.tabwid_main.addTab(QWidget(), str(i["id"]))
 
     # clicked tabbar
-    def init_tab(self, idx, data):
+    def init_tab(self, data):
         # TODO: when u clicked a tab, its create a new down tab but whats happening the old tab
         if not self.tabwid_main.currentWidget().layout():
             tabmain_lay = QVBoxLayout(self.tabwid_main.currentWidget())
