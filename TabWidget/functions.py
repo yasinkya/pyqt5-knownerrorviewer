@@ -63,29 +63,6 @@ def instance_check(tabwid: QTabWidget, idx: None, data):
     else:
         init_tab(tabwid, idx, str(data))
 
-    # elif isinstance(check_this, list):
-    #     if not clickedtab.currentWidget().layout():
-    #         layout = QGridLayout(clickedtab.currentWidget())
-    #         newtab(layout, clickedtab.currentWidget(), check_this[0])
-    # else:
-    #     init_tab(clickedtab, str(check_this))
-
 
 def colored_tabtext(tabwid: QTabWidget, idx, color: QColor()):
     tabwid.tabBar().setTabTextColor(idx, color)
-
-
-
-
-"""
- 
-
-    tbox = QToolBox(tab_main)
-
-    tabwid_child.setTabPosition(2)
-    tabwid_child.setStyleSheet(open("../jsonPy/uis/QTabBar_Sheet.css", "r").read())
-    
-        page = QWidget()
-        tbox.addItem(page, i)
-    layout.addWidget(tbox)
-"""
