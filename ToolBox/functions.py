@@ -1,3 +1,4 @@
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QTabWidget, QLayout, QWidget, QGridLayout, QPlainTextEdit, QTableWidget, QTableWidgetItem
 from PyQt5 import QtGui, QtCore
@@ -64,21 +65,44 @@ def colored_tabtext(tabwid: QTabWidget, idx, color: QColor()):
 
 
 def init_toolbox(tablay: QLayout, tabwid: QTabWidget, idx, data):
+
     tablewidget = QTableWidget(tabwid.widget(idx))
     tablewidget.setRowCount(len(data))
-    for i in range(len(data)):
-        tablewidget.setColumnCount(len(data[i].keys()))
-        item = QTableWidgetItem()
-        item.setText(str(i))
-        tablewidget.setVerticalHeaderItem(i, item)
-        for j in range(len(data[i])):
-            item = QTableWidgetItem()
-            key = str(list(data[i].keys())[j])
-            item.setText(key)
-            tablewidget.setHorizontalHeaderItem(j, item)
 
+    key_merge = set()
+    for _dict in data:
+        key_merge |= _dict.keys()
+
+    # tablewidget.setHorizontalHeader([key_merge])
+    tablewidget.setColumnCount(len(key_merge))
+    tablewidget.setHorizontalHeaderLabels(key_merge)
+
+    # Row: 0, 1, 2...
+    for key in key_merge:
+        i = 0
+        for dt in data:
             insert_item = QTableWidgetItem()
-            tablewidget.setItem(i, j, insert_item)
-            insert_item.setText(str(data[i][key]))
+            #print(dt.get(key))
+            insert_item.setText(str(dt.get(key)))
+            tablewidget.setItem(i, list(key_merge).index(key), insert_item)
+            i += 1
+            # get data_row[key]
+
+    # for i in range(len(data)):
+    #
+    #     # Column: id, name, mm, ...
+    #     # todo: check columns' rows; diff?
+    #     for j in range(len(data[i])):
+    #
+    #         item = QTableWidgetItem()
+    #         key = str(list(data[i].keys())[j])
+    #         item.setText(key)
+    #         tablewidget.setHorizontalHeaderItem(j, item)
+    #
+    #         print(tablewidget.verticalHeaderItem(j))
+    #
+    #         insert_item = QTableWidgetItem()
+    #         tablewidget.setItem(i, j, insert_item)
+    #         insert_item.setText(str(data[i][key]))
 
     tablay.addWidget(tablewidget)
