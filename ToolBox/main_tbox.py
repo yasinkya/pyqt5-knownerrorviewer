@@ -12,7 +12,7 @@ def main():
     app = QApplication(sys.argv)
     # window size
     res = app.desktop().availableGeometry()
-    w, h = res.width() / 2.5, res.height() / 2
+    w, h = int(res.width() / 2.5), res.height() // 2
 
     win = Window.New(w, h)
     win.show()

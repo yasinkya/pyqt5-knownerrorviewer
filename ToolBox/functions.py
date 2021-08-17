@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QTabWidget, QLayout, QWidget, QGridLayout, QPlainTextEdit, QTableWidget, QTableWidgetItem
-from PyQt5 import QtGui, QtCore
+from PyQt5 import QtGui
 import json
 
 
@@ -33,7 +33,8 @@ def init_tab(clickedtab: QTabWidget, idx,  data):
     # todo: define layout for tabwidget and then add to another one gridlayout as child
     plaintext = QPlainTextEdit(clickedtab.currentWidget())
     plaintext.setReadOnly(True)
-    plaintext.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.ArrowCursor))
+    # plaintext.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.ArrowCursor))
+    plaintext.viewport().setCursor(QtGui.QCursor(Qt.ArrowCursor))
     plaintext.setPlainText(data)
 
     # todo: when the 'addwidget' outside of this condition, it's creating new layouts
@@ -48,7 +49,6 @@ def instance_check(tabwid: QTabWidget, idx: None, data):
         if not tabwid.widget(idx).layout():
             tablay = QGridLayout(tabwid.widget(idx))
             init_toolbox(tablay, tabwid, idx, data)
-
 
     elif isinstance(data, dict):
         colored_tabtext(tabwid, idx, QColor(100, 100, 200))
@@ -67,7 +67,7 @@ def colored_tabtext(tabwid: QTabWidget, idx, color: QColor()):
 def init_toolbox(tablay: QLayout, tabwid: QTabWidget, idx, data):
 
     tablewidget = QTableWidget(tabwid.widget(idx))
-    tablewidget.setRowCount(len(data))
+    #tablewidget.setRowCount(len(data))
 
     key_merge = set()
     for _dict in data:
@@ -78,15 +78,13 @@ def init_toolbox(tablay: QLayout, tabwid: QTabWidget, idx, data):
     tablewidget.setHorizontalHeaderLabels(key_merge)
 
     # Row: 0, 1, 2...
-    for key in key_merge:
-        i = 0
-        for dt in data:
+    for i, dt in enumerate(data):
+        tablewidget.insertRow(i)
+        for idx, key in enumerate(key_merge): # TODO: bunu unutma
             insert_item = QTableWidgetItem()
             #print(dt.get(key))
             insert_item.setText(str(dt.get(key)))
-            tablewidget.setItem(i, list(key_merge).index(key), insert_item)
-            i += 1
-            # get data_row[key]
+            tablewidget.setItem(i, idx, insert_item)
 
     # for i in range(len(data)):
     #

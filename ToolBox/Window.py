@@ -1,10 +1,10 @@
-from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QTabWidget
+from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QTabWidget, QPushButton
 import uis.mainUI
 import functions
 import jsonPy_global
 
 
-class New(QMainWindow):
+class New(QMainWindow, uis.mainUI.UiMainWindow):
     def __init__(self, w, h):
         super(New, self).__init__()
         self.setMinimumSize(w, h)
@@ -18,20 +18,23 @@ class New(QMainWindow):
         self.mainUI = uis.mainUI.UiMainWindow()
         self.mainUI.setup_ui(self)
         # tabWidget define
+
         self.tabwid_main = self.mainUI.tabWidget
-        self.tabwid_main.setStyleSheet(open("../uis/tabwid_sheet.css", "r").read())
+        with open("../uis/tabwid_sheet.css", "r") as file:
+            self.tabwid_main.setStyleSheet(file.read())
+
         # sync qtabwidget
         self.sync_tabs(jsonPy_global.jsondata)
         # tabbar clicked- idx current index of clicked tab
         self.tabwid_main.currentChanged.connect(lambda idx: self.init_tab(idx, jsonPy_global.jsondata["feeds"][idx]))
+
         # set current clicked
         self.init_tab(0, jsonPy_global.jsondata["feeds"][0])
 
     # Add tabs and change the their text's through json
     def sync_tabs(self, data):
         for i in data["feeds"]:
-            tab_main = QWidget()
-            self.tabwid_main.addTab(tab_main, str(i["id"]))
+            self.tabwid_main.addTab(QWidget(), str(i["id"]))
 
     # clicked tabbar
     def init_tab(self, idx, data):
