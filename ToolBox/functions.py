@@ -1,6 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import QTabWidget, QLayout, QWidget, QGridLayout, QPlainTextEdit, QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QTabWidget, QLayout, QWidget, QGridLayout, QPlainTextEdit, QTableWidget, QTableWidgetItem, \
+    QPushButton
 from PyQt5 import QtGui
 import json
 import jsonPy_global
@@ -75,7 +76,17 @@ def init_toolbox(tablay: QLayout, tabwid: QTabWidget, idx, data):
         # TODO: bunu unutma
         for idx, key in enumerate(key_merge):
             insert_item = QTableWidgetItem()
-            insert_item.setText(str(dt.get(key)))
+            if isinstance(dt.get(key), dict):
+                button = QPushButton()
+                button.setText(str(dt.get(key)))
+                button.clicked.connect(button_click_event)
+
+                tablewidget.setCellWidget(i, idx, button)
+            else:
+                insert_item.setText(str(dt.get(key)))
             tablewidget.setItem(i, idx, insert_item)
 
     tablay.addWidget(tablewidget)
+
+def button_click_event():
+    
