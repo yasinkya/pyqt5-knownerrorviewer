@@ -26,7 +26,7 @@ class New(QTableWidget):
                 self.setItem(i, j, item)
                 self.setEditTriggers(QAbstractItemView.NoEditTriggers)
         # set cell clicked
-
+    
     def key_merge(self):
         keys = []
         for _dict in self.itr:

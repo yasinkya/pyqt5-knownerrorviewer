@@ -61,17 +61,16 @@ def colored_tabtext(tabwid: QTabWidget, idx, color: QColor()):
 
 
 def init_tablewidget(tablay: QLayout, tabwid: QTabWidget, idx, data):
+    # tablewidget class imp
+    tablewidget = TableWidget.New(data)
+    tablay.addWidget(tablewidget)
 
-    tablewidget = QTableWidget(tabwid.widget(idx))
-
+    """
+    
     key_merge = []
     for _dict in data:
         key_merge += list(set(_dict.keys()) - set(key_merge))
 
-        twidget = TableWidget.New(data)
-        tablay.addWidget(twidget)
-    # tablewidget.new(itr,
-"""
     tablewidget.setColumnCount(len(key_merge))
     tablewidget.setHorizontalHeaderLabels(key_merge)
 
@@ -94,8 +93,10 @@ def init_tablewidget(tablay: QLayout, tabwid: QTabWidget, idx, data):
             tablewidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
     tablewidget.cellClicked.connect(tablewidget_clicked)
+    
+    tablay.addWidget(tablewidget)
+
     """
-    # tablay.addWidget(tablewidget)
 
 
 def init_treewidget(itr, treewidget: QTreeWidget, tablewidget: QTableWidget, i, idx):
