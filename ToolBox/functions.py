@@ -63,9 +63,9 @@ def init_toolbox(tablay: QLayout, tabwid: QTabWidget, idx, data):
 
     tablewidget = QTableWidget(tabwid.widget(idx))
 
-    key_merge = set()
+    key_merge = []
     for _dict in data:
-        key_merge |= _dict.keys()
+        key_merge += list(set(_dict.keys()) - set(key_merge))
 
     tablewidget.setColumnCount(len(key_merge))
     tablewidget.setHorizontalHeaderLabels(key_merge)
@@ -78,7 +78,8 @@ def init_toolbox(tablay: QLayout, tabwid: QTabWidget, idx, data):
             insert_item = QTableWidgetItem()
             if isinstance(dt.get(key), dict):
                 treewidget = QTreeWidget()
-                treewidget.headerItem().setText(i, key)
+                treewidget.setHeaderHidden(True)
+                # treewidget.headerItem().setText(i, key)
                 init_treewidget(dt.get(key), treewidget, tablewidget, i, idx)
 
             else:
@@ -91,8 +92,8 @@ def init_toolbox(tablay: QLayout, tabwid: QTabWidget, idx, data):
 def init_treewidget(itr, treewidget: QTreeWidget, tablewidget: QTableWidget, i, idx):
     for a, k in enumerate(itr.keys()):
         item_top = QTreeWidgetItem(treewidget)
-        item_up = QTreeWidgetItem(item_top)
+        # item_up = QTreeWidgetItem(item_top)
         treewidget.topLevelItem(a).setText(i, k)
-        treewidget.topLevelItem(a).insertChild(QTreeWidgetItem().setText(i, itr[k]))
-        #treewidget.topLevelItem(a).child(i).setText(i, itr[k])
+        treewidget.topLevelItem(a).insertChild(i, QTreeWidgetItem())  # .setText(i, itr[k])
+        treewidget.topLevelItem(a).child(i).setText(i, itr[k])
         tablewidget.setCellWidget(i, idx, treewidget)
