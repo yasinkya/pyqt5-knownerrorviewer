@@ -79,7 +79,7 @@ def init_toolbox(tablay: QLayout, tabwid: QTabWidget, idx, data):
             if isinstance(dt.get(key), dict):
                 treewidget = QTreeWidget()
                 treewidget.setHeaderHidden(True)
-                # treewidget.headerItem().setText(i, key)
+                # todo: dynamicly cell size
                 init_treewidget(dt.get(key), treewidget, tablewidget, i, idx)
 
             else:
@@ -98,4 +98,9 @@ def init_treewidget(itr, treewidget: QTreeWidget, tablewidget: QTableWidget, i, 
         treewidget.topLevelItem(a).insertChild(i, QTreeWidgetItem())  # .setText(i, itr[k])
         treewidget.topLevelItem(a).child(i).setText(i, itr[k])
 
+        tablewidget.horizontalHeader().setDefaultSectionSize(len(itr) * 75)
+        tablewidget.verticalHeader().setDefaultSectionSize(35)
         tablewidget.setCellWidget(i, idx, treewidget)
+
+def treewidget_clicked():
+    print("clicked")
