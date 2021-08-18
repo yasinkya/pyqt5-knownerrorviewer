@@ -83,7 +83,7 @@ def init_tablewidget(tablay: QLayout, tabwid: QTabWidget, idx, data):
             insert_item = QTableWidgetItem()
             if isinstance(dt.get(key), dict):
                 treewidget = QTreeWidget()
-                treewidget.setHeaderHidden(True)
+                treewidget.setHeaderHidden(True) # set in tablewidget
                 # todo: dynamicly cell size
                 init_treewidget(dt.get(key), treewidget, tablewidget, i, idx)
 
