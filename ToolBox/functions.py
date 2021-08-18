@@ -87,6 +87,7 @@ def init_toolbox(tablay: QLayout, tabwid: QTabWidget, idx, data):
             tablewidget.setItem(i, idx, insert_item)
             tablewidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
+    tablewidget.cellClicked.connect(tablewidget_clicked)
     tablay.addWidget(tablewidget)
 
 
@@ -99,8 +100,10 @@ def init_treewidget(itr, treewidget: QTreeWidget, tablewidget: QTableWidget, i, 
         treewidget.topLevelItem(a).child(i).setText(i, itr[k])
 
         tablewidget.horizontalHeader().setDefaultSectionSize(len(itr) * 75)
-        tablewidget.verticalHeader().setDefaultSectionSize(35)
+        tablewidget.verticalHeader().setDefaultSectionSize(50)
         tablewidget.setCellWidget(i, idx, treewidget)
 
-def treewidget_clicked():
-    print("clicked")
+
+def tablewidget_clicked(item, i):
+    print(item)
+    print(i)
