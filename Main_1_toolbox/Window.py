@@ -19,7 +19,7 @@ class New(QMainWindow):
         self.mainUI.setup_ui(self)
         # tabWidget define
         self.tabwid_main = self.mainUI.tabWidget
-        self.tabwid_main.setStyleSheet(open("../jsonPy/uis/tabwid_sheet.css", "r").read())
+        self.tabwid_main.setStyleSheet(open("../uis/tabwid_sheet.css", "r").read())
         # sync qtabwidget
         self.sync_tabs(jsonPy_global.jsondata)
         # tabbar clicked- idx current index of clicked tab

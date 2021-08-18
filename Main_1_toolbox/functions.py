@@ -5,7 +5,7 @@ import json
 
 
 def read_json():
-    f = open("../jsonPy/jsons/employee.json", "r")
+    f = open("../jsons/employee.json", "r")
     data = json.loads(f.read())
     f.close()
     return data
