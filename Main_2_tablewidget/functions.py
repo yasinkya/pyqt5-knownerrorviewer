@@ -1,7 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import QTabWidget, QLayout, QWidget, QGridLayout, QPlainTextEdit, QTableWidget, QTableWidgetItem, \
-    QTreeWidgetItem, QTreeWidget, QAbstractItemView
+from PyQt5.QtWidgets import QTabWidget, QLayout, QWidget, QGridLayout, QPlainTextEdit
 from PyQt5 import QtGui
 import json
 import jsonPy_global
@@ -44,7 +43,7 @@ def instance_check(tabwid: QTabWidget, idx: None, data):
         colored_tabtext(tabwid, idx, QColor(200, 70, 200))
         if not tabwid.widget(idx).layout():
             tablay = QGridLayout(tabwid.widget(idx))
-            init_tablewidget(tablay, tabwid, idx, data)
+            init_tablewidget(tablay, data)
 
     elif isinstance(data, dict):
         colored_tabtext(tabwid, idx, QColor(100, 100, 200))
@@ -60,7 +59,7 @@ def colored_tabtext(tabwid: QTabWidget, idx, color: QColor()):
     tabwid.tabBar().setTabTextColor(idx, color)
 
 
-def init_tablewidget(tablay: QLayout, tabwid: QTabWidget, idx, data):
+def init_tablewidget(tablay: QLayout, data):
     # tablewidget class imp
     tablewidget = TableWidget.New(data)
     tablay.addWidget(tablewidget)

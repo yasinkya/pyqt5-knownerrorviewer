@@ -35,7 +35,6 @@ class New(QTableWidget):
         # set cell clicked
         self.cellClicked.connect(self.clicked_event)
 
-
     def clicked_event(self, row, col):
         print(self.item(row, col).text())
         for data in jsonPy_global.jsondata["feeds"]:
@@ -43,11 +42,9 @@ class New(QTableWidget):
             for key, val in data.items():
                 if self.itr == val:
                     print(val)
-        jsonPy_global.jsondata["feeds"]
 
     def key_merge(self):
         keys = []
         for _dict in self.itr:
             keys += list(set(_dict.keys()) - set(keys))
         return keys
-

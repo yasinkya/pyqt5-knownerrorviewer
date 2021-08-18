@@ -16,4 +16,3 @@ class New(QTreeWidget):
             self.topLevelItem(i).insertChild(self.x, QTreeWidgetItem())
             self.topLevelItem(i).child(self.x).setText(self.x, self.data[key])
 
-
