@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QTabWidget, QLayout, QWidget, QGridLayout, QPlainTex
 from PyQt5 import QtGui
 import json
 import jsonPy_global
+import TableWidget
 
 
 def read_json():
@@ -43,7 +44,7 @@ def instance_check(tabwid: QTabWidget, idx: None, data):
         colored_tabtext(tabwid, idx, QColor(200, 70, 200))
         if not tabwid.widget(idx).layout():
             tablay = QGridLayout(tabwid.widget(idx))
-            init_toolbox(tablay, tabwid, idx, data)
+            init_tablewidget(tablay, tabwid, idx, data)
 
     elif isinstance(data, dict):
         colored_tabtext(tabwid, idx, QColor(100, 100, 200))
@@ -59,7 +60,7 @@ def colored_tabtext(tabwid: QTabWidget, idx, color: QColor()):
     tabwid.tabBar().setTabTextColor(idx, color)
 
 
-def init_toolbox(tablay: QLayout, tabwid: QTabWidget, idx, data):
+def init_tablewidget(tablay: QLayout, tabwid: QTabWidget, idx, data):
 
     tablewidget = QTableWidget(tabwid.widget(idx))
 
@@ -67,6 +68,10 @@ def init_toolbox(tablay: QLayout, tabwid: QTabWidget, idx, data):
     for _dict in data:
         key_merge += list(set(_dict.keys()) - set(key_merge))
 
+        twidget = TableWidget.New(data)
+        tablay.addWidget(twidget)
+    # tablewidget.new(itr,
+"""
     tablewidget.setColumnCount(len(key_merge))
     tablewidget.setHorizontalHeaderLabels(key_merge)
 
@@ -75,6 +80,7 @@ def init_toolbox(tablay: QLayout, tabwid: QTabWidget, idx, data):
         tablewidget.insertRow(i)
         # TODO: bunu unutma
         for idx, key in enumerate(key_merge):
+            
             insert_item = QTableWidgetItem()
             if isinstance(dt.get(key), dict):
                 treewidget = QTreeWidget()
@@ -88,7 +94,8 @@ def init_toolbox(tablay: QLayout, tabwid: QTabWidget, idx, data):
             tablewidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
     tablewidget.cellClicked.connect(tablewidget_clicked)
-    tablay.addWidget(tablewidget)
+    """
+    # tablay.addWidget(tablewidget)
 
 
 def init_treewidget(itr, treewidget: QTreeWidget, tablewidget: QTableWidget, i, idx):
