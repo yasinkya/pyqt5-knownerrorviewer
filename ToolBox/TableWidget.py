@@ -21,10 +21,14 @@ class New(QTableWidget):
                 if isinstance(data.get(key), dict):
                     # tree widget insert
                     treewidget = TreeWidget.New(data.get(key), i)
+                    treewidget.setHeaderHidden(True)
+                    self.setCellWidget(i, j, treewidget)
                     pass
                 else:
                     item.setText(str(data.get(key)))
                 self.setItem(i, j, item)
+                self.verticalHeader().setDefaultSectionSize(50)
+                self.horizontalHeader().setDefaultSectionSize(150)
                 self.setEditTriggers(QAbstractItemView.NoEditTriggers)
         # set cell clicked
 
