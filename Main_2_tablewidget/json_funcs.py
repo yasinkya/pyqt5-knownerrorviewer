@@ -1,8 +1,11 @@
-import json
-
 import jsonPy_global
-import jsons
+import json
 import glob
+
+
+def show_jsons():
+    for path in glob.glob("../jsons/*.json"):
+        return str(path).split("/")[-1]
 
 
 def read_json(path):
@@ -17,4 +20,4 @@ def reverse_json(path):
     pass
 
 
-read_json("../jsons/employee.json")
+print(show_jsons())
