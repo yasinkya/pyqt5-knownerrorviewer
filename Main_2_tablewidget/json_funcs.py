@@ -23,11 +23,21 @@ def reverse_json(value):
     for data in jsonPy_global.jsondata:
         for key, val in data.items():
             if value == val:
+                print(str(list(jsonPy_global.jsondata).index(data)))
+                return jsonPy_global.jsondata[list(jsonPy_global.jsondata).index(data)]
+
+                # for dt in jsonPy_global.jsondata:
+                #     if dt[key] == value:
+                #         print(str(list(jsonPy_global.jsondata).index(dt)))
+                #         return jsonPy_global.jsondata[list(jsonPy_global.jsondata).index(dt)]
+
+"""    for data in jsonPy_global.jsondata:
+        for key, val in data.items():
+            if value == val:
                 for dt in jsonPy_global.jsondata:
                     if dt[key] == value:
                         print(str(list(jsonPy_global.jsondata).index(dt)))
-                        return jsonPy_global.jsondata[list(jsonPy_global.jsondata).index(dt)]
-
+                        return jsonPy_global.jsondata[list(jsonPy_global.jsondata).index(dt)]"""
 
 
 
@@ -38,4 +48,4 @@ def blabla():
 
 
 blabla()
-reverse_json(jsonPy_global.jsondata[15]["createdAt"])
+reverse_json(jsonPy_global.jsondata[75]["createdAt"])
