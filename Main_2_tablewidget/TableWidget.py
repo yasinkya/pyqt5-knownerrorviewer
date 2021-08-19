@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QAbstractItemView
 import TreeWidget
-import jsonPy_global
+import json_funcs
 
 
 class New(QTableWidget):
@@ -35,17 +35,9 @@ class New(QTableWidget):
         # set cell clicked
         self.cellClicked.connect(self.clicked_event)
 
-    def clicked_event(self, row, col):
-        for data in jsonPy_global.jsondata:
-
-            for key, val in data.items():
-                if self.itr == val:
-                    print(key)
-                    print(type(data[key]))
-                    for dt in data:
-                        if dt[key] == self.itr:
-
-                            print(str(dt.index(dt[key])))
+    def clicked_event(self):
+        data = json_funcs.reverse_json_byvalue(self.itr)
+        print(data)
 
     def key_merge(self):
         keys = []

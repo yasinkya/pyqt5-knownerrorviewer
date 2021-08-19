@@ -42,4 +42,3 @@ class New(QMainWindow, uis.mainUI.UiMainWindow):
         if not self.tabwid_main.currentWidget().layout():
             tabmain_lay = QVBoxLayout(self.tabwid_main.currentWidget())
             functions.newtab(tabmain_lay, self.tabwid_main.currentWidget(), data)
-
