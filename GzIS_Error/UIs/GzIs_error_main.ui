@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>738</width>
-    <height>464</height>
+    <width>592</width>
+    <height>388</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,269 +15,30 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0" colspan="3">
-     <widget class="QTabWidget" name="twidget_main">
-      <property name="minimumSize">
-       <size>
-        <width>720</width>
-        <height>360</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QTabWidget::pane { /* The tab widget frame */
-    border-top: 2px solid #C2C7CB;
-}
-
-QTabWidget::tab-bar {
-    left: 5px; /* move to the right by 5px */
-}
-
-/* Style the tab using the tab sub-control. Note that
-    it reads QTabBar _not_ QTabWidget */
-QTabBar::tab {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
-                                stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
-    border: 2px solid #C4C4C3;
-    border-bottom-color: #C2C7CB; /* same as the pane color */
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    margin-left: 1px;
-    min-width: 8ex;
-    padding: 2px;
-}
-
-QTabBar::tab:selected, QTabBar::tab:hover {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #fafafa, stop: 0.4 #f4f4f4,
-                                stop: 0.5 #e7e7e7, stop: 1.0 #fafafa);
-}
-
-QTabBar::tab:selected {
-    border-color: #9B9B9B;
-    border-bottom-color: #C2C7CB; /* same as pane color */
-}
-
-QTabBar::tab:!selected {
-    margin-top: 2px; /* make non-selected tabs look smaller */
-}
-
-/* make use of negative margins for overlapping tabs */
-QTabBar::tab:selected {
-    /* expand/overlap to the left and right by 4px */
-    margin-left: -4px;
-    margin-right: -4px;
-}
-
-QTabBar::tab:first:selected {
-    margin-left: 0; /* the first selected tab has nothing to overlap with on the left */
-}
-
-QTabBar::tab:last:selected {
-    margin-right: 0; /* the last selected tab has nothing to overlap with on the right */
-}
-
-QTabBar::tab:only-one {
-    margin: 0; /* if there is only one tab, we don't want overlapping margins */
-}
-
-QTabBar::tab:selected {
-    border-color: #9B9B9B;
-    border-bottom-color: #C2C7CB; /* same as pane color */
-}
-QTabBar::close-button {
-    image: url(close.png)
-    subcontrol-position: left;
-}
-QTabBar::close-button:hover {
-    image: url(close-hover.png)
-}
-QTabBar::tear {
-    image: url(tear_indicator.png);
-}
-
-QTabBar::scroller { /* the width of the scroll buttons */
-    width: 20px;
-}
-
-QTabBar QToolButton { /* the scroll buttons are tool buttons */
-    border-image: url(scrollbutton.png) 2;
-    border-width: 2px;
-}
-
-QTabBar QToolButton::right-arrow { /* the arrow mark in the tool buttons */
-    image: url(rightarrow.png);
-}
-
-QTabBar QToolButton::left-arrow {
-    image: url(leftarrow.png);
-}</string>
-      </property>
-      <property name="currentIndex">
-       <number>-1</number>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="1">
-     <widget class="QComboBox" name="cbx_ers">
+     <widget class="QComboBox" name="comboBox_2"/>
+    </item>
+    <item row="0" column="0">
+     <widget class="QComboBox" name="comboBox">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QComboBox {
-    border: 1px solid gray;
-    border-radius: 3px;
-    padding: 1px 18px 1px 3px;
-    min-width: 6em;
-}
-
-QComboBox:editable {
-    background: white;
-}
-
-QComboBox:!editable, QComboBox::drop-down:editable {
-     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                 stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
-                                 stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
-}
-
-/* QComboBox gets the &quot;on&quot; state when the popup is open */
-QComboBox:!editable:on, QComboBox::drop-down:editable:on {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #D3D3D3, stop: 0.4 #D8D8D8,
-                                stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);
-}
-
-QComboBox:on { /* shift the text when the popup opens */
-    padding-top: 3px;
-    padding-left: 4px;
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 15px;
-
-    border-left-width: 1px;
-    border-left-color: darkgray;
-    border-left-style: solid; /* just a single line */
-    border-top-right-radius: 3px; /* same radius as the QComboBox */
-    border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-    image: url(/home/yaska/Desktop/qtdesigner-uis/pngs);
-}
-
-QComboBox::down-arrow:on { /* shift the arrow when popup is open */
-    top: 10px;
-    left: 10px;
-}
-QComboBox QAbstractItemView {
-    border: 2px solid darkgray;
-    selection-background-color: lightgray;
-}</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>posix</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>airnc</string>
-       </property>
-      </item>
      </widget>
     </item>
-    <item row="0" column="2">
-     <widget class="QComboBox" name="cbx_paths">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
+    <item row="1" column="0" colspan="2">
+     <widget class="QTabWidget" name="tabWidget">
       <property name="minimumSize">
        <size>
-        <width>360</width>
-        <height>0</height>
+        <width>720</width>
+        <height>360</height>
        </size>
       </property>
-      <property name="styleSheet">
-       <string notr="true">QComboBox {
-    border: 1px solid gray;
-    border-radius: 3px;
-    padding: 1px 18px 1px 3px;
-    min-width: 6em;
-}
-
-QComboBox:editable {
-    background: white;
-}
-
-QComboBox:!editable, QComboBox::drop-down:editable {
-     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                 stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
-                                 stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
-}
-
-/* QComboBox gets the &quot;on&quot; state when the popup is open */
-QComboBox:!editable:on, QComboBox::drop-down:editable:on {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #D3D3D3, stop: 0.4 #D8D8D8,
-                                stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);
-}
-
-QComboBox:on { /* shift the text when the popup opens */
-    padding-top: 3px;
-    padding-left: 4px;
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 15px;
-
-    border-left-width: 1px;
-    border-left-color: darkgray;
-    border-left-style: solid; /* just a single line */
-    border-top-right-radius: 3px; /* same radius as the QComboBox */
-    border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-    image: url(/home/yaska/Desktop/qtdesigner-uis/pngs);
-}
-
-QComboBox::down-arrow:on { /* shift the arrow when popup is open */
-    top: 10px;
-    left: 10px;
-}
-QComboBox QAbstractItemView {
-    border: 2px solid darkgray;
-    selection-background-color: lightgray;
-}</string>
+      <property name="currentIndex">
+       <number>-1</number>
       </property>
-      <item>
-       <property name="text">
-        <string>t1024</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>t2313</string>
-       </property>
-      </item>
      </widget>
     </item>
    </layout>
@@ -287,7 +48,7 @@ QComboBox QAbstractItemView {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>738</width>
+     <width>592</width>
      <height>24</height>
     </rect>
    </property>

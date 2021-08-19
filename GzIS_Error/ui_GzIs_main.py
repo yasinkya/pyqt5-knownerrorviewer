@@ -9,9 +9,10 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMainWindow
 
 
-class Ui_MainWindow(object):
+class Ui_MainWindow(QMainWindow):
     def __init__(self):
         super(Ui_MainWindow, self).__init__()
         self.setupUi(self)
@@ -38,6 +39,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setMinimumSize(QtCore.QSize(720, 360))
         self.tabWidget.setObjectName("tabWidget")
         self.gridLayout.addWidget(self.tabWidget, 1, 0, 1, 2)
+        with open("UIs/GzIS_tabwid_styel_sheet.css", "r") as twsheet:
+            self.tabWidget.setStyleSheet(str(twsheet.read()))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 592, 24))
@@ -45,6 +48,10 @@ class Ui_MainWindow(object):
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
+        with open("UIs/GzIs_cbx_style_sheet.css", "r") as cbxsheet:
+            self.comboBox.setStyleSheet(str(cbxsheet.read()))
+        with open("UIs/GzIs_cbx_style_sheet.css", "r") as cbxsheet:
+            self.comboBox_2.setStyleSheet(str(cbxsheet.read()))
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
