@@ -26,14 +26,14 @@ class New(QMainWindow, uis.mainUI.UiMainWindow):
         # sync qtabwidget
         self.sync_tabs(jsonPy_global.jsondata)
         # tabbar clicked- idx current index of clicked tab
-        self.tabwid_main.currentChanged.connect(lambda idx: self.init_tab(jsonPy_global.jsondata["feeds"][idx]))
+        self.tabwid_main.currentChanged.connect(lambda idx: self.init_tab(jsonPy_global.jsondata[idx]))
 
         # set current clicked
-        self.init_tab(jsonPy_global.jsondata["feeds"][0])
+        self.init_tab(jsonPy_global.jsondata[0])
 
     # Add tabs and change the their text's through json
     def sync_tabs(self, data):
-        for i in data["feeds"]:
+        for i in data:
             self.tabwid_main.addTab(QWidget(), str(i["id"]))
 
     # clicked tabbar
