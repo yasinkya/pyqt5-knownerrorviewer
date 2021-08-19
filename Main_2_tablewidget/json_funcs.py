@@ -20,15 +20,15 @@ def read_json(path):
 
 # "2020-01-02T10:35:11.7588502"
 def reverse_json(value):
-    val_key = ""
     for data in jsonPy_global.jsondata:
         for key, val in data.items():
-            # val_key = key if val == value else ""
             if value == val:
-                val_key = key
                 for dt in jsonPy_global.jsondata:
-                    if dt[val_key] == value:
+                    if dt[key] == value:
                         print(str(list(jsonPy_global.jsondata).index(dt)))
+                        return jsonPy_global.jsondata[list(jsonPy_global.jsondata).index(dt)]
+
+
 
 
 
@@ -38,4 +38,4 @@ def blabla():
 
 
 blabla()
-reverse_json(jsonPy_global.jsondata[1]["createdAt"])
+reverse_json(jsonPy_global.jsondata[15]["createdAt"])
