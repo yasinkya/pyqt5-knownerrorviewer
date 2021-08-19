@@ -26,8 +26,6 @@ class UiMainWindow(object):
         self.menubar = QtWidgets.QMenuBar(main_window)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 622, 24))
         self.menubar.setObjectName("menubar")
-        # self.menubar.setStyleSheet("QMenuBar{ background: #fffafa; border-widht: 1px;"
-        #                            "border-style: solid; border-radius: 4px;}")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
         self.menuEdit = QtWidgets.QMenu(self.menubar)
