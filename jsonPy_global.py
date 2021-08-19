@@ -1,2 +1,2 @@
 jsondata = {}
-current_clicked_up_tab = {}
+json_paths = {}
