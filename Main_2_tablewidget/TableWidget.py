@@ -40,7 +40,12 @@ class New(QTableWidget):
 
             for key, val in data.items():
                 if self.itr == val:
-                    print(val)
+                    print(key)
+                    print(type(data[key]))
+                    for dt in data:
+                        if dt[key] == self.itr:
+
+                            print(str(dt.index(dt[key])))
 
     def key_merge(self):
         keys = []
