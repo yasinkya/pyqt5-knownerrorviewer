@@ -36,7 +36,6 @@ class New(QTableWidget):
         self.cellClicked.connect(self.clicked_event)
 
     def clicked_event(self, row, col):
-        print(self.item(row, col).text())
         for data in jsonPy_global.jsondata["feeds"]:
 
             for key, val in data.items():
