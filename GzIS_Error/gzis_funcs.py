@@ -5,23 +5,14 @@ from GzIS_Error import global_variables
 
 
 def read_paths():
-    for path in glob.glob(f"{global_variables.jsons_folder}/*"):
+    for path in glob.glob(f"{global_variables.folder}/*"):
         global_variables.json_paths.append(str(path).split("/")[-1])
 
 
-# def cbx_chooser_changed(idx, self: QComboBox):
-#     with open(f"{global_variables.jsons_folder}/{self.currentText()}.json", "r") as json_file:
-#         global_variables.jsondata = json.loads(json_file.read())["testSuites"]
-#     for key in global_variables.jsondata.keys():
-#         global_variables.json_keys.append(key)
-
-
-def set_files(self: QComboBox):
-    jsons_files = glob.glob(f"{global_variables.jsons_folder}/{self.currentText()}/*.json")
-    for files in glob.glob(f"{global_variables.jsons_folder}/{self.currentText()}/*.json"):
+def sync_cbx_path(self: QComboBox):
+    global_variables.current_path = f"{global_variables.folder}/{self.currentText()}"
+    for files in glob.glob(f"{global_variables.folder}/{self.currentText()}/*.json"):
         global_variables.json_files.append(str(files).split("/")[-1].split(".")[0])
 
-    # with open(f"{global_variables.jsons_folder}/{self.currentText()}.json", "r") as json_file:
-    #     global_variables.jsondata = json.loads(json_file.read())["testSuites"]
-    # for key in global_variables.jsondata.keys():
-    #     global_variables.json_keys.append(key)
+def cbx_changed():
+    pass

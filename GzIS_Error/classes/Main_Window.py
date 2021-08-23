@@ -28,14 +28,14 @@ class Window(QMainWindow):
         self.centralwidget.setObjectName("centralwidget")
         self.setCentralWidget(self.centralwidget)
         self.main_layout.setObjectName("gridLayout")
+
         self.cbx_paths.setObjectName("cbx_paths")
         self.cbx_chooser.setObjectName("cbx_chooser")
-        self.cbx_chooser.sync_widget(global_variables.json_paths)
         self.main_layout.addWidget(self.cbx_paths, 0, 1, 1, 1)
         self.main_layout.addWidget(self.cbx_chooser, 0, 0, 1, 1)
-        #self.cbx_chooser.currentIndexChanged.connect(lambda idx: gzis_funcs.cbx_chooser_changed(idx, self.cbx_chooser))
+        self.cbx_chooser.sync_widget(global_variables.json_paths)
         self.cbx_chooser.currentIndexChanged.connect(self.cbx_chooser_current_changed)
-
+        self.cbx_paths.currentIndexChanged.connect(self.cbx_paths_current_changed)
         size_policy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         size_policy.setHorizontalStretch(0)
         size_policy.setVerticalStretch(0)
@@ -53,6 +53,9 @@ class Window(QMainWindow):
         self.setWindowTitle(_translate("MainWindow", "MainWindow"))
 
     def cbx_chooser_current_changed(self):
-        gzis_funcs.set_files(self.cbx_chooser)
-        self.cbx_paths.addItems(global_variables.json_files)
-        self.cbx_paths.setCurrentIndex(-1)
+        gzis_funcs.sync_cbx_path(self.cbx_chooser)
+        self.cbx_paths.sync_widget(global_variables.json_files)
+
+    def cbx_paths_current_changed(self):
+        path = f"{global_variables.current_path}/{self.cbx_paths.currentText()}.json"
+        print(path)

@@ -1,4 +1,4 @@
-jsons_folder = str
+folder = str
 json_paths = []
 current_path = str
 json_files = []

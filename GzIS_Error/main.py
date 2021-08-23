@@ -7,7 +7,7 @@ import gzis_funcs
 
 
 def main():
-    global_variables.jsons_folder = "/home/yaska/Desktop/Jsons/knownError"
+    global_variables.folder = "/home/yaska/Desktop/Jsons/knownError"
     gzis_funcs.read_paths()
     app = QApplication(sys.argv)
     win = Main_Window.Window()
