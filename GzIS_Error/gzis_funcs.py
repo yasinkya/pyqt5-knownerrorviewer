@@ -12,7 +12,9 @@ def read_paths():
 def sync_cbx_path(self: QComboBox):
     global_variables.current_path = f"{global_variables.folder}/{self.currentText()}"
     for files in glob.glob(f"{global_variables.folder}/{self.currentText()}/*.json"):
+        global_variables.json_files.clear()
         global_variables.json_files.append(str(files).split("/")[-1].split(".")[0])
+
 
 def cbx_changed():
     pass

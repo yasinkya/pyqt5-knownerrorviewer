@@ -12,6 +12,8 @@ class New(QComboBox):
             self.setStyleSheet(str(cbxsheet.read()))
 
     def sync_widget(self, data):
+        self.clear()
         self.addItems(data)
         self.setCurrentIndex(-1)
+
 
