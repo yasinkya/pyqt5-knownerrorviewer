@@ -1,2 +1,2 @@
 jsondata = {}
-json_paths = {}
+json_paths = []

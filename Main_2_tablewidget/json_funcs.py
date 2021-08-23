@@ -11,7 +11,7 @@ def paths_jsons():
 
 
 def read_json(file_name):
-    with open("../jsons/" + file_name, "r") as file:
+    with open(f"../jsons/{file_name}", "r") as file:
         _jsondata = json.loads(file.read())
     # in json datas get 0. index as main key
     jsonPy_global.jsondata = _jsondata[list(_jsondata.keys())[0]]
