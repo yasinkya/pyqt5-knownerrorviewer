@@ -53,5 +53,5 @@ class Window(QMainWindow):
         self.setWindowTitle(_translate("MainWindow", "MainWindow"))
 
     def cbx_chooser_current_changed(self):
-        gzis_funcs.set_keys(self.cbx_chooser)
+        gzis_funcs.set_files(self.cbx_chooser)
         #self.cbx_paths.addItems(global_variables.json_keys)
