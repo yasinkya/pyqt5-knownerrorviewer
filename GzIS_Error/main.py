@@ -1,11 +1,16 @@
 from PyQt5.QtWidgets import QApplication
-from classes import main_window as ui
+
+from GzIS_Error import global_variables
+from classes import Main_Window
 import sys
+import gzis_funcs
 
 
 def main():
+    global_variables.jsons_folder = "/home/yaska/Desktop/Jsons/knownError"
+    gzis_funcs.read_paths()
     app = QApplication(sys.argv)
-    win = ui.MainWindow()
+    win = Main_Window.Window()
     win.show()
     sys.exit(app.exec())
 
