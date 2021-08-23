@@ -54,4 +54,4 @@ class Window(QMainWindow):
 
     def cbx_chooser_current_changed(self):
         gzis_funcs.set_keys(self.cbx_chooser)
-        self.cbx_paths.addItems(global_variables.json_keys)
+        #self.cbx_paths.addItems(global_variables.json_keys)

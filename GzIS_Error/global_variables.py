@@ -1,6 +1,9 @@
-jsondata = {}
-json_keys = []
+jsons_folder = str
 json_paths = []
 current_path = str
-jsons_folder = str
+json_files = []
+current_jsondata = {}
+current_jsonkeys = []
+
+
 
