@@ -20,6 +20,7 @@ def set_files(self: QComboBox):
     jsons_files = glob.glob(f"{global_variables.jsons_folder}/{self.currentText()}/*.json")
     for files in glob.glob(f"{global_variables.jsons_folder}/{self.currentText()}/*.json"):
         global_variables.json_files.append(str(files).split("/")[-1].split(".")[0])
+
     # with open(f"{global_variables.jsons_folder}/{self.currentText()}.json", "r") as json_file:
     #     global_variables.jsondata = json.loads(json_file.read())["testSuites"]
     # for key in global_variables.jsondata.keys():
