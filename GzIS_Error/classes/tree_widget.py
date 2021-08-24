@@ -1,9 +1,9 @@
 from PyQt5.QtWidgets import QTreeWidget, QTreeWidgetItem
 
 
-class New(QTreeWidget):
+class MyTreeWidget(QTreeWidget):
     def __init__(self, data, x):
-        super(New, self).__init__()
+        super(MyTreeWidget, self).__init__()
         self.data, self.x = data, x
 
         self.init_widget()

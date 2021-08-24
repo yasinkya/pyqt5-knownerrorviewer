@@ -4,7 +4,6 @@ from PyQt5.QtWidgets import QTabWidget, QLayout, QWidget, QGridLayout, QPlainTex
 from PyQt5 import QtGui
 import json
 import jsonPy_global
-import TableWidget
 
 
 def read_json():

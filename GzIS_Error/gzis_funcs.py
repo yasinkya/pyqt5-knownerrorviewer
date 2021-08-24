@@ -2,8 +2,7 @@ import glob
 import json
 from PyQt5.QtWidgets import QComboBox, QWidget, QTabWidget, QVBoxLayout, QGridLayout, QLayout, QPlainTextEdit
 from GzIS_Error import global_variables
-from GzIS_Error.classes import TableWidget
-
+from classes import table_widget
 
 def read_paths():
     for path in glob.glob(f"{global_variables.folder}/*"):
@@ -49,7 +48,7 @@ def init_child_tab(tabwid: QTabWidget):
 
 def instance_check(tabwid: QTabWidget, idx, data):
 
-    if isinstance(data, dict):
+    if isinstance(data, list):
         if not tabwid.widget(idx).layout():
             tablay = QGridLayout(tabwid.widget(idx))
             init_tablewidget(tablay, data)
@@ -58,5 +57,5 @@ def instance_check(tabwid: QTabWidget, idx, data):
 
 
 def init_tablewidget(layout: QLayout, data):
-    tablewidget = TableWidget.MyTableWidget(data)
+    tablewidget = table_widget.MyTableWidget(data)
     layout.addWidget(tablewidget)

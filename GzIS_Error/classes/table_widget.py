@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QAbstractItemView
-import TreeWidget
+from GzIS_Error.classes import tree_widget
 
 
 class MyTableWidget(QTableWidget):
@@ -21,7 +21,7 @@ class MyTableWidget(QTableWidget):
                 item = QTableWidgetItem()
                 if isinstance(data.get(key), dict):
                     # tree widget insert
-                    treewidget = TreeWidget.New(data.get(key), i)
+                    treewidget = tree_widget.MyTreeWidget(data.get(key), i)
                     treewidget.setHeaderHidden(True)
                     self.setCellWidget(i, j, treewidget)
                     pass
@@ -33,6 +33,7 @@ class MyTableWidget(QTableWidget):
                 self.setEditTriggers(QAbstractItemView.NoEditTriggers)
         # set cell clicked
         self.cellClicked.connect(self.clicked_event)
+
 
     def key_merge(self):
         keys = []
