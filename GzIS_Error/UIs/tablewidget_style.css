@@ -1,0 +1,21 @@
+QWidget {
+    background-color: rgba(150, 150, 150, 50);
+    color: rgb(236, 239, 241);
+}
+
+QHeaderView::section {
+    background-color: rgb(158, 158, 158);
+    padding: 1px;
+    border: 1px solid #fffff8;
+    font-size: 12pt;
+}
+
+QTableWidget {
+    gridline-color: #fffff8;
+    font-size: 12pt;
+}
+
+QTableWidget QTableCornerButton::section {
+    background-color: #757575;
+    border: 1px solid #fffff8;
+}
