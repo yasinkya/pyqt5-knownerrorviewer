@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QAbstractItemView
 import TreeWidget
-import json_funcs
 
 
 class MyTableWidget(QTableWidget):
@@ -34,10 +33,6 @@ class MyTableWidget(QTableWidget):
                 self.setEditTriggers(QAbstractItemView.NoEditTriggers)
         # set cell clicked
         self.cellClicked.connect(self.clicked_event)
-
-    def clicked_event(self):
-        data = json_funcs.reverse_json_byvalue(self.itr)
-        print(data)
 
     def key_merge(self):
         keys = []

@@ -2,6 +2,7 @@ import glob
 import json
 from PyQt5.QtWidgets import QComboBox, QWidget, QTabWidget, QVBoxLayout, QGridLayout, QLayout, QPlainTextEdit
 from GzIS_Error import global_variables
+from GzIS_Error.classes import TableWidget
 
 
 def read_paths():
@@ -57,4 +58,5 @@ def instance_check(tabwid: QTabWidget, idx, data):
 
 
 def init_tablewidget(layout: QLayout, data):
-    print("pass")
+    tablewidget = TableWidget.MyTableWidget(data)
+    layout.addWidget(tablewidget)
