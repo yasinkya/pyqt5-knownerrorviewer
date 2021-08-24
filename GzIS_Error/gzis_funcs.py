@@ -25,37 +25,3 @@ def set_tabwid(json_path, tabwid: QTabWidget):
         tabwid.addTab(QWidget(tabwid), key)
 
     tabwid.currentChanged.connect(lambda: init_child_tab(tabwid))
-
-
-def init_child_tab(tabwid: QTabWidget):
-
-    tabwid_child = QTabWidget(tabwid)
-
-    if tabwid.currentWidget():
-
-        if not tabwid.currentWidget().layout():
-            tab_lay = QVBoxLayout(tabwid.currentWidget())
-            tab_lay.addWidget(tabwid_child)
-
-            datas = global_variables.current_jsondata.get(tabwid.tabText(tabwid.currentIndex()), {"tests": {}})["tests"]
-            for data in datas.keys():
-                tab_child = QWidget()
-                tabwid_child.addTab(tab_child, data)
-                instance_check(tabwid_child, tabwid_child.indexOf(tab_child), datas[data])
-
-            tabwid.currentWidget().setLayout(tab_lay)
-
-
-def instance_check(tabwid: QTabWidget, idx, data):
-
-    if isinstance(data, list):
-        if not tabwid.widget(idx).layout():
-            tablay = QGridLayout(tabwid.widget(idx))
-            init_tablewidget(tablay, data)
-    else:
-        pass
-
-
-def init_tablewidget(layout: QLayout, data):
-    tablewidget = table_widget.MyTableWidget(data)
-    layout.addWidget(tablewidget)
