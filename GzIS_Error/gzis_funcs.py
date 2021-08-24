@@ -25,4 +25,9 @@ def set_tabbar(json_path, tabbar: QTabBar):
     for key in global_variables.current_jsondata.keys():
         tabbar.addTab(key)
 
-    # tabbar.currentChanged.connect(lambda: init_child_tab(tabbar))
+    tabbar.currentChanged.connect(lambda: set_table(global_variables.current_jsondata[tabbar.tabText(tabbar.currentIndex())]))
+
+
+def set_table(data):
+    print(data)
+
