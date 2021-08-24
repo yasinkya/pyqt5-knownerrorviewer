@@ -53,7 +53,7 @@ class Window(QMainWindow):
         self.tbar_headers.setObjectName("tabbar_headers")
 
         self.main_layout.addLayout(self.cbx_lay, 0, 0)
-        self.main_layout.addWidget(self.tbar_headers, 1, 0, Qt.AlignTop)
+        self.main_layout.addLayout(self.tabbar_lay, 1, 0, Qt.AlignTop)
 
         self.retranslate_ui()
         QMetaObject.connectSlotsByName(self)
