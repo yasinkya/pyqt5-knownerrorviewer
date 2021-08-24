@@ -1,9 +1,9 @@
 from PyQt5.QtWidgets import QComboBox
 
 
-class New(QComboBox):
+class MyComboBox(QComboBox):
     def __init__(self):
-        super(New, self).__init__()
+        super(MyComboBox, self).__init__()
         self.init_widget()
 
     def init_widget(self):

@@ -61,5 +61,5 @@ def colored_tabtext(tabwid: QTabWidget, idx, color: QColor()):
 
 def init_tablewidget(tablay: QLayout, data):
     # tablewidget class imp
-    tablewidget = TableWidget.New(data)
+    tablewidget = TableWidget.MyTableWidget(data)
     tablay.addWidget(tablewidget)

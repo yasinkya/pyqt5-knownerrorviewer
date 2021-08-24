@@ -20,4 +20,8 @@ def sync_cbx_path(self: QComboBox):
 
 
 def set_tabwid(json_path, tabwid: QTabWidget):
-    print(global_variables.current_path)
+
+    with open(json_path, "r") as file:
+        global_variables.current_jsondata = json.loads(file.read())
+    print(global_variables.current_jsondata["testSuites"].keys())
+    tabwid.

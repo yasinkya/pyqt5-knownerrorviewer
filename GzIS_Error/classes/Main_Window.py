@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5 import QtCore, QtWidgets
 from GzIS_Error import global_variables, gzis_funcs
-from GzIS_Error.classes import ComboBox, Tabwidget
+from GzIS_Error.classes import ComboBox, TableWidget
 
 
 class Window(QMainWindow):
@@ -12,9 +12,9 @@ class Window(QMainWindow):
         self.menubar = QtWidgets.QMenuBar()
         self.statusbar = QtWidgets.QStatusBar()
         self.main_layout = QtWidgets.QGridLayout(self.centralwidget)
-        self.cbx_jsons = ComboBox.New()
-        self.cbx_ar_pos = ComboBox.New()
-        self.tabw_main = Tabwidget.New()
+        self.cbx_jsons = ComboBox.MyComboBox()
+        self.cbx_ar_pos = ComboBox.MyComboBox()
+        self.tabw_main = TableWidget.New()
         self.setup_ui()
 
     def setup_ui(self):
@@ -59,6 +59,6 @@ class Window(QMainWindow):
     def cbx_paths_current_changed(self):
         if self.cbx_jsons.currentIndex() != -1:
             global_variables.current_path += f"/{self.cbx_ar_pos.currentText()}/{self.cbx_jsons.currentText()}"
-            gzis_funcs.set_tabwid(global_variables.current_path)
+            gzis_funcs.set_tabwid(global_variables.current_path, self.tabw_main)
 
         self.cbx_jsons.blockSignals(True)

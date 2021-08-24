@@ -3,9 +3,9 @@ import TreeWidget
 import json_funcs
 
 
-class New(QTableWidget):
+class MyTableWidget(QTableWidget):
     def __init__(self, itr):
-        super(New, self).__init__()
+        super(MyTableWidget, self).__init__()
 
         self.itr = itr
         self.keys = self.key_merge()

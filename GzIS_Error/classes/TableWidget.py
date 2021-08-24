@@ -11,3 +11,6 @@ class New(QTabWidget):
         with open("UIs/GzIS_tabwid_styel_sheet.css", "r") as twsheet:
             self.setStyleSheet(str(twsheet.read()))
             self.setCurrentIndex(-1)
+
+    def set_main_tabs(self, data):
+        pass
