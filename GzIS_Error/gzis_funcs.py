@@ -32,7 +32,8 @@ def set_tabbar(json_path, tabbar: QTabBar, lay: QVBoxLayout):
 
 def set_table(data, tabbar: QVBoxLayout):
     table = create_table.NewTableWidget(data)
-    tabbar.addWidget(table)
+    if tabbar.count() < 2:
+        tabbar.addWidget(table)
     # if not tabbar.layout():
     #     layout = QGridLayout(tabbar)
     #     layout.addWidget(table)
