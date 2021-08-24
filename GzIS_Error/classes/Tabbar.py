@@ -1,13 +1,12 @@
-from PyQt5.QtWidgets import QTabWidget
+from PyQt5.QtWidgets import QTabBar
 
 
-class MyTabWidget(QTabWidget):
+class MyTabBar(QTabBar):
     def __init__(self):
-        super(MyTabWidget, self).__init__()
+        super(MyTabBar, self).__init__()
         self.init_widget()
 
     def init_widget(self):
-        self.setObjectName("TabWidget")
         with open("UIs/GzIS_tabwid_styel_sheet.css", "r") as twsheet:
             self.setStyleSheet(str(twsheet.read()))
 
