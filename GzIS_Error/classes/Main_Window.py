@@ -57,7 +57,7 @@ class Window(QMainWindow):
 
         while self.tabw_main.count() > 0:
             self.tabw_main.removeTab(0)
-            
+
         gzis_funcs.sync_cbx_path(self.cbx_ar_pos)
         self.cbx_jsons.sync_widget(global_variables.json_files)
 
