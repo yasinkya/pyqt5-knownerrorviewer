@@ -35,7 +35,7 @@ class Window(QMainWindow):
         self.cbx_ar_pos.sync_widget(global_variables.json_paths)
         self.cbx_ar_pos.currentIndexChanged.connect(self.cbx_arpos_current_changed)
         self.cbx_jsons.currentIndexChanged.connect(self.cbx_paths_current_changed)
-        self.cbx_jsons.blockSignals(True)
+
         size_policy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         size_policy.setHorizontalStretch(0)
         size_policy.setVerticalStretch(0)
@@ -53,13 +53,19 @@ class Window(QMainWindow):
         self.setWindowTitle(_translate("MainWindow", "MainWindow"))
 
     def cbx_arpos_current_changed(self):
-        self.tabw_main.clear()
+        self.cbx_jsons.blockSignals(True)
+
+        while self.tabw_main.count() > 0:
+            self.tabw_main.removeTab(0)
+            
         gzis_funcs.sync_cbx_path(self.cbx_ar_pos)
         self.cbx_jsons.sync_widget(global_variables.json_files)
 
     def cbx_paths_current_changed(self):
+
         if self.cbx_jsons.currentIndex() != -1:
             global_variables.current_path += f"/{self.cbx_ar_pos.currentText()}/{self.cbx_jsons.currentText()}"
-            gzis_funcs.set_tabwid(global_variables.current_path, self.tabw_main)
 
+            gzis_funcs.set_tabwid(global_variables.current_path, self.tabw_main)
         self.cbx_jsons.blockSignals(True)
+
