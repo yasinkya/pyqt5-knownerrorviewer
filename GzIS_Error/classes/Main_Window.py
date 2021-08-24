@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5 import QtCore, QtWidgets
 from GzIS_Error import global_variables, gzis_funcs
-from GzIS_Error.classes import ComboBox, TableWidget
+from GzIS_Error.classes import ComboBox, TabWidget
 
 
 class Window(QMainWindow):
@@ -14,7 +14,7 @@ class Window(QMainWindow):
         self.main_layout = QtWidgets.QGridLayout(self.centralwidget)
         self.cbx_jsons = ComboBox.MyComboBox()
         self.cbx_ar_pos = ComboBox.MyComboBox()
-        self.tabw_main = TableWidget.New()
+        self.tabw_main = TabWidget.MyTabWidget()
         self.setup_ui()
 
     def setup_ui(self):
@@ -53,6 +53,7 @@ class Window(QMainWindow):
         self.setWindowTitle(_translate("MainWindow", "MainWindow"))
 
     def cbx_arpos_current_changed(self):
+        self.tabw_main.clear()
         gzis_funcs.sync_cbx_path(self.cbx_ar_pos)
         self.cbx_jsons.sync_widget(global_variables.json_files)
 
