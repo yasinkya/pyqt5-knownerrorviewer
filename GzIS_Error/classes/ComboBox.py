@@ -15,5 +15,6 @@ class New(QComboBox):
         self.clear()
         self.addItems(data)
         self.setCurrentIndex(-1)
+        self.blockSignals(False)
 
 

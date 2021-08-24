@@ -1,8 +1,5 @@
-import json
-
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5 import QtCore, QtWidgets
-
 from GzIS_Error import global_variables, gzis_funcs
 from GzIS_Error.classes import ComboBox, Tabwidget
 
@@ -36,8 +33,9 @@ class Window(QMainWindow):
         self.main_layout.addWidget(self.cbx_jsons, 0, 1, 1, 1)
         self.main_layout.addWidget(self.cbx_ar_pos, 0, 0, 1, 1)
         self.cbx_ar_pos.sync_widget(global_variables.json_paths)
-        self.cbx_ar_pos.currentIndexChanged.connect(self.cbx_chooser_current_changed)
+        self.cbx_ar_pos.currentIndexChanged.connect(self.cbx_arpos_current_changed)
         self.cbx_jsons.currentIndexChanged.connect(self.cbx_paths_current_changed)
+        self.cbx_jsons.blockSignals(True)
         size_policy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         size_policy.setHorizontalStretch(0)
         size_policy.setVerticalStretch(0)
@@ -54,10 +52,13 @@ class Window(QMainWindow):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "MainWindow"))
 
-    def cbx_chooser_current_changed(self):
+    def cbx_arpos_current_changed(self):
         gzis_funcs.sync_cbx_path(self.cbx_ar_pos)
         self.cbx_jsons.sync_widget(global_variables.json_files)
 
     def cbx_paths_current_changed(self):
-        path = f"{global_variables.current_path}/{self.cbx_jsons.currentText()}"
-        print(path)
+        if self.cbx_jsons.currentIndex() != -1:
+            global_variables.current_path += f"/{self.cbx_ar_pos.currentText()}/{self.cbx_jsons.currentText()}"
+            gzis_funcs.set_tabwid(global_variables.current_path)
+
+        self.cbx_jsons.blockSignals(True)
