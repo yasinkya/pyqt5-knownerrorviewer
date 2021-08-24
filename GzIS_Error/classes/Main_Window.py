@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt, QSize, QMetaObject, QCoreApplication
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QMenuBar, QStatusBar, QGridLayout, \
-    QSizePolicy
+    QSizePolicy, QPushButton
 from GzIS_Error import global_variables, gzis_funcs
 from GzIS_Error.classes import ComboBox, Tabbar
 
@@ -52,8 +52,8 @@ class Window(QMainWindow):
 
         self.tbar_headers.setObjectName("tabbar_headers")
 
-        self.main_layout.addLayout(self.cbx_lay, 0, 0, Qt.AlignTop)
-        self.main_layout.addLayout(self.tabbar_lay, 1, 0, Qt.AlignTop)
+        self.main_layout.addLayout(self.cbx_lay, 0, 0)
+        self.main_layout.addWidget(self.tbar_headers, 1, 0, Qt.AlignTop)
 
         self.retranslate_ui()
         QMetaObject.connectSlotsByName(self)
@@ -77,6 +77,6 @@ class Window(QMainWindow):
             global_variables.current_path += f"/{self.cbx_ar_pos.currentText()}/{self.cbx_jsons.currentText()}"
             self.statusbar.showMessage(global_variables.current_path)
 
-            gzis_funcs.set_tabbar(global_variables.current_path, self.tbar_headers)
+            gzis_funcs.set_tabbar(global_variables.current_path, self.tbar_headers, self.tabbar_lay)
         self.cbx_jsons.blockSignals(True)
 

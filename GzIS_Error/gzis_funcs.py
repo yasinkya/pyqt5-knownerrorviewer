@@ -1,8 +1,8 @@
 import glob
 import json
-from PyQt5.QtWidgets import QComboBox, QWidget, QTabWidget, QVBoxLayout, QGridLayout, QLayout, QPlainTextEdit, QTabBar
+from PyQt5.QtWidgets import QComboBox, QTabBar, QGridLayout, QVBoxLayout
 from GzIS_Error import global_variables
-from classes import table_widget
+from classes import create_table
 
 
 def read_paths():
@@ -17,7 +17,7 @@ def sync_jsonfiles(self: QComboBox):
         global_variables.json_files.append(str(files).split("/")[-1])
 
 
-def set_tabbar(json_path, tabbar: QTabBar):
+def set_tabbar(json_path, tabbar: QTabBar, lay: QVBoxLayout):
 
     with open(json_path, "r") as file:
         global_variables.current_jsondata = json.loads(file.read())["testSuites"]
@@ -25,9 +25,15 @@ def set_tabbar(json_path, tabbar: QTabBar):
     for key in global_variables.current_jsondata.keys():
         tabbar.addTab(key)
 
-    tabbar.currentChanged.connect(lambda: set_table(global_variables.current_jsondata[tabbar.tabText(tabbar.currentIndex())]))
+    tabbar.currentChanged.connect(lambda: set_table(
+        global_variables.current_jsondata[tabbar.tabText(tabbar.currentIndex())],
+        tabbar))
 
 
-def set_table(data):
+def set_table(data, tabbar: QTabBar):
+    table = create_table.NewTableWidget(data)
+    if not tabbar.layout():
+        layout = QGridLayout(tabbar)
+        layout.addWidget(table)
     print(data)
 
