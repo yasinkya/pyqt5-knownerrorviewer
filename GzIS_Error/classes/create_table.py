@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QSizePolicy, QAbstra
 
 
 def init_widget(self: QTableWidget, data):
-    headers = self.key_merge(data)
+    headers = key_merge(data)
     with open("UIs/tablewidget_style.css", "r") as sheet:
         self.setStyleSheet(sheet.read())
 

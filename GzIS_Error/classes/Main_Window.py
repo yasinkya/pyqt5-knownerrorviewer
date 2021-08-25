@@ -23,6 +23,9 @@ class Window(QMainWindow):
 
         self.tbar_headers = Tabbar.MyTabBar()
         self.table_content = QTableWidget()
+        self.table_content.setColumnCount(4)
+        self.table_content.setRowCount(3)
+
         self.lay_content = QVBoxLayout()
         self.lay_content.addWidget(self.tbar_headers)
         self.lay_content.addWidget(self.table_content)
@@ -66,18 +69,22 @@ class Window(QMainWindow):
 
     def cbx_arpos_current_changed(self):
         self.cbx_jsons.blockSignals(True)
-        while self.tbar_headers.count() > 0:
-            self.tbar_headers.removeTab(0)
+        self.clear_contents()
 
-        gzis_funcs.sync_jsonfiles(self.cbx_ar_pos)
-
+        gzis_funcs.sync_global_jsonfiles(self.cbx_ar_pos)
         self.cbx_jsons.sync_widget(global_variables.json_files)
 
     def cbx_paths_current_changed(self):
-
         if self.cbx_jsons.currentIndex() != -1:
             global_variables.current_path += f"/{self.cbx_ar_pos.currentText()}/{self.cbx_jsons.currentText()}"
             self.statusbar.showMessage(global_variables.current_path)
 
-            gzis_funcs.set_tabbar(global_variables.current_path, self.tbar_headers, self.lay_content)
+            gzis_funcs.set_tabbar(global_variables.current_path, self.tbar_headers, self.table_content)
 
+    def clear_contents(self):
+        while self.table_content.columnCount() > 0:
+            self.table_content.removeColumn(0)
+        while self.table_content.rowCount() > 0:
+            self.table_content.removeRow(0)
+        while self.tbar_headers.count() > 0:
+            self.tbar_headers.removeTab(0)
