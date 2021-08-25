@@ -23,7 +23,9 @@ class NewTableWidget(QTableWidget):
 
         for r, row in enumerate(self.data):
             for c, col in enumerate(self.headers):
-                pass
+                item = QTableWidgetItem()
+                item.setText(str(self.data[row][col]))
+                self.setItem(r, c, item)
 
 
         # self.insertRow(0)
