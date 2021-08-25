@@ -18,7 +18,6 @@ def sync_jsonfiles(self: QComboBox):
 
 
 def set_tabbar(json_path, tabbar: QTabBar, lay: QVBoxLayout):
-
     with open(json_path, "r") as file:
         global_variables.current_jsondata = json.loads(file.read())["testSuites"]
 
@@ -32,7 +31,11 @@ def set_tabbar(json_path, tabbar: QTabBar, lay: QVBoxLayout):
 
 def set_table(data, layout: QVBoxLayout):
     table = create_table.NewTableWidget(data)
-    if layout.count() < 2:
+
+    # if layout.count() < 1:
+    #     layout.addWidget(table)
+    if layout.count() == 1:
         layout.addWidget(table)
-
-
+    else:
+        layout.removeWidget(layout.itemAt(1).widget())
+        layout.addWidget(table)
