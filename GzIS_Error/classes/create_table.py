@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QAbstractItemView
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QSizePolicy, QAbstractScrollArea, QAbstractItemView, \
+    QHeaderView
 
 
 class NewTableWidget(QTableWidget):
@@ -20,6 +21,14 @@ class NewTableWidget(QTableWidget):
         self.setRowCount(len(self.data.keys()))
         print(self.rowCount())
         self.setVerticalHeaderLabels(self.data.keys())
+
+        # size policy
+        # self.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
+        # # tableview.setSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum) # ---
+        # self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)  # +++
+
+        self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
         for r, row in enumerate(self.data):
             for c, col in enumerate(self.headers):
