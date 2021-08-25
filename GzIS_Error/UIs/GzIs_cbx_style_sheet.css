@@ -42,8 +42,8 @@ QComboBox::drop-down {
 }
 
 QComboBox::down-arrow {
-    image: url(/home/yaska/Desktop/qtdesigner-uis/pngs/down-arrow.png);
-	width: 8px;
+    image: url(/home/yaska/Desktop/jsonPy/GzIS_Error/icons/down-arrow.png);
+	width: 10px;
 }
 
 QComboBox::down-arrow:on { /* shift the arrow when popup is open */

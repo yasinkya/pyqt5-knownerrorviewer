@@ -30,12 +30,13 @@ def set_tabbar(json_path, tabbar: QTabBar, lay: QVBoxLayout):
 
 
 def set_table(data, layout: QVBoxLayout):
-    table = create_table.NewTableWidget(data)
-
+    pass
+    # table = create_table.NewTableWidget(data)
+    # layout.addWidget(table)
     # if layout.count() < 1:
     #     layout.addWidget(table)
-    if layout.count() == 1:
-        layout.addWidget(table)
-    else:
-        layout.removeWidget(layout.itemAt(1).widget())
-        layout.addWidget(table)
+    # if layout.count() == 1:
+    #
+    # else:
+    #     layout.removeWidget(layout.itemAt(1).widget())
+    #     layout.addWidget(table)
