@@ -13,19 +13,12 @@ class NewTableWidget(QTableWidget):
         with open("UIs/tablewidget_style.css", "r") as sheet:
             self.setStyleSheet(sheet.read())
 
+        # set row, col and their resize
         self.setColumnCount(len(self.headers))
         self.setHorizontalHeaderLabels(self.headers)
 
-        # set rows
-
         self.setRowCount(len(self.data.keys()))
-        print(self.rowCount())
         self.setVerticalHeaderLabels(self.data.keys())
-
-        # size policy
-        # self.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
-        # # tableview.setSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum) # ---
-        # self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)  # +++
 
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -35,12 +28,6 @@ class NewTableWidget(QTableWidget):
                 item = QTableWidgetItem()
                 item.setText(str(self.data[row][col]))
                 self.setItem(r, c, item)
-
-
-        # self.insertRow(0)
-        # item = QTableWidgetItem()
-        # item.setText("helooo")
-        # self.setItem(0, 0, item)
 
     def key_merge(self):
         keys = []
