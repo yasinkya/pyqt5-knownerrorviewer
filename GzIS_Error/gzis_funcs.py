@@ -25,16 +25,14 @@ def set_tabbar(json_path, tabbar: QTabBar, lay: QVBoxLayout):
     for key in global_variables.current_jsondata.keys():
         tabbar.addTab(key)
 
-    tabbar.currentChanged.connect(lambda: set_table(
-        global_variables.current_jsondata[tabbar.tabText(tabbar.currentIndex())]["tests"],
-        lay))
+    # tabbar.currentChanged.connect(lambda: set_table(
+    #     global_variables.current_jsondata[tabbar.tabText(tabbar.currentIndex())]["tests"],
+    #     lay))
 
 
-def set_table(data, tabbar: QVBoxLayout):
+def set_table(data, layout: QVBoxLayout):
     table = create_table.NewTableWidget(data)
-    if tabbar.count() < 2:
-        tabbar.addWidget(table)
-    # if not tabbar.layout():
-    #     layout = QGridLayout(tabbar)
-    #     layout.addWidget(table)
+    if layout.count() < 2:
+        layout.addWidget(table)
+
 

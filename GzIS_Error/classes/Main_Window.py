@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt, QSize, QMetaObject, QCoreApplication
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QMenuBar, QStatusBar, QGridLayout, \
-    QSizePolicy, QPushButton
+    QSizePolicy
 from GzIS_Error import global_variables, gzis_funcs
 from GzIS_Error.classes import ComboBox, Tabbar
 
@@ -43,7 +43,7 @@ class Window(QMainWindow):
         self.cbx_ar_pos.sync_widget(global_variables.json_paths)
         self.cbx_ar_pos.currentIndexChanged.connect(self.cbx_arpos_current_changed)
         self.cbx_jsons.currentIndexChanged.connect(self.cbx_paths_current_changed)
-
+        self.cbx_jsons.blockSignals(True)
         size_policy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         size_policy.setHorizontalStretch(0)
         size_policy.setVerticalStretch(0)
@@ -64,11 +64,11 @@ class Window(QMainWindow):
 
     def cbx_arpos_current_changed(self):
         self.cbx_jsons.blockSignals(True)
-
         while self.tbar_headers.count() > 0:
             self.tbar_headers.removeTab(0)
 
         gzis_funcs.sync_jsonfiles(self.cbx_ar_pos)
+
         self.cbx_jsons.sync_widget(global_variables.json_files)
 
     def cbx_paths_current_changed(self):
@@ -78,5 +78,4 @@ class Window(QMainWindow):
             self.statusbar.showMessage(global_variables.current_path)
 
             gzis_funcs.set_tabbar(global_variables.current_path, self.tbar_headers, self.tabbar_lay)
-        self.cbx_jsons.blockSignals(True)
 
