@@ -1,6 +1,6 @@
 QWidget {
     background-color: rgba(150, 150, 150, 50);
-    color: rgb(236, 239, 241);
+    color: rgba(0, 0, 0, 225);
 }
 
 QHeaderView::section {
