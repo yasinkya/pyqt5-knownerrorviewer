@@ -37,6 +37,7 @@ def init_widget(table: QTableWidget, data):
 
 
 def _table_click_trigger(row, col, table: QTableWidget):
-    print(f"{row} - {col}")
+    import webbrowser
     if table.horizontalHeaderItem(col).text() == "link":
         print(table.item(row, col).text())
+        webbrowser.open("https://www.youtube.com/watch?v=zGMgIdI9EkE")
