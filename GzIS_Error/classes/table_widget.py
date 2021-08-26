@@ -33,3 +33,10 @@ def init_widget(table: QTableWidget, data):
                 item.setTextAlignment(Qt.AlignCenter)
                 table.setItem(r, c, item)
 
+    table.cellClicked.connect(lambda row, col: _table_click_trigger(row, col, table))
+
+
+def _table_click_trigger(row, col, table: QTableWidget):
+    print(f"{row} - {col}")
+    if table.horizontalHeaderItem(col).text() == "link":
+        print(table.item(row, col).text())
