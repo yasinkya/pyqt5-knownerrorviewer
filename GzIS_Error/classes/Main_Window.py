@@ -9,6 +9,7 @@ class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
         self.setObjectName("MainWindow")
+        self.setStyleSheet("QWidget{background-color: #fffafa;}")
         self.centralwidget = QWidget()
         self.menubar = QMenuBar()
         self.statusbar = QStatusBar()

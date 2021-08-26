@@ -13,11 +13,9 @@ class CreateTree(QTreeWidget):
 
         for i, key in enumerate(self.data.keys()):
             self.addTopLevelItem(QTreeWidgetItem())
-            for col in range(self.col):
-                self.topLevelItem(i).setText(col, key)
+            self.topLevelItem(i).setText(0, key)
+            for j, _key in enumerate(_childs):
                 self.topLevelItem(i).addChild(QTreeWidgetItem())
-                for j, _key in enumerate(_childs):
-                    self.topLevelItem(i).addChild(QTreeWidgetItem())
-                    self.topLevelItem(i).child(j).setText(col, _key)
-                    self.topLevelItem(i).child(j).addChild(QTreeWidgetItem())
-                    self.topLevelItem(i).child(j).child(0).setText(col, str(self.data[key][_key]))
+                self.topLevelItem(i).child(j).setText(0, f"{_key:10s}: {self.data[key][_key]}")
+                # self.topLevelItem(i).child(j).addChild(QTreeWidgetItem())
+                # self.topLevelItem(i).child(j).child(0).setText(col, str(self.data[key][_key]))

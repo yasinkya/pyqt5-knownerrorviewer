@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView
+from PyQt5.QtCore import Qt, QSize
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QAbstractScrollArea, QSizePolicy
 
 from GzIS_Error.classes import tree_widget
 
@@ -18,6 +18,10 @@ def init_widget(table: QTableWidget, data):
 
     table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
     # table.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
+    table.verticalHeader().setMaximumSectionSize(90)
+    table.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
+    table.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum) # ---
+    #table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)  # +++
 
     for c, col in enumerate(headers):
         for r, row in enumerate(data):
@@ -26,7 +30,8 @@ def init_widget(table: QTableWidget, data):
                 tree.setHeaderLabel(f"{data[row][col]} - Failed Tests")
                 tree.header().setDefaultAlignment(Qt.AlignCenter)
                 table.setCellWidget(r, c, tree)
-                table.setRowHeight(r, 70)
+                table.verticalHeader().setSectionResizeMode(r, QHeaderView.ResizeToContents)
+                # table.cellWidget(r, c).setMaximumHeight(100)
             else:
                 item = QTableWidgetItem()
                 item.setText(str(data[row].get(col)))
