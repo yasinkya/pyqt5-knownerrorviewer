@@ -2,7 +2,7 @@ from PyQt5.QtCore import Qt, QSize, QMetaObject, QCoreApplication
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QMenuBar, QStatusBar, QGridLayout, \
     QSizePolicy, QTableWidget
 from GzIS_Error import global_variables, gzis_funcs
-from GzIS_Error.classes import ComboBox, TabBar
+from GzIS_Error.classes import ComboBox, TabBar, table_widget
 
 
 class Window(QMainWindow):
@@ -92,4 +92,4 @@ class Window(QMainWindow):
 
     def tbar_changed_triger(self, idx):
         data = global_variables.current_jsondata[self.tbar_headers.tabText(idx)]["tests"]
-        gzis_funcs.table_widget.init_widget(self.table_content, data)
+        table_widget.init_widget(self.table_content, data)

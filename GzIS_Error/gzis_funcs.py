@@ -1,8 +1,7 @@
 import glob
 import json
-from PyQt5.QtWidgets import QComboBox, QTabBar, QTableWidget
+from PyQt5.QtWidgets import QComboBox, QTabBar
 from GzIS_Error import global_variables
-from classes import table_widget
 
 
 def read_paths():
@@ -23,5 +22,3 @@ def set_tabbar(json_path, tabbar: QTabBar):
 
     for key in global_variables.current_jsondata.keys():
         tabbar.addTab(key)
-
-

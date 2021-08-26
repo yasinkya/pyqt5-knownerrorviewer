@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QSizePolicy
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView
 
 from GzIS_Error.classes import tree_widget
 
@@ -40,4 +40,5 @@ def _table_click_trigger(row, col, table: QTableWidget):
     import webbrowser
     if table.horizontalHeaderItem(col).text() == "link":
         print(table.item(row, col).text())
-        webbrowser.open("https://www.youtube.com/watch?v=zGMgIdI9EkE")
+        if not table.item(row, col).text() == "None":
+            webbrowser.open("https://www.youtube.com/watch?v=zGMgIdI9EkE")
