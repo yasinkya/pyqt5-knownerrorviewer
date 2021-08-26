@@ -33,7 +33,7 @@ class Window(QMainWindow):
         self.setup_ui()
 
     def setup_ui(self):
-        self.setMinimumSize(QSize(800, 500))
+        self.setMinimumSize(QSize(1000, 500))
         self.menubar.setObjectName("menubar")
         self.setMenuBar(self.menubar)
         self.statusbar.setObjectName("statusbar")
