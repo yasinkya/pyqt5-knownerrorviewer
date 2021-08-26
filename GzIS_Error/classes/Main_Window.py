@@ -2,7 +2,7 @@ from PyQt5.QtCore import Qt, QSize, QMetaObject, QCoreApplication
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QMenuBar, QStatusBar, QGridLayout, \
     QSizePolicy, QTableWidget
 from GzIS_Error import global_variables, gzis_funcs
-from GzIS_Error.classes import ComboBox, Tabbar
+from GzIS_Error.classes import ComboBox, TabBar
 
 
 class Window(QMainWindow):
@@ -21,7 +21,7 @@ class Window(QMainWindow):
         self.cbx_lay.addWidget(self.cbx_ar_pos)
         self.cbx_lay.addWidget(self.cbx_jsons)
 
-        self.tbar_headers = Tabbar.MyTabBar()
+        self.tbar_headers = TabBar.CreateTabbar()
         self.table_content = QTableWidget()
         self.table_content.setColumnCount(4)
         self.table_content.setRowCount(3)
@@ -29,6 +29,8 @@ class Window(QMainWindow):
         self.lay_content = QVBoxLayout()
         self.lay_content.addWidget(self.tbar_headers)
         self.lay_content.addWidget(self.table_content)
+
+        self.tbar_headers.currentChanged.connect(self.tbar_changed_triger)
 
         self.setup_ui()
 
@@ -49,6 +51,7 @@ class Window(QMainWindow):
         self.cbx_ar_pos.currentIndexChanged.connect(self.cbx_arpos_current_changed)
         self.cbx_jsons.currentIndexChanged.connect(self.cbx_paths_current_changed)
         self.cbx_jsons.blockSignals(True)
+
         size_policy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         size_policy.setHorizontalStretch(0)
         size_policy.setVerticalStretch(0)
@@ -70,7 +73,7 @@ class Window(QMainWindow):
     def cbx_arpos_current_changed(self):
         self.cbx_jsons.blockSignals(True)
         self.clear_contents()
-
+        self.tbar_headers.blockSignals(False)
         gzis_funcs.sync_global_jsonfiles(self.cbx_ar_pos)
         self.cbx_jsons.sync_widget(global_variables.json_files)
 
@@ -79,12 +82,16 @@ class Window(QMainWindow):
             global_variables.current_path += f"/{self.cbx_ar_pos.currentText()}/{self.cbx_jsons.currentText()}"
             self.statusbar.showMessage(global_variables.current_path)
 
-            gzis_funcs.set_tabbar(global_variables.current_path, self.tbar_headers, self.table_content)
+            gzis_funcs.set_tabbar(global_variables.current_path, self.tbar_headers)
 
     def clear_contents(self):
-        while self.table_content.columnCount() > 0:
-            self.table_content.removeColumn(0)
-        while self.table_content.rowCount() > 0:
-            self.table_content.removeRow(0)
+        self.table_content.clear()
+        self.table_content.setColumnCount(0)
+        self.table_content.setRowCount(0)
+        self.tbar_headers.blockSignals(True)
         while self.tbar_headers.count() > 0:
             self.tbar_headers.removeTab(0)
+
+    def tbar_changed_triger(self, idx):
+        data = global_variables.current_jsondata[self.tbar_headers.tabText(idx)]["tests"]
+        gzis_funcs.table_widget.init_widget(self.table_content, data)

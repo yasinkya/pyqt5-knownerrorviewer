@@ -1,9 +1,9 @@
 from PyQt5.QtWidgets import QTabBar
 
 
-class MyTabBar(QTabBar):
+class CreateTabbar(QTabBar):
     def __init__(self):
-        super(MyTabBar, self).__init__()
+        super(CreateTabbar, self).__init__()
         self.init_widget()
 
     def init_widget(self):

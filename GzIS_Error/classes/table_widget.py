@@ -1,42 +1,37 @@
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QAbstractItemView
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QSizePolicy, QAbstractScrollArea, QAbstractItemView, \
+    QHeaderView
 from GzIS_Error.classes import tree_widget
 
 
-class MyTableWidget(QTableWidget):
-    def __init__(self, itr):
-        super(MyTableWidget, self).__init__()
+def init_widget(table: QTableWidget, data):
+    headers = ["testCount", "passCount", "failCount", "link"]
+    with open("UIs/tablewidget_style.css", "r") as sheet:
+        table.setStyleSheet(sheet.read())
 
-        self.itr = itr
-        self.keys = self.key_merge()
-        self.init_widget()
+    # set row, col and their resize
+    table.setColumnCount(len(headers))
+    table.setHorizontalHeaderLabels(headers)
 
-    def init_widget(self):
-        self.setColumnCount(len(self.keys))
-        self.setHorizontalHeaderLabels(self.keys)
-        # rows
-        for i, data in enumerate(self.itr):
-            self.insertRow(i)
-            for j, key in enumerate(self.keys):
-                # insert items
+    table.setRowCount(len(data.keys()))
+    table.setVerticalHeaderLabels(data.keys())
+
+    table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+    table.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+    for c, col in enumerate(headers):
+        for r, row in enumerate(data):
+            if col == "failCount":
+                tree = tree_widget.CreateTree(data[row]["failTests"], r)
+                table.setCellWidget(r, c, tree)
+            else:
                 item = QTableWidgetItem()
-                if isinstance(data.get(key), dict):
-                    # tree widget insert
-                    treewidget = tree_widget.MyTreeWidget(data.get(key), i)
-                    treewidget.setHeaderHidden(True)
-                    self.setCellWidget(i, j, treewidget)
-                    pass
-                else:
-                    item.setText(str(data.get(key)))
-                self.setItem(i, j, item)
-                self.verticalHeader().setDefaultSectionSize(50)
-                self.horizontalHeader().setDefaultSectionSize(150)
-                self.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        # set cell clicked
-        self.cellClicked.connect(self.clicked_event)
+                item.setText(str(data[row].get(col)))
+                item.setTextAlignment(Qt.AlignCenter)
+                table.setItem(r, c, item)
 
-
-    def key_merge(self):
-        keys = []
-        for _dict in self.itr:
-            keys += list(set(_dict.keys()) - set(keys))
-        return keys
+    # for r, row in enumerate(data):
+    #     for c, col in enumerate(headers):
+    #         item = QTableWidgetItem()
+    #         item.setText(str(data.get(row).get(col)))
+    #         table.setItem(r, c, item)
