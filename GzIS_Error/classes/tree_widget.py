@@ -11,7 +11,8 @@ class CreateTree(QTreeWidget):
     def init_widget(self):
         for i, key in enumerate(self.data.keys()):
             self.addTopLevelItem(QTreeWidgetItem())
-            self.topLevelItem(i).setText(self.col, key)
-            self.topLevelItem(i).addChild(QTreeWidgetItem())
-            self.topLevelItem(i).child(0).setText(self.col, str(self.data[key]))
+            for col in range(self.col):
+                self.topLevelItem(i).setText(col, key)
+                self.topLevelItem(i).addChild(QTreeWidgetItem())
+                self.topLevelItem(i).child(0).setText(col, str(self.data[key]))
 
