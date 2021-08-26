@@ -9,4 +9,3 @@ class CreateTabbar(QTabBar):
     def init_widget(self):
         with open("UIs/GzIS_tabwid_styel_sheet.css", "r") as twsheet:
             self.setStyleSheet(str(twsheet.read()))
-

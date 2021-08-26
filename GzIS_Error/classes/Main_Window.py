@@ -1,6 +1,9 @@
 from PyQt5.QtCore import Qt, QSize, QMetaObject, QCoreApplication
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QMenuBar, QStatusBar, QGridLayout, \
-    QSizePolicy, QTableWidget
+    QSizePolicy, QTableWidget, QMenu
+from pyqt5_plugins.examplebutton import QtWidgets
+from pyqt5_plugins.examples.exampleqmlitem import QtCore
+
 from GzIS_Error import global_variables, gzis_funcs
 from GzIS_Error.classes import ComboBox, TabBar, table_widget
 
@@ -11,9 +14,47 @@ class Window(QMainWindow):
         self.setObjectName("MainWindow")
         self.setStyleSheet("QWidget{background-color: #fffafa;}")
         self.centralwidget = QWidget()
-        self.menubar = QMenuBar()
+        self.menubar = QMenuBar(self)
         self.statusbar = QStatusBar()
         self.main_layout = QGridLayout(self.centralwidget)
+
+        self.menubar = QtWidgets.QMenuBar()
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 628, 24))
+        self.menubar.setObjectName("menubar")
+        self.menufilter = QtWidgets.QMenu(self.menubar)
+        self.menufilter.setObjectName("menufilter")
+        self.menuby_isaccept = QtWidgets.QMenu(self.menufilter)
+        self.menuby_isaccept.setObjectName("menuby_isaccept")
+        self.menuby_link = QtWidgets.QMenu(self.menufilter)
+        self.menuby_link.setObjectName("menuby_link")
+        self.menufind = QtWidgets.QMenu(self.menubar)
+        self.menufind.setObjectName("menufind")
+
+        self.actiontrue = QtWidgets.QAction()
+        self.actiontrue.setObjectName("actiontrue")
+        self.actionfalse = QtWidgets.QAction()
+        self.actionfalse.setObjectName("actionfalse")
+        self.actionNone = QtWidgets.QAction()
+        self.actionNone.setObjectName("actionNone")
+        self.actionnon_Exist = QtWidgets.QAction()
+        self.actionnon_Exist.setObjectName("actionnon_Exist")
+        self.actionby_name = QtWidgets.QAction()
+        self.actionby_name.setObjectName("actionby_name")
+        self.actionby_tests = QtWidgets.QAction()
+        self.actionby_tests.setObjectName("actionby_tests")
+        self.menuby_isaccept.addSeparator()
+        self.menuby_isaccept.addAction(self.actiontrue)
+        self.menuby_isaccept.addAction(self.actionfalse)
+        self.menuby_link.addAction(self.actionNone)
+        self.menuby_link.addAction(self.actionnon_Exist)
+        self.menufilter.addAction(self.menuby_isaccept.menuAction())
+        self.menufilter.addAction(self.menuby_link.menuAction())
+        self.menufind.addAction(self.actionby_name)
+        self.menufind.addAction(self.actionby_tests)
+        self.menubar.addAction(self.menufilter.menuAction())
+        self.menubar.addAction(self.menufind.menuAction())
+
+
 
         self.cbx_jsons = ComboBox.MyComboBox()
         self.cbx_ar_pos = ComboBox.MyComboBox()
@@ -68,6 +109,19 @@ class Window(QMainWindow):
     def retranslate_ui(self):
         _translate = QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "MainWindow"))
+
+        self.menufilter.setTitle(_translate("MainWindow", "filter"))
+        self.menuby_isaccept.setTitle(_translate("MainWindow", "by isaccept"))
+        self.menuby_link.setTitle(_translate("MainWindow", "by link"))
+        self.menufind.setTitle(_translate("MainWindow", "find"))
+        self.actiontrue.setText(_translate("MainWindow", "true"))
+        self.actionfalse.setText(_translate("MainWindow", "false"))
+        self.actionNone.setText(_translate("MainWindow", "Exist"))
+        self.actionnon_Exist.setText(_translate("MainWindow", "non Exist"))
+        self.actionby_name.setText(_translate("MainWindow", "by name"))
+        self.actionby_tests.setText(_translate("MainWindow", "by tests"))
+
+        
 
     def cbx_arpos_current_changed(self):
         self.cbx_jsons.blockSignals(True)
