@@ -10,9 +10,9 @@ def read_paths():
         global_variables.json_paths.append(str(path).split("/")[-1])
 
 
-def sync_global_jsonfiles(self: QComboBox):
+def sync_global_jsonfiles(combo_box: QComboBox):
     global_variables.current_path = f"{global_variables.folder}"
-    for files in glob.glob(f"{global_variables.folder}/{self.currentText()}/*.json"):
+    for files in glob.glob(f"{global_variables.folder}/{combo_box.currentText()}/*.json"):
         global_variables.json_files.clear()
         global_variables.json_files.append(str(files).split("/")[-1])
 

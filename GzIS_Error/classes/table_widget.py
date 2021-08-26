@@ -24,6 +24,9 @@ def init_widget(table: QTableWidget, data):
             if col == "failCount":
                 tree = tree_widget.CreateTree(data[row]["failTests"], r)
                 table.setCellWidget(r, c, tree)
+                fails = data[row][col]
+                tree.setHeaderLabel(f"{fails} - Failed Tests")
+                tree.header().setDefaultAlignment(Qt.AlignCenter)
             else:
                 item = QTableWidgetItem()
                 item.setText(str(data[row].get(col)))

@@ -23,8 +23,6 @@ class Window(QMainWindow):
 
         self.tbar_headers = TabBar.CreateTabbar()
         self.table_content = QTableWidget()
-        self.table_content.setColumnCount(4)
-        self.table_content.setRowCount(3)
 
         self.lay_content = QVBoxLayout()
         self.lay_content.addWidget(self.tbar_headers)
