@@ -1,10 +1,12 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QAbstractScrollArea, QSizePolicy
-
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QAbstractScrollArea, QSizePolicy, QLayout
 from GzIS_Error.classes import tree_widget
+import webbrowser
 
 
 def init_widget(table: QTableWidget, data):
+# def init_widget(lay: QLayout, data):
+#     table = QTableWidget()
     headers = ["testCount", "passCount", "failCount", "link"]
     with open("UIs/tablewidget_style.css", "r") as sheet:
         table.setStyleSheet(sheet.read())
@@ -19,8 +21,9 @@ def init_widget(table: QTableWidget, data):
     table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
     table.verticalHeader().setMaximumSectionSize(90)
     table.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
-    # table.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
     table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+    table.horizontalHeader().sectionClicked.connect(horizontal_clicked)
 
     for c, col in enumerate(headers):
         for r, row in enumerate(data):
@@ -37,11 +40,19 @@ def init_widget(table: QTableWidget, data):
                 table.setItem(r, c, item)
 
     table.cellClicked.connect(lambda idx_r, idx_c: _table_click_trigger(idx_r, idx_c, table))
-
+    # table.currentCellChanged.connect(lambda idx_r, idx_c: _table_click_trigger(idx_r, idx_c, table))
+    # lay.addWidget(table)
 
 def _table_click_trigger(row, col, table: QTableWidget):
-    import webbrowser
     if table.horizontalHeaderItem(col).text() == "link":
         print(table.item(row, col).text())
-        if not table.item(row, col).text() == "None":
-            webbrowser.open("https://www.youtube.com/watch?v=zGMgIdI9EkE")
+        if table.item(row, col).text() != "None":
+            webbrowser.open("https://www.qt.io/")
+
+        else:
+            print(row)
+    else:
+        print(table.cellWidget(row, col))
+
+def horizontal_clicked():
+    print("clicked")
