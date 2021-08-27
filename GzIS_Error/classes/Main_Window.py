@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt, QSize, QMetaObject, QCoreApplication
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QStatusBar, QGridLayout, \
-    QSizePolicy, QTableWidget, QAction
+    QSizePolicy, QTableWidget
 
 from GzIS_Error import global_variables, gzis_funcs
 from GzIS_Error.classes import ComboBox, TabBar, table_widget
@@ -22,11 +22,11 @@ class Window(QMainWindow):
         self.cbx_lay.addWidget(self.cbx_jsons)
 
         self.tbar_headers = TabBar.CreateTabbar()
-        # self.table_content = QTableWidget()
+        self.table_content = QTableWidget()
 
         self.lay_content = QVBoxLayout()
         self.lay_content.addWidget(self.tbar_headers)
-        # self.lay_content.addWidget(self.table_content)
+        self.lay_content.addWidget(self.table_content)
 
         self.tbar_headers.currentChanged.connect(self.tbar_changed_triger)
 
@@ -81,9 +81,9 @@ class Window(QMainWindow):
             gzis_funcs.set_tabbar(global_variables.current_path, self.tbar_headers)
 
     def clear_contents(self):
-        # self.table_content.clear()
-        # self.table_content.setColumnCount(0)
-        # self.table_content.setRowCount(0)
+        self.table_content.clear()
+        self.table_content.setColumnCount(0)
+        self.table_content.setRowCount(0)
         self.tbar_headers.blockSignals(True)
         while self.tbar_headers.count() > 0:
             self.tbar_headers.removeTab(0)
@@ -91,5 +91,4 @@ class Window(QMainWindow):
     def tbar_changed_triger(self, idx):
 
         data = global_variables.current_jsondata[self.tbar_headers.tabText(idx)]["tests"]
-        # table_widget.init_widget(self.lay_content, data)
-        gzis_funcs.set_table(self.lay_content, data)
+        table_widget.init_widget(self.table_content, data)
