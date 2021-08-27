@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt, QSize, QMetaObject, QCoreApplication
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QMenuBar, QStatusBar, QGridLayout, \
-    QSizePolicy, QTableWidget, QMenu
+    QSizePolicy, QTableWidget, QMenu, QAction
 from pyqt5_plugins.examplebutton import QtWidgets
 from pyqt5_plugins.examples.exampleqmlitem import QtCore
 
@@ -12,47 +12,27 @@ class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
         self.setObjectName("MainWindow")
-        self.setStyleSheet("QWidget{background-color: #fffafa;}")
         self.centralwidget = QWidget()
-        self.menubar = QMenuBar(self)
-        self.statusbar = QStatusBar()
         self.main_layout = QGridLayout(self.centralwidget)
+        self.statusbar = QStatusBar()
 
-        self.menubar = QtWidgets.QMenuBar()
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 628, 24))
-        self.menubar.setObjectName("menubar")
-        self.menufilter = QtWidgets.QMenu(self.menubar)
-        self.menufilter.setObjectName("menufilter")
-        self.menuby_isaccept = QtWidgets.QMenu(self.menufilter)
-        self.menuby_isaccept.setObjectName("menuby_isaccept")
-        self.menuby_link = QtWidgets.QMenu(self.menufilter)
-        self.menuby_link.setObjectName("menuby_link")
-        self.menufind = QtWidgets.QMenu(self.menubar)
-        self.menufind.setObjectName("menufind")
+        self.menubar = QMenuBar(self)
+        self.menu_filter = QMenu(self.menubar)
+        self.menu_find = QMenu(self.menubar)
 
-        self.actiontrue = QtWidgets.QAction()
-        self.actiontrue.setObjectName("actiontrue")
-        self.actionfalse = QtWidgets.QAction()
-        self.actionfalse.setObjectName("actionfalse")
-        self.actionNone = QtWidgets.QAction()
-        self.actionNone.setObjectName("actionNone")
-        self.actionnon_Exist = QtWidgets.QAction()
-        self.actionnon_Exist.setObjectName("actionnon_Exist")
-        self.actionby_name = QtWidgets.QAction()
-        self.actionby_name.setObjectName("actionby_name")
-        self.actionby_tests = QtWidgets.QAction()
-        self.actionby_tests.setObjectName("actionby_tests")
-        self.menuby_isaccept.addSeparator()
-        self.menuby_isaccept.addAction(self.actiontrue)
-        self.menuby_isaccept.addAction(self.actionfalse)
-        self.menuby_link.addAction(self.actionNone)
-        self.menuby_link.addAction(self.actionnon_Exist)
-        self.menufilter.addAction(self.menuby_isaccept.menuAction())
-        self.menufilter.addAction(self.menuby_link.menuAction())
-        self.menufind.addAction(self.actionby_name)
-        self.menufind.addAction(self.actionby_tests)
-        self.menubar.addAction(self.menufilter.menuAction())
-        self.menubar.addAction(self.menufind.menuAction())
+        self.filter_isaccept = QMenu(self.menu_filter)
+        self.filter_link = QMenu(self.menu_filter)
+        self.find_byname = QMenu(self.menu_find)
+        self.find_bytests = QMenu(self.menu_find)
+
+        self.action_true = QAction(self)
+        self.action_false = QAction(self)
+        self.action_none = QAction(self)
+        self.action_exist = QAction(self)
+        self.action_exist.triggered.connect(self.action_true_cliced)
+
+        self.action_byname = QAction(self)
+        self.action_bytests = QAction(self)
 
 
 
@@ -84,6 +64,28 @@ class Window(QMainWindow):
         self.setCentralWidget(self.centralwidget)
         self.main_layout.setObjectName("gridLayout")
 
+        self.filter_isaccept.setObjectName("Is Accept")
+        self.filter_isaccept.addAction(self.action_true)
+        self.action_true.changed.connect(self.action_true_cliced)
+        self.filter_isaccept.addAction(self.action_false)
+        self.filter_link.setObjectName("Link")
+        self.filter_link.addAction(self.action_exist)
+        self.filter_link.addAction(self.action_none)
+
+        self.find_byname.setObjectName("byname")
+        self.find_bytests.setObjectName("by tests")
+        self.find_byname.addAction(self.action_byname)
+        self.find_bytests.addAction(self.action_bytests)
+
+        self.menu_filter.addAction(self.filter_link.menuAction())
+        self.menu_filter.addAction(self.filter_isaccept.menuAction())
+
+        self.menu_find.addAction(self.find_byname.menuAction())
+        self.menu_find.addAction(self.find_bytests.menuAction())
+
+        self.menubar.addAction(self.menu_find.menuAction())
+        self.menubar.addAction(self.menu_filter.menuAction())
+
         self.cbx_jsons.setObjectName("cbx_paths")
         self.cbx_ar_pos.setObjectName("cbx_chooser")
 
@@ -110,18 +112,22 @@ class Window(QMainWindow):
         _translate = QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "MainWindow"))
 
-        self.menufilter.setTitle(_translate("MainWindow", "filter"))
-        self.menuby_isaccept.setTitle(_translate("MainWindow", "by isaccept"))
-        self.menuby_link.setTitle(_translate("MainWindow", "by link"))
-        self.menufind.setTitle(_translate("MainWindow", "find"))
-        self.actiontrue.setText(_translate("MainWindow", "true"))
-        self.actionfalse.setText(_translate("MainWindow", "false"))
-        self.actionNone.setText(_translate("MainWindow", "Exist"))
-        self.actionnon_Exist.setText(_translate("MainWindow", "non Exist"))
-        self.actionby_name.setText(_translate("MainWindow", "by name"))
-        self.actionby_tests.setText(_translate("MainWindow", "by tests"))
+        self.menu_filter.setTitle(_translate("MainWindow", "Filter"))
+        self.menu_find.setTitle(_translate("MainWindow", "Find"))
+        self.filter_isaccept.setTitle(_translate("MainWindow", "Is Accept"))
+        self.filter_link.setTitle(_translate("MainWindow", "Link"))
+        self.find_byname.setTitle(_translate("MainWindow", "By Name"))
+        self.find_bytests.setTitle(_translate("MainWindow", "By Test"))
 
-        
+        self.action_true.setText(_translate("MainWindow", "True"))
+        self.action_false.setText(_translate("MainWindow", "False"))
+
+        self.action_none.setText(_translate("MainWindow", "None"))
+        self.action_exist.setText(_translate("MainWindow", "Exist"))
+
+        self.action_byname.setText(_translate("MainWindow", "Byname"))
+        self.action_bytests.setText(_translate("MainWindow", "By Tests"))
+
 
     def cbx_arpos_current_changed(self):
         self.cbx_jsons.blockSignals(True)
@@ -148,3 +154,6 @@ class Window(QMainWindow):
     def tbar_changed_triger(self, idx):
         data = global_variables.current_jsondata[self.tbar_headers.tabText(idx)]["tests"]
         table_widget.init_widget(self.table_content, data)
+
+    def action_true_cliced(self):
+        print("heloooo")
