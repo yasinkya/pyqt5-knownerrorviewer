@@ -13,8 +13,7 @@ class Window(QMainWindow):
         self.centralwidget = QWidget()
         self.main_layout = QGridLayout(self.centralwidget)
         self.statusbar = QStatusBar()
-
-        self.btn_filter = QPushButton()
+        self.statusbar.setStyleSheet("QStatusBar{background-color: #fffff0}")
 
         self.cbx_jsons = ComboBox.MyComboBox()
         self.cbx_ar_pos = ComboBox.MyComboBox()
@@ -78,7 +77,9 @@ class Window(QMainWindow):
     def cbx_paths_current_changed(self):
         if self.cbx_jsons.currentIndex() != -1:
             global_variables.current_path += f"/{self.cbx_ar_pos.currentText()}/{self.cbx_jsons.currentText()}"
-            self.statusbar.addWidget(self.btn_filter, 0)
+            self.statusbar.addPermanentWidget(QPushButton(), 0)
+            self.statusbar.addPermanentWidget(QPushButton(), 0)
+            self.statusbar.addPermanentWidget(QPushButton(), 0)
             self.statusbar.showMessage(global_variables.current_path)
 
             gzis_funcs.set_tabbar(global_variables.current_path, self.tbar_headers)
