@@ -11,10 +11,18 @@ class Window(QMainWindow):
         super(Window, self).__init__()
         self.setObjectName("MainWindow")
         self.centralwidget = QWidget()
+        self.centralwidget.setStyleSheet("QWidget{background-color: rgb(70,70,70);}")
         self.main_layout = QGridLayout(self.centralwidget)
-        self.statusbar = QStatusBar()
-        self.statusbar.setStyleSheet("QStatusBar{background-color: #fffff0}")
 
+        self.statusbar = QStatusBar()
+        self.statusbar.setStyleSheet("QStatusBar{"
+                                     "padding-left:8px;background: rgb(45,45,45);"
+                                     "color:#fffff0;font-weight;}")
+        self.btn_filter = QPushButton()
+        self.btn_filter.setText("Filter")
+        self.btn_filter.setStyleSheet("QPushButton{"
+                                      "background:rgb(45,45,45);"
+                                      "color:#fffff0;font-weight;}")
         self.cbx_jsons = ComboBox.MyComboBox()
         self.cbx_ar_pos = ComboBox.MyComboBox()
 
@@ -78,7 +86,7 @@ class Window(QMainWindow):
         if self.cbx_jsons.currentIndex() != -1:
             global_variables.current_path += f"/{self.cbx_ar_pos.currentText()}/{self.cbx_jsons.currentText()}"
             self.statusbar.addPermanentWidget(QPushButton(), 0)
-            self.statusbar.addPermanentWidget(QPushButton(), 0)
+            self.statusbar.addPermanentWidget(self.btn_filter, 0)
             self.statusbar.addPermanentWidget(QPushButton(), 0)
             self.statusbar.showMessage(global_variables.current_path)
 
