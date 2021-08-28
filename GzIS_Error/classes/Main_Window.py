@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt, QSize, QMetaObject, QCoreApplication
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QStatusBar, QGridLayout, \
-    QSizePolicy, QTableWidget, QPushButton
+    QSizePolicy, QTableWidget, QPushButton, QComboBox, QLabel
 
 from GzIS_Error import global_variables, gzis_funcs
 from GzIS_Error.classes import ComboBox, TabBar, table_widget
@@ -22,7 +22,15 @@ class Window(QMainWindow):
         self.btn_filter.setText("Filter")
         self.btn_filter.setStyleSheet("QPushButton{"
                                       "background:rgb(45,45,45);"
-                                      "color:#fffff0;font-weight;}")
+                                      "color:#fffff0;}")
+        self.lbl_isaccept = QLabel()
+        self.lbl_isaccept.setText("Is Accept :")
+        self.lbl_isaccept.setStyleSheet("QLabel{color: #fffff0;}")
+        self.cbx_isaccept = QComboBox()
+        self.cbx_isaccept.addItems(["All", "True", "False"])
+        with open("UIs/cbx.css", "r") as cbxsheet:
+            self.cbx_isaccept.setStyleSheet(str(cbxsheet.read()))
+
         self.cbx_jsons = ComboBox.MyComboBox()
         self.cbx_ar_pos = ComboBox.MyComboBox()
 
@@ -85,9 +93,8 @@ class Window(QMainWindow):
     def cbx_paths_current_changed(self):
         if self.cbx_jsons.currentIndex() != -1:
             global_variables.current_path += f"/{self.cbx_ar_pos.currentText()}/{self.cbx_jsons.currentText()}"
-            self.statusbar.addPermanentWidget(QPushButton(), 0)
-            self.statusbar.addPermanentWidget(self.btn_filter, 0)
-            self.statusbar.addPermanentWidget(QPushButton(), 0)
+            self.statusbar.addPermanentWidget(self.lbl_isaccept, 0)
+            self.statusbar.addPermanentWidget(self.cbx_isaccept, 0)
             self.statusbar.showMessage(global_variables.current_path)
 
             gzis_funcs.set_tabbar(global_variables.current_path, self.tbar_headers)
