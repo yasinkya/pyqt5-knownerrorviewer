@@ -22,8 +22,6 @@ def init_widget(table: QTableWidget, data):
     table.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
     table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-    table.horizontalHeader().sectionClicked.connect(horizontal_clicked)
-
     for c, col in enumerate(headers):
         for r, row in enumerate(data):
             if col == "failCount":
@@ -40,7 +38,9 @@ def init_widget(table: QTableWidget, data):
 
     if table.receivers(table.cellClicked) == 0:
         table.cellClicked.connect(lambda idx_r, idx_c: _table_click_trigger(idx_r, idx_c, table))
-    # table.currentCellChanged.connect(lambda idx_r, idx_c: _table_click_trigger(idx_r, idx_c, table))
+
+    table.horizontalHeader().sectionClicked.connect(lambda idcol: horizontal_clicked(idcol, table))
+
 
 
 def _table_click_trigger(row, col, table: QTableWidget):
@@ -49,11 +49,14 @@ def _table_click_trigger(row, col, table: QTableWidget):
         if table.item(row, col).text() != "None":
             webbrowser.open("https://www.qt.io/")
 
-        else:
-            print(row)
+
+def horizontal_clicked(col, table: QTableWidget):
+    # todo filter by clicked cells
+    if not table.isSortingEnabled():
+        table.sortItems(col, 0)
     else:
-        print(table.cellWidget(row, col))
+        table.sortItems(col, 1)
+        table.setSortingEnabled(False)
 
 
-def horizontal_clicked():
-    print("clicked")
+
