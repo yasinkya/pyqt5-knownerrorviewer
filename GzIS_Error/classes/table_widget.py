@@ -54,6 +54,7 @@ def horizontal_clicked(col, table: QTableWidget):
     # todo filter by clicked cells
     if not table.isSortingEnabled():
         table.sortItems(col, 0)
+        table.setSortingEnabled(True)
     else:
         table.sortItems(col, 1)
         table.setSortingEnabled(False)
