@@ -25,15 +25,14 @@ def set_tabbar(json_path, tabbar: QTabBar):
 
 
 def apply_filter(table: QTableWidget, isaccept):
-    tree_failcount: QTreeWidget
+    failed_tests: QTreeWidget
     if isaccept:
         for row in range(table.rowCount()):
-            tree_failcount = table.cellWidget(row, 2)
-            # print(tree_failcount.topLevelItem(0).text(0))
-            for top in range(tree_failcount.topLevelItem(0).childCount()):
-                #tree_failcount.clear()
-                print(tree_failcount)
-
+            failed_tests = table.cellWidget(row, 2)
+            for top in range(failed_tests.topLevelItemCount()):
+                for chi in range(failed_tests.topLevelItem(top).childCount()):
+                    if failed_tests.topLevelItem(top).child(chi).text(0) in "isAccepted: False":
+                        print(failed_tests.topLevelItem(top).child(chi).text(0))
             """
                 for top in range(t.topLevelItemCount()):
                     print(t.topLevelItem(top).text(0))    
