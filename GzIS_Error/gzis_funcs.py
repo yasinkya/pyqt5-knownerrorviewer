@@ -26,6 +26,7 @@ def set_tabbar(json_path, tabbar: QTabBar):
 
 def apply_filter(table: QTableWidget, isaccept):
     failed_tests: QTreeWidget
+    willremove = []
     if isaccept:
         for row in range(table.rowCount()):
             failed_tests = table.cellWidget(row, 2)
@@ -34,34 +35,38 @@ def apply_filter(table: QTableWidget, isaccept):
                     if failed_tests.topLevelItem(top).child(chi).text(0) in "isAccepted: True":
                         print(f"\n -> {failed_tests.topLevelItem(top).text(0)}")
                         print(f"\t -> {failed_tests.topLevelItem(top).child(chi).text(0)} is removing")
-                        failed_tests.topLevelItem(top).removeChild(failed_tests.topLevelItem(top))
+                        willremove.append(top)
+                        #failed_tests.topLevelItem(top).removeChild(failed_tests.topLevelItem(top))
                         print("removed")
-                        break
+
+            for rm in willremove:
+                failed_tests.removeItemWidget(failed_tests.topLevelItem(int(rm)), 0)
+                failed_tests.takeTopLevelItem(int(rm)).removeChild(rm)
+
+    print(willremove)
 
 
 
+"""
+    for top in range(t.topLevelItemCount()):
+        print(t.topLevelItem(top).text(0))    
+        for chi in range(t.topLevelItem(top).childCount()):
+            print(t.topLevelItem(top).child(chi).text(0))  
+            
+         -> test3
+                -> failType: Fail
+                    isAccept: false   
+                    
+                    
+                    
+                    -------------------- v2 
+                    
+                                for top in range(failed_tests.topLevelItemCount()):
+    for chi in range(failed_tests.topLevelItem(top).childCount()):
+        if failed_tests.topLevelItem(top).child(chi).text(0) in "isAccepted: True":
+            print(failed_tests.topLevelItem(top).child(chi).text(0))
 
-
-            """
-                for top in range(t.topLevelItemCount()):
-                    print(t.topLevelItem(top).text(0))    
-                    for chi in range(t.topLevelItem(top).childCount()):
-                        print(t.topLevelItem(top).child(chi).text(0))  
-                        
-                     -> test3
-                            -> failType: Fail
-                                isAccept: false   
-                                
-                                
-                                
-                                -------------------- v2 
-                                
-                                            for top in range(failed_tests.topLevelItemCount()):
-                for chi in range(failed_tests.topLevelItem(top).childCount()):
-                    if failed_tests.topLevelItem(top).child(chi).text(0) in "isAccepted: True":
-                        print(failed_tests.topLevelItem(top).child(chi).text(0))
-
-                    else:
-                        print("Not False")
-                                
-            """
+        else:
+            print("Not False")
+                    
+"""
