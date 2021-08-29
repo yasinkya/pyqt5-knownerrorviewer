@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QAbstractScrollArea, QSizePolicy, QLayout
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QAbstractScrollArea, QSizePolicy
 from GzIS_Error.classes import tree_widget
 import webbrowser
 
@@ -42,7 +42,6 @@ def init_widget(table: QTableWidget, data):
     table.horizontalHeader().sectionClicked.connect(lambda idcol: horizontal_clicked(idcol, table))
 
 
-
 def _table_click_trigger(row, col, table: QTableWidget):
     if table.horizontalHeaderItem(col).text() == "link":
         print(table.item(row, col).text())
@@ -58,6 +57,3 @@ def horizontal_clicked(col, table: QTableWidget):
     else:
         table.sortItems(col, 1)
         table.setSortingEnabled(False)
-
-
-

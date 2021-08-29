@@ -28,8 +28,9 @@ class Window(QMainWindow):
         self.lbl_isaccept.setStyleSheet("QLabel{color: #fffff0;}")
         self.cbx_isaccept = QComboBox()
         self.cbx_isaccept.addItems(["All", "True", "False"])
-        with open("UIs/cbx.css", "r") as cbxsheet:
+        with open("UIs/GzIs_cbx_style_sheet.css", "r") as cbxsheet:
             self.cbx_isaccept.setStyleSheet(str(cbxsheet.read()))
+        self.cbx_isaccept.currentIndexChanged.connect(self.filter_cbx_trigger)
 
         self.cbx_jsons = ComboBox.MyComboBox()
         self.cbx_ar_pos = ComboBox.MyComboBox()
@@ -108,6 +109,9 @@ class Window(QMainWindow):
             self.tbar_headers.removeTab(0)
 
     def tbar_changed_triger(self, idx):
-
         data = global_variables.current_jsondata[self.tbar_headers.tabText(idx)]["tests"]
         table_widget.init_widget(self.table_content, data)
+
+    def filter_cbx_trigger(self):
+        self.cbx_isaccept.currentText()
+        gzis_funcs.apply_filter(self.table_content, bool(self.cbx_isaccept.currentText()))
