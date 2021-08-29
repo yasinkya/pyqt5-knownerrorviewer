@@ -31,5 +31,16 @@ def apply_filter(table: QTableWidget, isaccept):
             tree_failcount = table.cellWidget(row, 2)
             # print(tree_failcount.topLevelItem(0).text(0))
             for top in range(tree_failcount.topLevelItem(0).childCount()):
-                print(top)
-            # tree.toplevelite(0).child(0).text(0) -> failType fail
+                #tree_failcount.clear()
+                print(tree_failcount)
+
+            """
+                for top in range(t.topLevelItemCount()):
+                    print(t.topLevelItem(top).text(0))    
+                    for chi in range(t.topLevelItem(top).childCount()):
+                        print(t.topLevelItem(top).child(chi).text(0))  
+                        
+                     -> test3
+                            -> failType: Fail
+                                isAccept: false   
+            """
