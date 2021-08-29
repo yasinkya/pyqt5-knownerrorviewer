@@ -1,6 +1,6 @@
 import glob
 import json
-from PyQt5.QtWidgets import QComboBox, QTabBar, QTableWidget
+from PyQt5.QtWidgets import QComboBox, QTabBar, QTableWidget, QTreeWidget
 from GzIS_Error import global_variables
 
 
@@ -25,8 +25,9 @@ def set_tabbar(json_path, tabbar: QTabBar):
 
 
 def apply_filter(table: QTableWidget, isaccept):
+    tree_failcount: QTreeWidget
     if isaccept:
         for row in range(table.rowCount()):
-            print(table.item(row, 2))
-            tree = table.cellWidget(row, 2)
+            tree_failcount = table.cellWidget(row, 2)
+            print(tree_failcount.topLevelItem(0).text(0))
             # tree.toplevelite(0).child(0).text(0) -> failType fail
