@@ -31,8 +31,17 @@ def apply_filter(table: QTableWidget, isaccept):
             failed_tests = table.cellWidget(row, 2)
             for top in range(failed_tests.topLevelItemCount()):
                 for chi in range(failed_tests.topLevelItem(top).childCount()):
-                    if failed_tests.topLevelItem(top).child(chi).text(0) in "isAccepted: False":
-                        print(failed_tests.topLevelItem(top).child(chi).text(0))
+                    if failed_tests.topLevelItem(top).child(chi).text(0) in "isAccepted: True":
+                        print(f"\n -> {failed_tests.topLevelItem(top).text(0)}")
+                        print(f"\t -> {failed_tests.topLevelItem(top).child(chi).text(0)} is removing")
+                        failed_tests.topLevelItem(top).removeChild(failed_tests.topLevelItem(top))
+                        print("removed")
+                        break
+
+
+
+
+
             """
                 for top in range(t.topLevelItemCount()):
                     print(t.topLevelItem(top).text(0))    
@@ -42,4 +51,17 @@ def apply_filter(table: QTableWidget, isaccept):
                      -> test3
                             -> failType: Fail
                                 isAccept: false   
+                                
+                                
+                                
+                                -------------------- v2 
+                                
+                                            for top in range(failed_tests.topLevelItemCount()):
+                for chi in range(failed_tests.topLevelItem(top).childCount()):
+                    if failed_tests.topLevelItem(top).child(chi).text(0) in "isAccepted: True":
+                        print(failed_tests.topLevelItem(top).child(chi).text(0))
+
+                    else:
+                        print("Not False")
+                                
             """
