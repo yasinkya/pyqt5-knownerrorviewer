@@ -29,5 +29,7 @@ def apply_filter(table: QTableWidget, isaccept):
     if isaccept:
         for row in range(table.rowCount()):
             tree_failcount = table.cellWidget(row, 2)
-            print(tree_failcount.topLevelItem(0).text(0))
+            # print(tree_failcount.topLevelItem(0).text(0))
+            for top in range(tree_failcount.topLevelItem(0).childCount()):
+                print(top)
             # tree.toplevelite(0).child(0).text(0) -> failType fail
