@@ -26,4 +26,7 @@ def set_tabbar(json_path, tabbar: QTabBar):
 
 def apply_filter(table: QTableWidget, isaccept):
     if isaccept:
-        table.currentItem()
+        for row in range(table.rowCount()):
+            print(table.item(row, 2))
+            tree = table.cellWidget(row, 2)
+            # tree.toplevelite(0).child(0).text(0) -> failType fail
