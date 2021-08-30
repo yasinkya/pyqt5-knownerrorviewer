@@ -24,15 +24,14 @@ def set_tabbar(json_path, tabbar: QTabBar):
         tabbar.addTab(key)
 
 
-def apply_filter(table: QTableWidget, isaccept):
+def isaccepted_filter(table: QTableWidget, isaccept):
     failed_tests: QTreeWidget
     willremove = []
     if not isaccept == "All":
-        if global_variables.filter_elements:
-            re_filter(table)
 
+        # re_filter(table)
         x = 0
-        for row in range(table.rowCount()):it 
+        for row in range(table.rowCount()):
             failed_tests = table.cellWidget(row, 2)
             for top in range(failed_tests.topLevelItemCount()):
                 for chi in range(failed_tests.topLevelItem(top).childCount()):
@@ -42,31 +41,30 @@ def apply_filter(table: QTableWidget, isaccept):
                         willremove.append(top)
                         global_variables.filter_elements[x] = [row, failed_tests.topLevelItem(top)]
                         x += 1
-                        #failed_tests.takeTopLevelItem(top)
-                        # print("removed")
-        i = 0
-        print(willremove)
-        for rm in willremove:
-            rm -= i
-            for top in range(failed_tests.topLevelItemCount()):
-                if top == rm:
-                    # print(f"{failed_tests.topLevelItem(top).text(0)} is removing")
-                    print(f"{failed_tests.takeTopLevelItem(top).text(0)} was removed")
-                    # willremove.remove(rm)
-                    i += 1
-                    break
+
+            i = 0
+            print(willremove)
+            for rm in willremove:
+                rm -= i
+                for top in range(failed_tests.topLevelItemCount()):
+                    if top == rm:
+                        # print(f"{failed_tests.topLevelItem(top).text(0)} is removing")
+                        print(f"{failed_tests.takeTopLevelItem(top).text(0)} was removed")
+                        # willremove.remove(rm)
+                        i += 1
+                        break
 
     else:
         re_filter(table)
 
 
 def re_filter(table: QTableWidget):
-    print(global_variables.filter_elements)
     failed_tests: QTreeWidget
     for i in global_variables.filter_elements.keys():
         failed_tests = table.cellWidget(global_variables.filter_elements[i][0], 2)
         failed_tests.addTopLevelItem(global_variables.filter_elements[i][1])
     global_variables.filter_elements.clear()
+
 
     # for row in range(table.rowCount()):
     #     failed_tests = table.cellWidget(row, 2)

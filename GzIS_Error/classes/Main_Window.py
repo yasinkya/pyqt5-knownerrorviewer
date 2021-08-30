@@ -116,4 +116,4 @@ class Window(QMainWindow):
         print(self.cbx_isaccept.currentText())
         if not global_variables.def_table:
             global_variables.def_table = self.table_content
-        gzis_funcs.apply_filter(self.table_content, self.cbx_isaccept.currentText())
+        gzis_funcs.isaccepted_filter(self.table_content, self.cbx_isaccept.currentText())
