@@ -40,8 +40,8 @@ def apply_filter(table: QTableWidget, isaccept):
                         print("removed")
 
             for rm in willremove:
+
                 failed_tests.removeItemWidget(failed_tests.topLevelItem(int(rm)), 0)
-                failed_tests.takeTopLevelItem(int(rm)).removeChild(rm)
 
     print(willremove)
 
@@ -68,5 +68,12 @@ def apply_filter(table: QTableWidget, isaccept):
 
         else:
             print("Not False")
+            
+            
+            ***********************v3 - find willremove items
+            for top in range (t.topLevelItemCount()):
+    for rm in willremove:
+        if t.topLevelItem(top).text(0) == t.topLevelItem(rm).text(0): 
+            print(t.topLevelItem(top).text(0))
                     
 """
