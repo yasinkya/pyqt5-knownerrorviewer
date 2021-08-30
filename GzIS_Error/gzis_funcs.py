@@ -29,6 +29,7 @@ def apply_filter(table: QTableWidget, isaccept):
     willremove = []
     if not isaccept == "All":
         if not global_variables.filter_elements:
+            x = 0
             for row in range(table.rowCount()):
                 failed_tests = table.cellWidget(row, 2)
                 for top in range(failed_tests.topLevelItemCount()):
@@ -37,8 +38,8 @@ def apply_filter(table: QTableWidget, isaccept):
                             # print(f"\n -> {failed_tests.topLevelItem(top).text(0)}")
                             # print(f"\t -> {failed_tests.topLevelItem(top).child(chi).text(0)} is removing")
                             willremove.append(top)
-                            # global_variables.filter_elements.append(failed_tests.topLevelItem(top))
-                            list(global_variables.filter_elements[row]).append(failed_tests.topLevelItem(top))
+                            global_variables.filter_elements[x] = [row, failed_tests.topLevelItem(top)]
+                            x += 1
                             #failed_tests.takeTopLevelItem(top)
                             # print("removed")
             i = 0
@@ -59,7 +60,12 @@ def apply_filter(table: QTableWidget, isaccept):
 
 def re_filter(table: QTableWidget):
     print(global_variables.filter_elements)
-    # failed_tests: QTreeWidget
+    failed_tests: QTreeWidget
+    for i in global_variables.filter_elements.keys():
+        failed_tests = table.cellWidget(global_variables.filter_elements[i][0], 2)
+        failed_tests.addTopLevelItem(global_variables.filter_elements[i][1])
+
+
     # for row in range(table.rowCount()):
     #     failed_tests = table.cellWidget(row, 2)
     #     failed_tests.insertTopLevelItems(0, global_variables.filter_elements)
