@@ -32,11 +32,11 @@ def apply_filter(table: QTableWidget, isaccept):
             re_filter(table)
 
         x = 0
-        for row in range(table.rowCount()):
+        for row in range(table.rowCount()):it 
             failed_tests = table.cellWidget(row, 2)
             for top in range(failed_tests.topLevelItemCount()):
                 for chi in range(failed_tests.topLevelItem(top).childCount()):
-                    if failed_tests.topLevelItem(top).child(chi).text(0) in f"isAccepted: {isaccept}":
+                    if failed_tests.topLevelItem(top).child(chi).text(0) in f"isAccepted: {not bool(isaccept)}":
                         # print(f"\n -> {failed_tests.topLevelItem(top).text(0)}")
                         # print(f"\t -> {failed_tests.topLevelItem(top).child(chi).text(0)} is removing")
                         willremove.append(top)
@@ -66,7 +66,7 @@ def re_filter(table: QTableWidget):
     for i in global_variables.filter_elements.keys():
         failed_tests = table.cellWidget(global_variables.filter_elements[i][0], 2)
         failed_tests.addTopLevelItem(global_variables.filter_elements[i][1])
-
+    global_variables.filter_elements.clear()
 
     # for row in range(table.rowCount()):
     #     failed_tests = table.cellWidget(row, 2)
