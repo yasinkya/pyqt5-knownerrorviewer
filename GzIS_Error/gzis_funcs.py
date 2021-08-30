@@ -27,30 +27,28 @@ def set_tabbar(json_path, tabbar: QTabBar):
 def apply_filter(table: QTableWidget, isaccept):
     failed_tests: QTreeWidget
     willremove = []
-    if isaccept:
-        for row in range(table.rowCount()):
-            failed_tests = table.cellWidget(row, 2)
-            for top in range(failed_tests.topLevelItemCount()):
-                for chi in range(failed_tests.topLevelItem(top).childCount()):
-                    if failed_tests.topLevelItem(top).child(chi).text(0) in "isAccepted: True":
-                        # print(f"\n -> {failed_tests.topLevelItem(top).text(0)}")
-                        # print(f"\t -> {failed_tests.topLevelItem(top).child(chi).text(0)} is removing")
-                        willremove.append(top)
-                        #failed_tests.takeTopLevelItem(top)
-                        # print("removed")
-        i = 0
-        print(willremove)
-        for rm in willremove:
-            rm -= i
-            print(rm)
 
-            for top in range(failed_tests.topLevelItemCount()):
-                if top == rm:
-                    # print(f"{failed_tests.topLevelItem(top).text(0)} is removing")
-                    failed_tests.takeTopLevelItem(top)
-                    # willremove.remove(rm)
-                    i += 1
-                    break
+    for row in range(table.rowCount()):
+        failed_tests = table.cellWidget(row, 2)
+        for top in range(failed_tests.topLevelItemCount()):
+            for chi in range(failed_tests.topLevelItem(top).childCount()):
+                if failed_tests.topLevelItem(top).child(chi).text(0) in f"isAccepted: {isaccept}":
+                    # print(f"\n -> {failed_tests.topLevelItem(top).text(0)}")
+                    # print(f"\t -> {failed_tests.topLevelItem(top).child(chi).text(0)} is removing")
+                    willremove.append(top)
+                    #failed_tests.takeTopLevelItem(top)
+                    # print("removed")
+    i = 0
+    print(willremove)
+    for rm in willremove:
+        rm -= i
+        for top in range(failed_tests.topLevelItemCount()):
+            if top == rm:
+                # print(f"{failed_tests.topLevelItem(top).text(0)} is removing")
+                print(f"{failed_tests.takeTopLevelItem(top).text(0)} was removed")
+                # willremove.remove(rm)
+                i += 1
+                break
 
 
 
