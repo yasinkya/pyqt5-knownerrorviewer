@@ -33,21 +33,36 @@ def apply_filter(table: QTableWidget, isaccept):
             for top in range(failed_tests.topLevelItemCount()):
                 for chi in range(failed_tests.topLevelItem(top).childCount()):
                     if failed_tests.topLevelItem(top).child(chi).text(0) in "isAccepted: True":
-                        print(f"\n -> {failed_tests.topLevelItem(top).text(0)}")
-                        print(f"\t -> {failed_tests.topLevelItem(top).child(chi).text(0)} is removing")
+                        # print(f"\n -> {failed_tests.topLevelItem(top).text(0)}")
+                        # print(f"\t -> {failed_tests.topLevelItem(top).child(chi).text(0)} is removing")
                         willremove.append(top)
-                        #failed_tests.topLevelItem(top).removeChild(failed_tests.topLevelItem(top))
-                        print("removed")
+                        #failed_tests.takeTopLevelItem(top)
+                        # print("removed")
+        i = 0
+        print(willremove)
+        for rm in willremove:
+            rm -= i
+            print(rm)
 
-            for rm in willremove:
-
-                failed_tests.removeItemWidget(failed_tests.topLevelItem(int(rm)), 0)
-
-    print(willremove)
+            for top in range(failed_tests.topLevelItemCount()):
+                if top == rm:
+                    # print(f"{failed_tests.topLevelItem(top).text(0)} is removing")
+                    failed_tests.takeTopLevelItem(top)
+                    # willremove.remove(rm)
+                    i += 1
+                    break
 
 
 
 """
+***********************v3 - find willremove items
+            for top in range (t.topLevelItemCount()):
+                for rm in willremove:
+                    if t.topLevelItem(top).text(0) == t.topLevelItem(rm).text(0): 
+                        print(t.topLevelItem(top).text(0))
+            
+            
+            *************************************
     for top in range(t.topLevelItemCount()):
         print(t.topLevelItem(top).text(0))    
         for chi in range(t.topLevelItem(top).childCount()):
@@ -70,10 +85,6 @@ def apply_filter(table: QTableWidget, isaccept):
             print("Not False")
             
             
-            ***********************v3 - find willremove items
-            for top in range (t.topLevelItemCount()):
-    for rm in willremove:
-        if t.topLevelItem(top).text(0) == t.topLevelItem(rm).text(0): 
-            print(t.topLevelItem(top).text(0))
+            
                     
 """
