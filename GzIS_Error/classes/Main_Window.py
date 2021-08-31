@@ -109,8 +109,8 @@ class Window(QMainWindow):
             self.tbar_headers.removeTab(0)
 
     def tbar_changed_triger(self, idx):
-        data = global_variables.current_jsondata[self.tbar_headers.tabText(idx)]["tests"]
-        table_widget.init_widget(self.table_content, data)
+        table_widget.init_widget(self.table_content,
+                                 global_variables.current_jsondata[self.tbar_headers.tabText(idx)]["tests"])
 
     def filter_cbx_trigger(self):
         gzis_funcs.isaccepted_filter(self.table_content, self.cbx_isaccept.currentText())
