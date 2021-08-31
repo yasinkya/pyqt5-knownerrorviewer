@@ -113,7 +113,4 @@ class Window(QMainWindow):
         table_widget.init_widget(self.table_content, data)
 
     def filter_cbx_trigger(self):
-        print(self.cbx_isaccept.currentText())
-        if not global_variables.def_table:
-            global_variables.def_table = self.table_content
         gzis_funcs.isaccepted_filter(self.table_content, self.cbx_isaccept.currentText())

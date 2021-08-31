@@ -26,33 +26,17 @@ def set_tabbar(json_path, tabbar: QTabBar):
 
 def isaccepted_filter(table: QTableWidget, isaccept):
     failed_tests: QTreeWidget
-    willremove = []
     if not isaccept == "All":
 
         # re_filter(table)
         x = 0
         for row in range(table.rowCount()):
             failed_tests = table.cellWidget(row, 2)
+            count = 0
             for top in range(failed_tests.topLevelItemCount()):
-                for chi in range(failed_tests.topLevelItem(top).childCount()):
-                    if failed_tests.topLevelItem(top).child(chi).text(0) in f"isAccepted: {not bool(isaccept)}":
-                        # print(f"\n -> {failed_tests.topLevelItem(top).text(0)}")
-                        # print(f"\t -> {failed_tests.topLevelItem(top).child(chi).text(0)} is removing")
-                        willremove.append(top)
-                        global_variables.filter_elements[x] = [row, failed_tests.topLevelItem(top)]
-                        x += 1
-
-            i = 0
-            print(willremove)
-            for rm in willremove:
-                rm -= i
-                for top in range(failed_tests.topLevelItemCount()):
-                    if top == rm:
-                        # print(f"{failed_tests.topLevelItem(top).text(0)} is removing")
-                        print(f"{failed_tests.takeTopLevelItem(top).text(0)} was removed")
-                        # willremove.remove(rm)
-                        i += 1
-                        break
+                if failed_tests.topLevelItem(top - count).child(1).text(0) not in f"isAccepted: {isaccept}":
+                    print(f"{failed_tests.takeTopLevelItem(top - count).text(0)} was removed")
+                    count += 1
 
     else:
         re_filter(table)
@@ -101,7 +85,37 @@ def re_filter(table: QTableWidget):
         else:
             print("Not False")
             
-            
+        ***********************************************************   ********
+        
+         if not isaccept == "All":
+
+        # re_filter(table)
+        x = 0
+        for row in range(table.rowCount()):
+            failed_tests = table.cellWidget(row, 2)
+            for top in range(failed_tests.topLevelItemCount()):
+                for chi in range(failed_tests.topLevelItem(top).childCount()):
+                    if failed_tests.topLevelItem(top).child(chi).text(0) in f"isAccepted: {not bool(isaccept)}":
+                        # print(f"\n -> {failed_tests.topLevelItem(top).text(0)}")
+                        # print(f"\t -> {failed_tests.topLevelItem(top).child(chi).text(0)} is removing")
+                        willremove.append(top)
+                        global_variables.filter_elements[x] = [row, failed_tests.topLevelItem(top)]
+                        x += 1
+
+        i = 0
+        print(willremove)
+        for rm in willremove:
+            rm -= i
+            for top in range(failed_tests.topLevelItemCount()):
+                if top == rm:
+                    # print(f"{failed_tests.topLevelItem(top).text(0)} is removing")
+                    print(f"{failed_tests.takeTopLevelItem(top).text(0)} was removed")
+                    # willremove.remove(rm)
+                    i += 1
+
+
+    else:
+        re_filter(table)    
             
                     
 """
