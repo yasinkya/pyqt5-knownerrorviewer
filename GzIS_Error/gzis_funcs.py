@@ -27,35 +27,34 @@ def set_tabbar(json_path, tabbar: QTabBar):
 def isaccepted_filter(table: QTableWidget, isaccept):
     failed_tests: QTreeWidget
     if not isaccept == "All":
-
-        # re_filter(table)
-        x = 0
+        re_filter(table)
         for row in range(table.rowCount()):
-            failed_tests = table.cellWidget(row, 2)
             count = 0
+            failed_tests = table.cellWidget(row, 2)
             for top in range(failed_tests.topLevelItemCount()):
                 if failed_tests.topLevelItem(top - count).child(1).text(0) not in f"isAccepted: {isaccept}":
+                    global_variables.filter_elements[f"{row}-{top}"] = failed_tests.topLevelItem(top - count)
                     print(f"{failed_tests.takeTopLevelItem(top - count).text(0)} was removed")
                     count += 1
-
     else:
         re_filter(table)
 
 
 def re_filter(table: QTableWidget):
     failed_tests: QTreeWidget
-    for i in global_variables.filter_elements.keys():
-        failed_tests = table.cellWidget(global_variables.filter_elements[i][0], 2)
-        failed_tests.addTopLevelItem(global_variables.filter_elements[i][1])
+    items = []
+    for key, val in global_variables.filter_elements.items():
+        failed_tests = table.cellWidget(int(key.split("-")[0]), 2)
+        failed_tests.addTopLevelItem(val)
     global_variables.filter_elements.clear()
 
-
-    # for row in range(table.rowCount()):
-    #     failed_tests = table.cellWidget(row, 2)
-    #     failed_tests.insertTopLevelItems(0, global_variables.filter_elements)
-
-
 """
+****************** get key format -*************
+
+for key in global_variables.filter_elements.keys():
+    print(key.split("-"))
+    
+    
 ***********************v3 - find willremove items
             for top in range (t.topLevelItemCount()):
                 for rm in willremove:
