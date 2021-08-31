@@ -1,2 +1,0 @@
-jsondata = {}
-json_paths = []
