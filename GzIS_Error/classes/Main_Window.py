@@ -2,8 +2,8 @@ from PyQt5.QtCore import Qt, QSize, QMetaObject, QCoreApplication
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QStatusBar, QGridLayout, \
     QSizePolicy, QTableWidget, QPushButton, QComboBox, QLabel
 
-from GzIS_Error import global_variables, gzis_funcs
-from GzIS_Error.classes import ComboBox, TabBar, table_widget
+import global_variables, gzis_funcs
+from classes import ComboBox, TabBar, table_widget
 
 
 class Window(QMainWindow):

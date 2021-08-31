@@ -43,7 +43,7 @@ QComboBox::drop-down {
 }
 
 QComboBox::down-arrow {
-    image: url(/home/yaska/Desktop/jsonPy/GzIS_Error/icons/down-arrow.png);
+    image: url(icons/down-arrow.png);
 	width: 10px;
 }
 

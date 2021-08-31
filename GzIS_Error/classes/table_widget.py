@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QAbstractScrollArea, QSizePolicy
-from GzIS_Error.classes import tree_widget
+from classes import tree_widget
 import webbrowser
 
 
@@ -35,6 +35,7 @@ def init_widget(table: QTableWidget, data):
                 item.setText(str(data[row].get(col)))
                 item.setTextAlignment(Qt.AlignCenter)
                 table.setItem(r, c, item)
+                table.item(r, c).setFlags(Qt.ItemIsEnabled)
 
     if table.receivers(table.cellClicked) == 0:
         table.cellClicked.connect(lambda idx_r, idx_c: _table_click_trigger(idx_r, idx_c, table))
@@ -44,9 +45,12 @@ def init_widget(table: QTableWidget, data):
 
 def _table_click_trigger(row, col, table: QTableWidget):
     if table.horizontalHeaderItem(col).text() == "link":
-        print(table.item(row, col).text())
-        if table.item(row, col).text() != "None":
-            webbrowser.open("https://www.qt.io/")
+        # print(table.item(row, col).text())
+        if (item_id := table.item(row, col).text()) != "None":
+            target_addr = f"https://jazz/ccm/web/projects/GIS%20(Change%20Management)" \
+                          f"#action=com.ibm.team.workitem.viewWorkItem&id={item_id}"
+            webbrowser.open(target_addr)
+
 
 
 def horizontal_clicked(col, table: QTableWidget):

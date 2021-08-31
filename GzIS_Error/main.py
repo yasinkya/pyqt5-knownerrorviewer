@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QApplication
 
-from GzIS_Error import global_variables
+import global_variables
 from classes import Main_Window
 import sys
 import gzis_funcs
