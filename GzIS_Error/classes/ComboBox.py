@@ -14,5 +14,4 @@ class MyComboBox(QComboBox):
     def sync_widget(self, data):
         self.clear()
         self.addItems(data)
-        self.setCurrentIndex(-1)
         self.blockSignals(False)

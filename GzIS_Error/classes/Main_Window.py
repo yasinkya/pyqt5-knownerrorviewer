@@ -90,6 +90,7 @@ class Window(QMainWindow):
         self.cbx_ar_pos.setObjectName("cbx_chooser")
 
         self.cbx_ar_pos.sync_widget(global_variables.json_paths)
+        self.cbx_ar_pos.setCurrentIndex(-1)
         self.cbx_ar_pos.currentIndexChanged.connect(self.cbx_arpos_current_changed)
         self.cbx_jsons.currentIndexChanged.connect(self.cbx_paths_current_changed)
         self.cbx_jsons.blockSignals(False)
@@ -113,7 +114,7 @@ class Window(QMainWindow):
         self.setWindowTitle(_translate("GzIS Error", "GzIS Error"))
 
     def cbx_arpos_current_changed(self):
-        self.cbx_jsons.blockSignals(True)
+        # self.cbx_jsons.blockSignals(True)
         self.clear_contents()
         self.tbar_headers.blockSignals(False)
         gzis_funcs.sync_global_jsonfiles(self.cbx_ar_pos)
@@ -139,8 +140,6 @@ class Window(QMainWindow):
             self.tbar_headers.removeTab(0)
 
     def tbar_changed_trigger(self, idx):
-        print("helo")
-
         if not self.check_exception.isChecked():
             self.set_table_header_visible(True)
             table_widget_tests.init_widget(self.table_content,
@@ -157,7 +156,7 @@ class Window(QMainWindow):
         palette = QPalette()
 
         if global_variables.is_light:
-            palette.setBrush(self.backgroundRole(), QColor(70, 70, 70))
+            palette.setBrush(self.backgroundRole(), QColor(45, 45, 45))
             print(bool(global_variables.is_light))
 
             global_variables.is_light = False
@@ -179,6 +178,8 @@ class Window(QMainWindow):
 
         else:
             self.set_cbx_enabled(True)
+            self.cbx_ar_pos.setCurrentIndex(-1)
+            # self.cbx_jsons.setCurrentIndex(0)
 
     def set_cbx_enabled(self, val: bool):
         self.cbx_jsons.setEnabled(val)
