@@ -12,55 +12,47 @@ class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
         self.setObjectName("MainWindow")
-        # png to icon
+        # todo: custom mainwindow tilebar
+        # self.setWindowFlag(Qt.FramelessWindowHint)
+
+        # Mainwindow Window icon
         fname = r'icons/raptiye.png'
         self.raptiye = Image.open(fname)
         self.raptiye.save('icons/raptiye.ico', format='ICO', sizes=[(32, 32)])
-
         self.setWindowIcon(QIcon('icons/raptiye.ico'))
 
+        # mainwidget and layout
         self.centralwidget = QWidget()
-        # self.centralwidget.setStyleSheet("QWidget{background-color: rgb(70,70,70);}")
         self.main_layout = QGridLayout(self.centralwidget)
 
+        # Status Bar for show current json path and some actions
         self.statusbar = QStatusBar()
-        self.statusbar.setStyleSheet("QStatusBar{"
-                                     "padding-left:8px;background: rgb(45,45,45);"
-                                     "color:#fffff0;font-weight;}")
-        # png to ico
+
+        # Change Main window's palette with button at statusbar
         icon = QtGui.QIcon()
         icon.addPixmap(QPixmap('icons/palette.png'))
         self.btn_palette = QPushButton()
         self.btn_palette.setIcon(QIcon('icons/palette.png'))
-        self.btn_palette.setStyleSheet("QPushButton{background-color: rgb(45 ,45, 45); margin-right: 10px; }")
         self.btn_palette.clicked.connect(self.btn_palette_trigger)
 
+        # when check_exception was clicked show other json (target.json)
         self.check_exception = QCheckBox()
         self.check_exception.setText("Exception Test Suites: ")
-        self.check_exception.setStyleSheet("QCheckBox{color: #fffff0; margin-right: 10px; margin-left: 10px;}")
         self.check_exception.setLayoutDirection(Qt.RightToLeft)
         self.check_exception.clicked.connect(self.rbt_target_trigger)
 
+        # filter combobox using as tests' is accept value
+        self.lbl_isaccept = QLabel()
+        self.cbx_isaccept = QComboBox()
+        self.lbl_isaccept.setText("Is Accept :")
+        self.cbx_isaccept.addItems(["All", "True", "False"])
+        self.cbx_isaccept.currentIndexChanged.connect(self.filter_cbx_trigger)
+
+        # add widgets to status bar
         self.statusbar.addPermanentWidget(self.check_exception, 0)
         self.statusbar.addPermanentWidget(self.btn_palette, 0)
 
-        self.btn_filter = QPushButton()
-        self.btn_filter.setText("Filter")
-        self.btn_filter.setStyleSheet("QPushButton{"
-                                      "background:rgb(45,45,45);"
-                                      "color:#fffff0;}")
-        self.lbl_isaccept = QLabel()
-        self.lbl_isaccept.setText("Is Accept :")
-        self.lbl_isaccept.setStyleSheet("QLabel{color: #fffff0; margin-left: 10px}")
-
-        self.cbx_isaccept = QComboBox()
-        self.cbx_isaccept.addItems(["All", "True", "False"])
-        with open("UIs/GzIs_cbx_style_sheet.css", "r") as cbxsheet:
-            self.cbx_isaccept.setStyleSheet(str(cbxsheet.read()))
-        self.cbx_isaccept.currentIndexChanged.connect(self.filter_cbx_trigger)
-
         self.cbx_jsons = ComboBox.MyComboBox()
-
         self.cbx_ar_pos = ComboBox.MyComboBox()
 
         self.cbx_lay = QHBoxLayout()
@@ -188,3 +180,13 @@ class Window(QMainWindow):
     def set_table_header_visible(self, val: bool):
         self.table_content.verticalHeader().setVisible(val)
         self.table_content.horizontalHeader().setVisible(val)
+
+    def set_items_stylesheets(self):
+        self.statusbar.setStyleSheet("QStatusBar{"
+                                     "padding-left:8px;background: rgb(45,45,45);"
+                                     "color:#fffff0;font-weight;}")
+        self.btn_palette.setStyleSheet("QPushButton{background-color: rgb(45 ,45, 45); margin-right: 10px; }")
+        self.check_exception.setStyleSheet("QCheckBox{color: #fffff0; margin-right: 10px; margin-left: 10px;}")
+        self.lbl_isaccept.setStyleSheet("QLabel{color: #fffff0; margin-left: 10px}")
+        with open("UIs/GzIs_cbx_style_sheet.css", "r") as cbxsheet:
+            self.cbx_isaccept.setStyleSheet(str(cbxsheet.read()))

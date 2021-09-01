@@ -1,7 +1,5 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QAbstractScrollArea, QSizePolicy
-from GzIS_Error.classes import tree_widget
-import webbrowser
 
 
 def init_widget(table: QTableWidget, data):
@@ -24,6 +22,3 @@ def init_widget(table: QTableWidget, data):
     table.verticalHeader().setMaximumSectionSize(90)
     table.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
     table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-
-
