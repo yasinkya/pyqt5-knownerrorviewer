@@ -6,6 +6,8 @@ from GzIS_Error import global_variables
 
 def read_paths():
     for path in glob.glob(f"{global_variables.folder}/*"):
+        if str(path).split("\\")[-1] in "summary-info":
+            continue
         global_variables.json_paths.append(str(path).split("\\")[-1])
 
 

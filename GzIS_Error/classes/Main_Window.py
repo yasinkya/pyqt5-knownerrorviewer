@@ -1,8 +1,8 @@
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt, QSize, QMetaObject, QCoreApplication
-from PyQt5.QtGui import QIcon, QPalette, QPixmap, QBrush, QColor
+from PyQt5.QtGui import QIcon, QPalette, QPixmap, QColor
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QStatusBar, QGridLayout, \
-    QSizePolicy, QTableWidget, QPushButton, QComboBox, QLabel, QRadioButton
+    QSizePolicy, QTableWidget, QPushButton, QComboBox, QLabel, QCheckBox
 from GzIS_Error import global_variables, gzis_funcs
 from GzIS_Error.classes import ComboBox, TabBar, table_widget_tests, table_widget_target
 from PIL import Image
@@ -32,15 +32,16 @@ class Window(QMainWindow):
         icon.addPixmap(QPixmap('icons/palette.png'))
         self.btn_palette = QPushButton()
         self.btn_palette.setIcon(QIcon('icons/palette.png'))
-        self.btn_palette.setStyleSheet("QPushButton{background-color: rgb(45 ,45, 45)}")
+        self.btn_palette.setStyleSheet("QPushButton{background-color: rgb(45 ,45, 45); margin-right: 10px; }")
         self.btn_palette.clicked.connect(self.btn_palette_trigger)
 
-        self.rbt_target = QRadioButton()
-        self.rbt_target.setText("Target")
-        self.rbt_target.setStyleSheet("QRadioButton{color: #fffff0;}")
-        self.rbt_target.clicked.connect(self.rbt_target_trigger)
+        self.check_exception = QCheckBox()
+        self.check_exception.setText("Exception Test Suites: ")
+        self.check_exception.setStyleSheet("QCheckBox{color: #fffff0; margin-right: 10px; margin-left: 10px;}")
+        self.check_exception.setLayoutDirection(Qt.RightToLeft)
+        self.check_exception.clicked.connect(self.rbt_target_trigger)
 
-        self.statusbar.addPermanentWidget(self.rbt_target, 0)
+        self.statusbar.addPermanentWidget(self.check_exception, 0)
         self.statusbar.addPermanentWidget(self.btn_palette, 0)
 
         self.btn_filter = QPushButton()
@@ -50,7 +51,7 @@ class Window(QMainWindow):
                                       "color:#fffff0;}")
         self.lbl_isaccept = QLabel()
         self.lbl_isaccept.setText("Is Accept :")
-        self.lbl_isaccept.setStyleSheet("QLabel{color: #fffff0;}")
+        self.lbl_isaccept.setStyleSheet("QLabel{color: #fffff0; margin-left: 10px}")
 
         self.cbx_isaccept = QComboBox()
         self.cbx_isaccept.addItems(["All", "True", "False"])
@@ -140,7 +141,7 @@ class Window(QMainWindow):
     def tbar_changed_trigger(self, idx):
         print("helo")
 
-        if not self.rbt_target.isChecked():
+        if not self.check_exception.isChecked():
             self.set_table_header_visible(True)
             table_widget_tests.init_widget(self.table_content,
                                            global_variables.current_jsondata[self.tbar_headers.tabText(idx)]["tests"])
@@ -170,7 +171,7 @@ class Window(QMainWindow):
 
     def rbt_target_trigger(self):
         self.clear_contents()
-        if self.rbt_target.isChecked():
+        if self.check_exception.isChecked():
             self.set_cbx_enabled(False)
             path = r"knownError\target.json"
             gzis_funcs.set_tabbar(path, self.tbar_headers, True)
