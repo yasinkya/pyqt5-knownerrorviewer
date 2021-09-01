@@ -1,23 +1,48 @@
+from PyQt5 import QtGui
 from PyQt5.QtCore import Qt, QSize, QMetaObject, QCoreApplication
+from PyQt5.QtGui import QIcon, QPalette, QPixmap, QBrush, QColor
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QStatusBar, QGridLayout, \
-    QSizePolicy, QTableWidget, QPushButton, QComboBox, QLabel
-
-import global_variables, gzis_funcs
-from classes import ComboBox, TabBar, table_widget
+    QSizePolicy, QTableWidget, QPushButton, QComboBox, QLabel, QRadioButton
+from GzIS_Error import global_variables, gzis_funcs
+from GzIS_Error.classes import ComboBox, TabBar, table_widget_tests, table_widget_target
+from PIL import Image
 
 
 class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
         self.setObjectName("MainWindow")
+        # png to icon
+        fname = r'icons/raptiye.png'
+        self.raptiye = Image.open(fname)
+        self.raptiye.save('icons/raptiye.ico', format='ICO', sizes=[(32, 32)])
+
+        self.setWindowIcon(QIcon('icons/raptiye.ico'))
+
         self.centralwidget = QWidget()
-        self.centralwidget.setStyleSheet("QWidget{background-color: rgb(70,70,70);}")
+        # self.centralwidget.setStyleSheet("QWidget{background-color: rgb(70,70,70);}")
         self.main_layout = QGridLayout(self.centralwidget)
 
         self.statusbar = QStatusBar()
         self.statusbar.setStyleSheet("QStatusBar{"
                                      "padding-left:8px;background: rgb(45,45,45);"
                                      "color:#fffff0;font-weight;}")
+        # png to ico
+        icon = QtGui.QIcon()
+        icon.addPixmap(QPixmap('icons/palette.png'))
+        self.btn_palette = QPushButton()
+        self.btn_palette.setIcon(QIcon('icons/palette.png'))
+        self.btn_palette.setStyleSheet("QPushButton{background-color: rgb(45 ,45, 45)}")
+        self.btn_palette.clicked.connect(self.btn_palette_trigger)
+
+        self.rbt_target = QRadioButton()
+        self.rbt_target.setText("Target")
+        self.rbt_target.setStyleSheet("QRadioButton{color: #fffff0;}")
+        self.rbt_target.clicked.connect(self.rbt_target_trigger)
+
+        self.statusbar.addPermanentWidget(self.rbt_target, 0)
+        self.statusbar.addPermanentWidget(self.btn_palette, 0)
+
         self.btn_filter = QPushButton()
         self.btn_filter.setText("Filter")
         self.btn_filter.setStyleSheet("QPushButton{"
@@ -26,6 +51,7 @@ class Window(QMainWindow):
         self.lbl_isaccept = QLabel()
         self.lbl_isaccept.setText("Is Accept :")
         self.lbl_isaccept.setStyleSheet("QLabel{color: #fffff0;}")
+
         self.cbx_isaccept = QComboBox()
         self.cbx_isaccept.addItems(["All", "True", "False"])
         with open("UIs/GzIs_cbx_style_sheet.css", "r") as cbxsheet:
@@ -33,6 +59,7 @@ class Window(QMainWindow):
         self.cbx_isaccept.currentIndexChanged.connect(self.filter_cbx_trigger)
 
         self.cbx_jsons = ComboBox.MyComboBox()
+
         self.cbx_ar_pos = ComboBox.MyComboBox()
 
         self.cbx_lay = QHBoxLayout()
@@ -46,7 +73,7 @@ class Window(QMainWindow):
         self.lay_content.addWidget(self.tbar_headers)
         self.lay_content.addWidget(self.table_content)
 
-        self.tbar_headers.currentChanged.connect(self.tbar_changed_triger)
+        self.tbar_headers.currentChanged.connect(self.tbar_changed_trigger)
 
         self.setup_ui()
 
@@ -64,7 +91,7 @@ class Window(QMainWindow):
         self.cbx_ar_pos.sync_widget(global_variables.json_paths)
         self.cbx_ar_pos.currentIndexChanged.connect(self.cbx_arpos_current_changed)
         self.cbx_jsons.currentIndexChanged.connect(self.cbx_paths_current_changed)
-        self.cbx_jsons.blockSignals(True)
+        self.cbx_jsons.blockSignals(False)
 
         size_policy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         size_policy.setHorizontalStretch(0)
@@ -82,7 +109,7 @@ class Window(QMainWindow):
 
     def retranslate_ui(self):
         _translate = QCoreApplication.translate
-        self.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.setWindowTitle(_translate("GzIS Error", "GzIS Error"))
 
     def cbx_arpos_current_changed(self):
         self.cbx_jsons.blockSignals(True)
@@ -93,12 +120,14 @@ class Window(QMainWindow):
 
     def cbx_paths_current_changed(self):
         if self.cbx_jsons.currentIndex() != -1:
-            global_variables.current_path += f"/{self.cbx_ar_pos.currentText()}/{self.cbx_jsons.currentText()}"
             self.statusbar.addPermanentWidget(self.lbl_isaccept, 0)
             self.statusbar.addPermanentWidget(self.cbx_isaccept, 0)
             self.statusbar.showMessage(global_variables.current_path)
+            self.clear_contents()
+            self.tbar_headers.blockSignals(False)
 
-            gzis_funcs.set_tabbar(global_variables.current_path, self.tbar_headers)
+            gzis_funcs.set_tabbar(f"{global_variables.folder}/{self.cbx_ar_pos.currentText()}/"
+                                  f"{self.cbx_jsons.currentText()}", self.tbar_headers, False)
 
     def clear_contents(self):
         self.table_content.clear()
@@ -108,9 +137,52 @@ class Window(QMainWindow):
         while self.tbar_headers.count() > 0:
             self.tbar_headers.removeTab(0)
 
-    def tbar_changed_triger(self, idx):
-        table_widget.init_widget(self.table_content,
-                                 global_variables.current_jsondata[self.tbar_headers.tabText(idx)]["tests"])
+    def tbar_changed_trigger(self, idx):
+        print("helo")
+
+        if not self.rbt_target.isChecked():
+            self.set_table_header_visible(True)
+            table_widget_tests.init_widget(self.table_content,
+                                           global_variables.current_jsondata[self.tbar_headers.tabText(idx)]["tests"])
+        else:
+            self.set_table_header_visible(False)
+            table_widget_target.init_widget(self.table_content,
+                                            global_variables.current_jsondata[self.tbar_headers.tabText(idx)])
 
     def filter_cbx_trigger(self):
         gzis_funcs.isaccepted_filter(self.table_content, self.cbx_isaccept.currentText())
+
+    def btn_palette_trigger(self):
+        palette = QPalette()
+
+        if global_variables.is_light:
+            palette.setBrush(self.backgroundRole(), QColor(70, 70, 70))
+            print(bool(global_variables.is_light))
+
+            global_variables.is_light = False
+        else:
+            palette.setBrush(self.backgroundRole(), QColor(220, 220, 220))
+
+            print(bool(global_variables.is_light))
+            global_variables.is_light = True
+
+        self.setPalette(palette)
+
+    def rbt_target_trigger(self):
+        self.clear_contents()
+        if self.rbt_target.isChecked():
+            self.set_cbx_enabled(False)
+            path = r"knownError\target.json"
+            gzis_funcs.set_tabbar(path, self.tbar_headers, True)
+            self.tbar_headers.blockSignals(False)
+
+        else:
+            self.set_cbx_enabled(True)
+
+    def set_cbx_enabled(self, val: bool):
+        self.cbx_jsons.setEnabled(val)
+        self.cbx_ar_pos.setEnabled(val)
+
+    def set_table_header_visible(self, val: bool):
+        self.table_content.verticalHeader().setVisible(val)
+        self.table_content.horizontalHeader().setVisible(val)

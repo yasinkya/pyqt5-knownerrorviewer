@@ -1,0 +1,20 @@
+Genel Notlar:
+* Hatalý durumlarda ilk olarak log dosyalarýna bakýlmalýdýr. Daha sonra kullanýcý klavuzlarýndaki bilgiler kontrol edilmelidir. 
+* BSP ve Network testleri ayný platformun farklý targetlarýndaki donaným özelliklerine göre farklýlýk gösterebilir. 
+  Bu testler birden fazla tüm targetlarda çalýþtýrýlamamýþtýr. Bilinen hatalara ekli olmayan bir durum için ayrýca kontrol edilmesi gerekebilir. 
+  Kalan testtin ilk olarak RUN FAIL TEST ile çalýþtýrýlmasý sonrasýnda yine kalýyor ise farklý bir target ile denenmesi tavsiye edilir.
+* OpenGroup testlerinin raporlanmasýnda putc ve putchar gibi isimleri birbirini içeren testlerde excel oluþturulurken bir farklýlýk var. 
+  Bu test sonuçlaýr doðru oluþuyor ama excelde bakýnca birden fazla test içerdiðinden kalmýþ gibi gözüküyor. Burada test sonuçlarý dikkate alýnmalý. 
+  Bu farklýlýðý test raporlama tarafýnda yapacaðýmýz güncelleme ile düzelteceðiz. Þu an raporlama da bir sorun olmayacak. 
+
+ARINC Test Durumlarý
+* Tüm bilinen hata durumlarý t2080rdb ile ayný yapýlmýþtýr. 64 bit çalýþmadan dolayý kalan test durumlarý olabilir. tr-b12 sonuçlarý referans alýnabilir. 
+* Aktif çalýþan 64 bit t2080rdb çekirdek olmadýðý için test edilmemiþtir. 
+* BSP/UART testleri hata durumlarýný test suite süresini çok fazla arttýrdýðý için þimdilik entegrasyon testlerinden kaldýrýlmýþtýr. 
+
+
+POSIX Test Durumlarý
+* Tüm bilinen hata durumlarý t2080rdb ile ayný yapýlmýþtýr.
+* Herhangi bir posix downloadable uygulamasý baþlayamamaktadýr. Gerekli hata raporu açýlmýþtýr.
+* Bilinen hata durumlarý testler çalýþamadýðý için tespit edilememiþtir. 
+

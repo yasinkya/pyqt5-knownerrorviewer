@@ -6,3 +6,4 @@ json_files = []
 current_jsondata = {}
 current_jsonkeys = []
 filter_elements = {}
+is_light = bool

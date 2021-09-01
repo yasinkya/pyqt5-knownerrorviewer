@@ -1,0 +1,140 @@
+{
+	"Os": {
+		"arinc": [
+			"Arinc/Apex_Test_Suite/all",
+			"Arinc/Apex_Ext_Test_Suite/all",
+			"Arinc/Arinc653_Test_Suite/all",
+			"Arinc/PosixForArinc/all",
+			"OSUtilsTests/Arinc/all",
+			"GzIS_API/Arinc/all",
+			"BSP/Arinc/all",
+			"Network/Arinc/all",
+			"Clean:BSP/Arinc/UART"
+		],
+		"posix": [
+			"Posix/Cpp_Tests/all",
+			"Posix/OpenGroup_Tests/all",
+			"Posix/POSIX_Test_Suite/all",
+			"Posix/PSE52_Test_Suite/all",
+			"OSUtilsTests/Posix/all",
+			"GzIS_API/Posix/all",
+			"BSP/Posix/all",
+			"Network/Posix/all",
+			"Clean:BSP/Posix/UART"
+		]
+	},
+	"Target": {
+		"p3041ds": [
+			"Clean:BSP/Posix/WDT/WDT-00001",
+			"Clean:BSP/Arinc/WDT/WDT-00001"
+		],
+		"p3041iltaren": [
+			"Clean:BSP/Posix/WDT/WDT-00001",
+			"Clean:BSP/Arinc/WDT/WDT-00001",
+			"Clean:OSUtilsTests/Posix/API-SHELL-01008",
+			"Clean:OSUtilsTests/Arinc/API-SHELL-01008"
+		],
+		"p4080ds": [
+			"Clean:BSP/Posix/WDT/WDT-00001",
+			"Clean:BSP/Arinc/WDT/WDT-00001",
+			"Clean:OSUtilsTests/Posix/API-SHELL-01004"
+		],
+		"p4080sage": [
+			"Clean:BSP/Posix/WDT/WDT-00001",
+			"Clean:BSP/Arinc/WDT/WDT-00001",
+			"Clean:OSUtilsTests/Posix/API-SHELL-01004"
+		],
+		"p2041rdb": [
+			"Clean:BSP/Posix/WDT/WDT-00001",
+			"Clean:BSP/Arinc/WDT/WDT-00001"
+		],
+		"tr-b12": [
+			"Clean:BSP/Posix/WDT/WDT-00001",
+			"Clean:BSP/Arinc/WDT/WDT-00001",
+			"Clean:OSUtilsTests/Posix/SHELL",
+			"Clean:OSUtilsTests/Arinc/SHELL"
+		],
+		"xvr-16": [
+			"Clean:BSP/Posix/WDT/WDT-00001",
+			"Clean:BSP/Arinc/WDT/WDT-00001",
+			"Clean:OSUtilsTests/Posix/SHELL",
+			"Clean:OSUtilsTests/Arinc/SHELL"
+		],
+		"qemu-x86": [
+			"Clean:BSP/Posix/WDT/WDT-00001",
+			"Clean:BSP/Arinc/WDT/WDT-00001",
+			"Clean:OSUtilsTests/Posix/SHELL",
+			"Clean:OSUtilsTests/Arinc/all",
+			"Clean:Network/Arinc/PERF",
+			"Clean:Network/Posix/PERF",
+			"Clean:Arinc/Arinc653_Test_Suite/HMON",
+			"Clean:Arinc/Arinc653_Test_Suite/TIME"
+		],
+		"p1020": [
+			"Clean:Posix/OpenGroup_Tests/PSE53_Non_Portable",
+			"Clean:Posix/POSIX_Test_Suite/all",
+			"Clean:BSP/Posix/WDT/WDT-00001",
+			"Clean:BSP/Arinc/WDT/WDT-00001",
+			"Clean:OSUtilsTests/Posix/API-SHELL-01003",
+			"Clean:OSUtilsTests/Arinc/API-SHELL-01003",
+			"Clean:OSUtilsTests/Posix/API-SHELL-01004",
+			"Clean:OSUtilsTests/Arinc/API-SHELL-01004"
+		],
+		"tukob": [
+			"Clean:Posix/OpenGroup_Tests/PSE53_Non_Portable",
+			"Clean:Posix/POSIX_Test_Suite/all",
+			"Clean:BSP/Posix/WDT/WDT-00001",
+			"Clean:BSP/Arinc/WDT/WDT-00001"
+		],
+		"mpc8572ds": [
+			"Clean:Posix/OpenGroup_Tests/PSE53_Non_Portable",
+			"Clean:Posix/POSIX_Test_Suite/all",
+			"Clean:BSP/Posix/WDT/WDT-00001",
+			"Clean:BSP/Arinc/WDT/WDT-00001"
+		],
+		"t1024rdb": [
+			"Clean:Posix/OpenGroup_Tests/PSE53_Non_Portable",
+			"Clean:Posix/POSIX_Test_Suite/all",
+			"Clean:BSP/Arinc/NAND/NAND-0001",
+			"Clean:BSP/Posix/NAND/NAND-0001",
+			"Clean:OSUtilsTests/Posix/API-SHELL-01004",
+			"Clean:OSUtilsTests/Arinc/API-SHELL-01004",
+			"Clean:BSP/Posix/SYSCONFIG/SYSCONFIG-0001",
+			"Clean:BSP/Arinc/SYSCONFIG/SYSCONFIG-0001"
+		],
+		"t2080rdb": [
+			"Clean:Posix/OpenGroup_Tests/PSE53_Non_Portable",
+			"Clean:Posix/POSIX_Test_Suite/all",
+			"Clean:Arinc/PosixForArinc/EMBCPP",
+			"Clean:BSP/Arinc/NAND/NAND-0001",
+			"Clean:BSP/Posix/NAND/NAND-0001",
+			"Clean:OSUtilsTests/Posix/API-SHELL-01004",
+			"Clean:BSP/Posix/WDT/WDT-00001",
+			"Clean:BSP/Arinc/WDT/WDT-00001",
+			"Clean:BSP/Arinc/WDT/WDT-00001",
+			"Clean:BSP/Posix/WDT/WDT-00001",
+			"Clean:BSP/Posix/SYSCONFIG/SYSCONFIG-0001",
+			"Clean:BSP/Arinc/SYSCONFIG/SYSCONFIG-0001"
+		],
+		"t2080qds": [
+			"Clean:Posix/OpenGroup_Tests/PSE53_Non_Portable",
+			"Clean:Posix/POSIX_Test_Suite/all",
+			"Clean:Arinc/PosixForArinc/EMBCPP",
+			"Clean:BSP/Arinc/NAND/NAND-0001",
+			"Clean:BSP/Posix/NAND/NAND-0001",
+			"Clean:OSUtilsTests/Posix/API-SHELL-01004"
+		],
+		"t2080rdb-64": [
+			"Clean:Posix/OpenGroup_Tests/PSE53_Non_Portable",
+			"Clean:Posix/POSIX_Test_Suite/all",
+			"Clean:Arinc/PosixForArinc/EMBCPP",
+			"Clean:BSP/Arinc/NAND/NAND-0001",
+			"Clean:BSP/Posix/NAND/NAND-0001",
+			"Clean:OSUtilsTests/Posix/API-SHELL-01004",
+			"Clean:BSP/Posix/WDT/WDT-00001",
+			"Clean:BSP/Arinc/WDT/WDT-00001",
+			"Clean:BSP/Posix/SYSCONFIG/SYSCONFIG-0001",
+			"Clean:BSP/Arinc/SYSCONFIG/SYSCONFIG-0001"
+		]
+	}
+}

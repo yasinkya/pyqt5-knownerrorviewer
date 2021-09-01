@@ -1,9 +1,8 @@
 from PyQt5.QtWidgets import QApplication
 
-import global_variables
-from classes import Main_Window
+from GzIS_Error import global_variables, gzis_funcs
+from GzIS_Error.classes import Main_Window
 import sys
-import gzis_funcs
 import argparse
 
 parser = argparse.ArgumentParser(description="insert path as str of jsons' folder")
