@@ -1,0 +1,17 @@
+Target Durumlarý / Genel Notlar:
+* ARINC testleri çalýþýrken kernel üzerine kernel atma durumlarý stabil deðil. Bu nedenle bu targetta ARINC testleri ilk çalýþtýrma esnasýnda daha çok kalýyor. 
+  Testleri tek baþýna çalýþtýrýnca geçiyor. 
+* BSP ve Network testleri ayný platformun farklý targetlarýndaki donaným özelliklerine göre farklýlýk gösterebilir. 
+  Bu testler birden fazla tüm targetlarda çalýþtýrýlamamýþtýr. Bilinen hatalara ekli olmayan bir durum için ayrýca kontrol edilmesi gerekebilir. 
+  Kalan testtin ilk olarak RUN FAIL TEST ile çalýþtýrýlmasý sonrasýnda yine kalýyor ise farklý bir target ile denenmesi tavsiye edilir.
+* OpenGroup testlerinin raporlanmasýnda putc ve putchar gibi isimleri birbirini içeren testlerde excel oluþturulurken bir farklýlýk var. 
+  Bu test sonuçlaýr doðru oluþuyor ama excelde bakýnca birden fazla test içerdiðinden kalmýþ gibi gözüküyor. Burada test sonuçlarý dikkate alýnmalý. 
+  Bu farklýlýðý test raporlama tarafýnda yapacaðýmýz güncelleme ile düzelteceðiz. Þu an raporlama da bir sorun olmayacak. 
+
+ARINC Test Durumlarý
+* ARINC testleri arka arkaya atýlma durumlarýnda NORESULT durumuna çokça düþmektedir.  Kalan testler için run fail test çalýþtýrýlýp yine kalan olursa elle seçilip yeniden çalýþtýrýlmalýdýr. 
+
+
+POSIX Test Durumlarý
+* Posix testleri tam olarak çalýþtýrýlýp denenmemiþtir.  Posix için stabil çalýþan bir platformdur. Ancak entegrasyon testlerinde tercih edilmeyebilir. Bilinen hata dosyalarý güncel olmayabilir.
+

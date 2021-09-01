@@ -1,0 +1,1 @@
+C:\Users\enes.topaloglu\AppData\Local\Programs\pygisenv\Scripts\python.exe main.py knownError

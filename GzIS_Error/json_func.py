@@ -1,6 +1,7 @@
-import global_variables
+# import global_variables
 import json
 import glob
+import GzIS_Error.global_variables as global_variables
 
 
 def load_paths():

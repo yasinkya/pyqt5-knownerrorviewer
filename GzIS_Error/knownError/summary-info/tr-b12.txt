@@ -1,0 +1,20 @@
+Genel Notlar:
+* Posix testlerinin 110 nolu targetta stabil çalýþmadýðý tespit eidlmiþtir. 
+* BSP ve Network testleri ayný platformun farklý targetlarýndaki donaným özelliklerine göre farklýlýk gösterebilir. 
+  Bu testler birden fazla tüm targetlarda çalýþtýrýlamamýþtýr. Bilinen hatalara ekli olmayan bir durum için ayrýca kontrol edilmesi gerekebilir. 
+  Kalan testtin ilk olarak RUN FAIL TEST ile çalýþtýrýlmasý sonrasýnda yine kalýyor ise farklý bir target ile denenmesi tavsiye edilir. 
+* OpenGroup testlerinin raporlanmasýnda putc ve putchar gibi isimleri birbirini içeren testlerde excel oluþturulurken bir farklýlýk var. 
+  Bu test sonuçlaýr doðru oluþuyor ama excelde bakýnca birden fazla test içerdiðinden kalmýþ gibi gözüküyor. Burada test sonuçlarý dikkate alýnmalý. 
+  Bu farklýlýðý test raporlama tarafýnda yapacaðýmýz güncelleme ile düzelteceðiz. Þu an raporlama da bir sorun olmayacak. 
+
+ARINC Test Durumlarý
+* Testlerin bu targetta sürekli noresult düzþmesi sebebiyle ARINC653_Test_Suite testleri geçici süreliðine enetgrasyon testlerinde çýkarýlmýþtýr. 
+* Target stabil çalýþamamakta, testler çalýþma esnasýnda çokça noresults düþmektedir. Bu nedenle testler Run Fail test seçeneði ile yeniden çalýþtýrýlmaldýr. 
+  Gerekli incelemeler yapýlýp hata raporu açýlacaktýr. 
+* Tüm arinc hatalý test durumlarý tespit edilmiþ, bilinen hatalara eklenmiþtir. 
+
+POSIX Test Durumlarý
+* Tüm posix hatalý test durumlarý tespit edilmiþ, bilinen hatalara eklenmiþtir. 
+
+
+

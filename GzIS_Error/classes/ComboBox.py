@@ -16,4 +16,3 @@ class MyComboBox(QComboBox):
         self.addItems(data)
         self.setCurrentIndex(-1)
         self.blockSignals(False)
-

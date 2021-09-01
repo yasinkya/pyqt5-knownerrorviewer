@@ -1,0 +1,24 @@
+Genel Notlar:
+* p1020 de bootloader ile GIS ilklendiðinden GIS ilklenme süresi testlere yansýyor, testler diðer targetlara göre daha geç bitebiiyor. 
+* Tek core çalýþýyor, multicore çalýþan POSIX_Test_Suite ve Non_Portable_Test_Suite testlerini desteklememektedir. 
+* Hatalý durumlarda ilk olarak log dosyalarýna bakýlmalýdýr. Daha sonra kullanýcý klavuzlarýndaki bilgiler kontrol edilmelidir. 
+* Ön koþul olarak bootloader doðru çalýþtýðý kontrol edilmelidir. Bootloader ip ya da mac adresinin bozuk olmasý durumunda GIS ilklenmeyecektir.
+* BSP ve Network testleri ayný platformun farklý targetlarýndaki donaným özelliklerine göre farklýlýk gösterebilir. 
+  Bu testler birden fazla tüm targetlarda çalýþtýrýlamamýþtýr. Bilinen hatalara ekli olmayan bir durum için ayrýca kontrol edilmesi gerekebilir. 
+  Kalan testtin ilk olarak RUN FAIL TEST ile çalýþtýrýlmasý sonrasýnda yine kalýyor ise farklý bir target ile denenmesi tavsiye edilir. 
+* OpenGroup testlerinin raporlanmasýnda putc ve putchar gibi isimleri birbirini içeren testlerde excel oluþturulurken bir farklýlýk var. 
+  Bu test sonuçlaýr doðru oluþuyor ama excelde bakýnca birden fazla test içerdiðinden kalmýþ gibi gözüküyor. Burada test sonuçlarý dikkate alýnmalý. 
+  Bu farklýlýðý test raporlama tarafýnda yapacaðýmýz güncelleme ile düzelteceðiz. Þu an raporlama da bir sorun olmayacak. 
+
+ARINC Test Durumlarý
+* ARINC testleri bu platformda tam olarak test edilmemiþtir. ARINC testleri için bu platform tercih edilmemelidir.
+
+POSIX Test Durumlarý
+* Sonuç excel lerinde görülen mavi renkli test durumlarý compiler single point instruction özelliðinden kaynaklý kalan durumlardýr. 
+  Bu hatalar müþteri ile anlaþýlmýþ ve düzeltilmeyecektir.Genel olarak NAN ve INF durumlarýný test eden testlerdir. 
+* Shell testlerinin tüm bilinen hata durumlarý tespit edilmediðinden þimdilik entegrasyon testlerinden kaldýrýlmýþtýr.
+* BSP/UART testleri hata durumlarýný test suite süresini çok fazla arttýrdýðý için þimdilik entegrasyon testlerinden kaldýrýlmýþtýr. 
+* Hatalý durumlarda ilk olarak log dosyalarýna bakýlmalýdýr. Daha sonra kullanýcý klavuzlarýndaki bilgiler kontrol edilmelidir.
+
+
+	 

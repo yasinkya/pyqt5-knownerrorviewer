@@ -1,0 +1,18 @@
+Genel Notlar:
+* 90 nolu target ilk gelen ve testlerin en düzgün çalýþtýðý targettýr.
+* 91 ve 92 nolu target SAGE den yeni gelen donanýmlar. Donaným özellikler ve Network çalýþmalarý konusunda testlere etki eden aksaklýklar olabilir. Bunun bilgisi BSP ve NETWORK ekiplerinden alýnmalý. 
+  Bu targetlarda opengroup testlerinde olan time stamp ile alakalý testler kalmaktadýr. bSP ekibine hata raporu açýlmýþtýr. 
+* BSP/UART testleri hata durumlarýný test suite süresini çok fazla arttýrdýðý için þimdilik entegrasyon testlerinden kaldýrýlmýþtýr. 
+* BSP ve Network testleri ayný platformun farklý targetlarýndaki donaným özelliklerine göre farklýlýk gösterebilir. 
+  Bu testler birden fazla tüm targetlarda çalýþtýrýlamamýþtýr. Bilinen hatalara ekli olmayan bir durum için ayrýca kontrol edilmesi gerekebilir. 
+  Kalan testtin ilk olarak RUN FAIL TEST ile çalýþtýrýlmasý sonrasýnda yine kalýyor ise farklý bir target ile denenmesi tavsiye edilir.
+* OpenGroup testlerinin raporlanmasýnda putc ve putchar gibi isimleri birbirini içeren testlerde excel oluþturulurken bir farklýlýk var. 
+  Bu test sonuçlaýr doðru oluþuyor ama excelde bakýnca birden fazla test içerdiðinden kalmýþ gibi gözüküyor. Burada test sonuçlarý dikkate alýnmalý. 
+  Bu farklýlýðý test raporlama tarafýnda yapacaðýmýz güncelleme ile düzelteceðiz. Þu an raporlama da bir sorun olmayacak. 
+  
+  
+ARINC Test Durumlarý
+* p4080ds ve  p4080ds-le üzerinde arinc testleri hiç denenmemiþtir. ARINC için tercih edilmemelidir. 
+
+POSIX Test Durumlarý
+* p4080ds özel tespit edilen hata durumlarý bilenen hatalara eklenmiþtir. Bunun haricinde donanýmsal bir problem varsa testlere etki edebilir. analizi geliþtirmeci tarafýndan yapýlmalýdýr. 
