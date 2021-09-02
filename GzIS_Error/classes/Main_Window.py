@@ -13,12 +13,103 @@ class Window(QMainWindow):
         super(Window, self).__init__()
         main_ui = GzIs_error_main.UiMainWindow()
         main_ui.setup_ui(self)
+
         self.tbar_headers = main_ui.tbar_headers
         self.cbx_ar_pos = main_ui.cbx_ar_pos
         self.cbx_jsons = main_ui.cbx_jsons
+        self.btn_palette = main_ui.btn_palette
+        self.check_exception = main_ui.check_exception
+        self.statusbar = main_ui.statusbar
+        self.table_content = main_ui.table_content
+        self.lbl_isaccept = main_ui.lbl_isaccept
+        self.cbx_isaccept = main_ui.cbx_isaccept
+        self.setup_widget()
+
+    def setup_widget(self):
         self.tbar_headers.currentChanged.connect(self.tbar_changed_trigger)
         self.cbx_ar_pos.currentIndexChanged.connect(self.cbx_arpos_current_changed)
+        self.cbx_jsons.currentIndexChanged.connect(self.cbx_paths_current_changed)
+        self.btn_palette.clicked.connect(self.btn_palette_trigger)
+        self.check_exception.clicked.connect(self.check_target_trigger)
 
+    def cbx_arpos_current_changed(self):
+        # self.clear_contents()
+        self.tbar_headers.blockSignals(False)
+        gzis_funcs.sync_global_jsonfiles(self.cbx_ar_pos)
+        self.cbx_jsons.sync_widget(global_variables.json_files)
+
+    def cbx_paths_current_changed(self):
+        if self.cbx_jsons.currentIndex() != -1:
+            self.statusbar.addPermanentWidget(self.lbl_isaccept, 0)
+            self.statusbar.addPermanentWidget(self.cbx_isaccept, 0)
+            self.statusbar.showMessage(global_variables.current_path)
+            self.clear_contents()
+            self.tbar_headers.blockSignals(False)
+
+            gzis_funcs.set_tabbar(f"{global_variables.folder}/{self.cbx_ar_pos.currentText()}/"
+                                  f"{self.cbx_jsons.currentText()}", self.tbar_headers, False)
+
+    def clear_contents(self):
+        self.table_content.clear()
+        self.table_content.setColumnCount(0)
+        self.table_content.setRowCount(0)
+        self.tbar_headers.blockSignals(True)
+        while self.tbar_headers.count() > 0:
+            self.tbar_headers.removeTab(0)
+
+    def tbar_changed_trigger(self, idx):
+        json_data = global_variables.current_jsondata[self.tbar_headers.tabText(idx)]
+        # for test suites
+        if not self.check_exception.isChecked():
+            table_widget_tests.init_widget(self.table_content, json_data["tests"])
+        # for target
+        else:
+            table_widget_target.init_widget(self.table_content, json_data)
+
+    def btn_palette_trigger(self):
+        palette = QPalette()
+        if global_variables.is_light:
+            palette.setBrush(self.backgroundRole(), QColor(45, 45, 45))
+            global_variables.is_light = False
+        else:
+            palette.setBrush(self.backgroundRole(), QColor(220, 220, 220))
+            global_variables.is_light = True
+        self.setPalette(palette)
+
+    def check_target_trigger(self):
+        self.clear_contents()
+        if self.check_exception.isChecked():
+            self.set_cbx_enabled(False)
+            self.set_table_header_visible(False)
+            path = r"knownError\target.json"
+            gzis_funcs.set_tabbar(path, self.tbar_headers, True)
+            self.tbar_headers.blockSignals(False)
+            table_widget_target.init_widget(self.table_content,
+                                            global_variables.current_jsondata[self.tbar_headers.tabText(0)])
+        else:
+            self.set_cbx_enabled(True)
+            self.set_table_header_visible(True)
+            self.cbx_ar_pos.setCurrentIndex(-1)
+
+    def set_cbx_enabled(self, val: bool):
+        self.cbx_jsons.setEnabled(val)
+        self.cbx_ar_pos.setEnabled(val)
+
+    def set_table_header_visible(self, val: bool):
+        self.table_content.verticalHeader().setVisible(val)
+        self.table_content.horizontalHeader().setVisible(val)
+    #
+    # def set_items_stylesheets(self):
+    #     self.statusbar.setStyleSheet("QStatusBar{"
+    #                                  "padding-left:8px;background: rgb(45,45,45);"
+    #                                  "color:#fffff0;font-weight;}")
+    #     self.btn_palette.setStyleSheet("QPushButton{background-color: rgb(45 ,45, 45); margin-right: 10px; }")
+    #     self.check_exception.setStyleSheet("QCheckBox{color: #fffff0; margin-right: 10px; margin-left: 10px;}")
+    #     self.lbl_isaccept.setStyleSheet("QLabel{color: #fffff0; margin-left: 10px}")
+    #     with open("UIs/GzIs_cbx_style_sheet.css", "r") as cbxsheet:
+    #         self.cbx_isaccept.setStyleSheet(str(cbxsheet.read()))
+
+    #  ******************************************************
 
     #     self.setObjectName("MainWindow")
     #     # todo: custom mainwindow tilebar
@@ -130,79 +221,3 @@ class Window(QMainWindow):
     #     _translate = QCoreApplication.translate
     #     self.setWindowTitle(_translate("GzIS Error", "GzIS Error"))
     #
-    def cbx_arpos_current_changed(self):
-        # self.clear_contents()
-        self.tbar_headers.blockSignals(False)
-        gzis_funcs.sync_global_jsonfiles(self.cbx_ar_pos)
-        self.cbx_jsons.sync_widget(global_variables.json_files)
-
-    def cbx_paths_current_changed(self):
-        if self.cbx_jsons.currentIndex() != -1:
-            self.statusbar.addPermanentWidget(self.lbl_isaccept, 0)
-            self.statusbar.addPermanentWidget(self.cbx_isaccept, 0)
-            self.statusbar.showMessage(global_variables.current_path)
-            self.clear_contents()
-            self.tbar_headers.blockSignals(False)
-
-            gzis_funcs.set_tabbar(f"{global_variables.folder}/{self.cbx_ar_pos.currentText()}/"
-                                  f"{self.cbx_jsons.currentText()}", self.tbar_headers, False)
-
-    def clear_contents(self):
-        self.table_content.clear()
-        self.table_content.setColumnCount(0)
-        self.table_content.setRowCount(0)
-        self.tbar_headers.blockSignals(True)
-        while self.tbar_headers.count() > 0:
-            self.tbar_headers.removeTab(0)
-
-    def tbar_changed_trigger(self, idx):
-        json_data = global_variables.current_jsondata[self.tbar_headers.tabText(idx)]
-        # for test suites
-        if not self.check_exception.isChecked():
-            table_widget_tests.init_widget(self.table_content, json_data["tests"])
-        # for target
-        else:
-            table_widget_target.init_widget(self.table_content, json_data)
-
-    def btn_palette_trigger(self):
-        palette = QPalette()
-        if global_variables.is_light:
-            palette.setBrush(self.backgroundRole(), QColor(45, 45, 45))
-            global_variables.is_light = False
-        else:
-            palette.setBrush(self.backgroundRole(), QColor(220, 220, 220))
-            global_variables.is_light = True
-        self.setPalette(palette)
-
-    def check_target_trigger(self):
-        self.clear_contents()
-        if self.check_exception.isChecked():
-            self.set_cbx_enabled(False)
-            self.set_table_header_visible(False)
-            path = r"knownError\target.json"
-            gzis_funcs.set_tabbar(path, self.tbar_headers, True)
-            self.tbar_headers.blockSignals(False)
-            table_widget_target.init_widget(self.table_content,
-                                            global_variables.current_jsondata[self.tbar_headers.tabText(0)])
-        else:
-            self.set_cbx_enabled(True)
-            self.set_table_header_visible(True)
-            self.cbx_ar_pos.setCurrentIndex(-1)
-
-    def set_cbx_enabled(self, val: bool):
-        self.cbx_jsons.setEnabled(val)
-        self.cbx_ar_pos.setEnabled(val)
-
-    def set_table_header_visible(self, val: bool):
-        self.table_content.verticalHeader().setVisible(val)
-        self.table_content.horizontalHeader().setVisible(val)
-    #
-    # def set_items_stylesheets(self):
-    #     self.statusbar.setStyleSheet("QStatusBar{"
-    #                                  "padding-left:8px;background: rgb(45,45,45);"
-    #                                  "color:#fffff0;font-weight;}")
-    #     self.btn_palette.setStyleSheet("QPushButton{background-color: rgb(45 ,45, 45); margin-right: 10px; }")
-    #     self.check_exception.setStyleSheet("QCheckBox{color: #fffff0; margin-right: 10px; margin-left: 10px;}")
-    #     self.lbl_isaccept.setStyleSheet("QLabel{color: #fffff0; margin-left: 10px}")
-    #     with open("UIs/GzIs_cbx_style_sheet.css", "r") as cbxsheet:
-    #         self.cbx_isaccept.setStyleSheet(str(cbxsheet.read()))

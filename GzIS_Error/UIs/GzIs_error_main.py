@@ -82,7 +82,6 @@ class UiMainWindow(object):
         with open("UIs/GzIs_cbx_style_sheet.css", "r") as cbxsheet:
             self.cbx_isaccept.setStyleSheet(str(cbxsheet.read()))
 
-        # self.cbx_jsons.currentIndexChanged.connect(self.cbx_paths_current_changed)
         self.cbx_ar_pos.sync_widget(global_variables.json_paths)
         self.cbx_jsons.blockSignals(False)
 
@@ -103,12 +102,11 @@ class UiMainWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QPixmap('icons/palette.png'))
         self.btn_palette.setIcon(QIcon('icons/palette.png'))
-        # todo  self.btn_palette.clicked.connect(self.btn_palette_trigger)
+
 
         # when check_exception was clicked show other json (target.json)
         self.check_exception.setText("Exception Test Suites: ")
         self.check_exception.setLayoutDirection(Qt.RightToLeft)
-        # todo self.check_exception.clicked.connect(self.check_target_trigger)
 
         # filter combobox using as tests' is accept value
         self.lbl_isaccept.setText("Is Accept :")
