@@ -46,57 +46,60 @@ class Window(QMainWindow):
         self.cbx_isaccept = QComboBox()
         self.lbl_isaccept.setText("Is Accept :")
         self.cbx_isaccept.addItems(["All", "True", "False"])
-        self.cbx_isaccept.currentIndexChanged.connect(self.filter_cbx_trigger)
+        # connect event - if is cbxisaccpet current text == false (or true)
+        # remove items which item's accept value of isaccept  is True (for isaccpet= false)
+        self.cbx_isaccept.currentIndexChanged.connect(lambda: gzis_funcs.isaccepted_filter(
+                                                                self.table_content, self.cbx_isaccept.currentText()))
 
         # add widgets to status bar
         self.statusbar.addPermanentWidget(self.check_exception, 0)
         self.statusbar.addPermanentWidget(self.btn_palette, 0)
 
-        self.cbx_jsons = ComboBox.MyComboBox()
+        # select test as arinc or posix then select the any json file
         self.cbx_ar_pos = ComboBox.MyComboBox()
+        self.cbx_jsons = ComboBox.MyComboBox()
 
-        self.cbx_lay = QHBoxLayout()
-        self.cbx_lay.addWidget(self.cbx_ar_pos)
-        self.cbx_lay.addWidget(self.cbx_jsons)
+        self.layout_cbxes = QHBoxLayout()
+        self.layout_cbxes.addWidget(self.cbx_ar_pos)
+        self.layout_cbxes.addWidget(self.cbx_jsons)
 
-        self.tbar_headers = TabBar.CreateTabbar()
+        # then select a tab created dynamicly, its will create table dynamicly
         self.table_content = QTableWidget()
-
-        self.lay_content = QVBoxLayout()
-        self.lay_content.addWidget(self.tbar_headers)
-        self.lay_content.addWidget(self.table_content)
-
+        self.tbar_headers = TabBar.CreateTabbar()
         self.tbar_headers.currentChanged.connect(self.tbar_changed_trigger)
+
+        self.layout_content = QVBoxLayout()
+        self.layout_content.addWidget(self.tbar_headers)
+        self.layout_content.addWidget(self.table_content)
 
         self.setup_ui()
 
     def setup_ui(self):
-        self.setMinimumSize(QSize(1000, 500))
-        self.statusbar.setObjectName("statusbar")
-        self.setStatusBar(self.statusbar)
-        self.centralwidget.setObjectName("centralwidget")
-        self.setCentralWidget(self.centralwidget)
-        self.main_layout.setObjectName("gridLayout")
-
         self.cbx_jsons.setObjectName("cbx_paths")
+        self.statusbar.setObjectName("statusbar")
         self.cbx_ar_pos.setObjectName("cbx_chooser")
+        self.main_layout.setObjectName("gridLayout")
+        self.tbar_headers.setObjectName("tabbar_headers")
+        self.centralwidget.setObjectName("centralwidget")
 
-        self.cbx_ar_pos.sync_widget(global_variables.json_paths)
-        self.cbx_ar_pos.setCurrentIndex(-1)
+        self.setStatusBar(self.statusbar)
+        self.setMinimumSize(QSize(1000, 500))
+        self.setCentralWidget(self.centralwidget)
+
         self.cbx_ar_pos.currentIndexChanged.connect(self.cbx_arpos_current_changed)
         self.cbx_jsons.currentIndexChanged.connect(self.cbx_paths_current_changed)
+        self.cbx_ar_pos.sync_widget(global_variables.json_paths)
+        self.cbx_ar_pos.setCurrentIndex(-1)
         self.cbx_jsons.blockSignals(False)
 
         size_policy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        size_policy.setHeightForWidth(self.cbx_ar_pos.sizePolicy().hasHeightForWidth())
         size_policy.setHorizontalStretch(0)
         size_policy.setVerticalStretch(0)
-        size_policy.setHeightForWidth(self.cbx_ar_pos.sizePolicy().hasHeightForWidth())
         self.cbx_ar_pos.setSizePolicy(size_policy)
 
-        self.tbar_headers.setObjectName("tabbar_headers")
-
-        self.main_layout.addLayout(self.cbx_lay, 0, 0)
-        self.main_layout.addLayout(self.lay_content, 1, 0, Qt.AlignTop)
+        self.main_layout.addLayout(self.layout_cbxes, 0, 0)
+        self.main_layout.addLayout(self.layout_content, 1, 0, Qt.AlignTop)
 
         self.retranslate_ui()
         QMetaObject.connectSlotsByName(self)
@@ -132,32 +135,22 @@ class Window(QMainWindow):
             self.tbar_headers.removeTab(0)
 
     def tbar_changed_trigger(self, idx):
+        json_data = global_variables.current_jsondata[self.tbar_headers.tabText(idx)]
         if not self.check_exception.isChecked():
             self.set_table_header_visible(True)
-            table_widget_tests.init_widget(self.table_content,
-                                           global_variables.current_jsondata[self.tbar_headers.tabText(idx)]["tests"])
+            table_widget_tests.init_widget(self.table_content, json_data["tests"])
         else:
             self.set_table_header_visible(False)
-            table_widget_target.init_widget(self.table_content,
-                                            global_variables.current_jsondata[self.tbar_headers.tabText(idx)])
-
-    def filter_cbx_trigger(self):
-        gzis_funcs.isaccepted_filter(self.table_content, self.cbx_isaccept.currentText())
+            table_widget_target.init_widget(self.table_content, json_data)
 
     def btn_palette_trigger(self):
         palette = QPalette()
-
         if global_variables.is_light:
             palette.setBrush(self.backgroundRole(), QColor(45, 45, 45))
-            print(bool(global_variables.is_light))
-
             global_variables.is_light = False
         else:
             palette.setBrush(self.backgroundRole(), QColor(220, 220, 220))
-
-            print(bool(global_variables.is_light))
             global_variables.is_light = True
-
         self.setPalette(palette)
 
     def rbt_target_trigger(self):
@@ -167,11 +160,9 @@ class Window(QMainWindow):
             path = r"knownError\target.json"
             gzis_funcs.set_tabbar(path, self.tbar_headers, True)
             self.tbar_headers.blockSignals(False)
-
         else:
             self.set_cbx_enabled(True)
             self.cbx_ar_pos.setCurrentIndex(-1)
-            # self.cbx_jsons.setCurrentIndex(0)
 
     def set_cbx_enabled(self, val: bool):
         self.cbx_jsons.setEnabled(val)
