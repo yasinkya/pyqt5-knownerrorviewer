@@ -26,7 +26,7 @@ class UiMainWindow(object):
         self.layout_content = QVBoxLayout()
         self.menubar = QMenuBar()
         self.menu = QMenu()
-        self.x_btn = QToolButton()
+        # self.x_btn = QToolButton()
         self.main_layout = QGridLayout(self.centralwidget)
 
     def setup_ui(self, main_window):
@@ -35,10 +35,9 @@ class UiMainWindow(object):
         main_window.setMenuBar(self.menubar)
         main_window.setStatusBar(self.statusbar)
         main_window.setCentralWidget(self.centralwidget)
-        self.x_btn.clicked.connect(main_window.close)
-        main_window.menuBar().setCornerWidget(self.x_btn)
 
-        main_window.setWindowFlag(Qt.FramelessWindowHint)
+        # self.x_btn.clicked.connect(main_window.close)
+        # main_window.menuBar().setCornerWidget(self.x_btn)
 
         # Mainwindow Window icon
         fname = r'icons/raptiye.png'
@@ -63,7 +62,9 @@ class UiMainWindow(object):
 
         self.init_statusbar()
         self.init_comboboxes()
-        self.init_custom_tilebar()
+
+        # main_window.setWindowFlag(Qt.FramelessWindowHint)
+        # self.init_custom_tilebar()
 
     @staticmethod
     def retranslate_ui(main_window):

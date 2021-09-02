@@ -1,5 +1,5 @@
 from PyQt5 import QtGui
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QObject, QEvent
 from PyQt5.QtGui import QColor, QPalette, QPixmap, QIcon
 from PyQt5.QtWidgets import QMainWindow, QTableWidget, QSizePolicy, QPushButton, QToolButton
 from GzIS_Error import global_variables, gzis_funcs
@@ -11,17 +11,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
 
-        # self.setWindowFlag(Qt.FramelessWindowHint)
+        self.setWindowFlag(Qt.FramelessWindowHint)
         self.btn_close = QToolButton()
         self.setupUi(self)
-
 
     def setupUi(self, MainWindow):
         super().setupUi(self)
 
         # Custom tilebar actions - close
         self.btn_close.setText("x")
-        self.btn_close.setStyleSheet("QToolButton{ background-color: red; color: white; font-size: 17px;"
-                                     "min-width: 1em; max-height: 1em;}")
+        self.btn_close.setStyleSheet("QToolButton{ background-color: rgb(45,45,40); color: #fffff0; font-size: 15px;"
+                                     "min-width: 1.6em; max-height: 1.5em;"
+                                     "}")
         self.btn_close.clicked.connect(self.close)
+        self.tilebar_custom.setStyleSheet("QMenuBar{background-color: rgb(145,45,45); color: #fffff0}"
+                                          "QMenu{background-color: rgb(70,70,70);}")
         self.tilebar_custom.setCornerWidget(self.btn_close)
+        self.tilebar_custom.installEventFilter(self)
+
+    def eventFilter(self, obj: QObject, evn: QEvent):
+        if obj == self.tilebar_custom:
+            print(evn)
+        return super().eventFilter(obj, evn)

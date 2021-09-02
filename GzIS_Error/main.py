@@ -16,8 +16,8 @@ def main():
 
     gzis_funcs.read_paths()
     app = QApplication(sys.argv)
-    # win = Main_Window.Window()
-    win = MainWindow()
+    win = Main_Window.Window()
+    # win = MainWindow()
     win.show()
     sys.exit(app.exec())
 
