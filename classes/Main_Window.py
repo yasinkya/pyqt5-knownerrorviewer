@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtGui import QPalette, QColor
-from GzIS_Error.UIs import GzIs_error_main
-from GzIS_Error import global_variables, gzis_funcs
-from GzIS_Error.classes import table_widget_tests, table_widget_target
+from UIs import GzIs_error_main
+import global_variables, gzis_funcs
+from classes import table_widget_tests, table_widget_target
 
 
 class Window(QMainWindow):

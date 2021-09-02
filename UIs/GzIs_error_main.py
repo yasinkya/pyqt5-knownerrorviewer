@@ -5,8 +5,8 @@ from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtWidgets import QWidget, QGridLayout, QStatusBar, QPushButton, QCheckBox, QLabel, QComboBox, QHBoxLayout, \
     QTableWidget, QVBoxLayout, QSizePolicy, QMenuBar, QMenu, QToolButton
 
-from GzIS_Error import gzis_funcs, global_variables
-from GzIS_Error.classes import ComboBox, TabBar
+import gzis_funcs, global_variables
+from classes import ComboBox, TabBar
 
 
 class UiMainWindow(object):

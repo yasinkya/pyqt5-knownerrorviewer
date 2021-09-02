@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QAbstractScrollArea, QSizePolicy
-from GzIS_Error.classes import tree_widget
+from classes import tree_widget
 import webbrowser
 
 

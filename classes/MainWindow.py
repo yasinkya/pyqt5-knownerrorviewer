@@ -2,9 +2,9 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import Qt, QObject, QEvent
 from PyQt5.QtGui import QColor, QPalette, QPixmap, QIcon
 from PyQt5.QtWidgets import QMainWindow, QTableWidget, QSizePolicy, QPushButton, QToolButton
-from GzIS_Error import global_variables, gzis_funcs
-from GzIS_Error.UIs.GzIS_main_window import Ui_MainWindow
-from GzIS_Error.classes import table_widget_target, table_widget_tests, TabBar, ComboBox
+import global_variables, gzis_funcs
+from UIs.GzIS_main_window import Ui_MainWindow
+from classes import table_widget_target, table_widget_tests, TabBar, ComboBox
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
