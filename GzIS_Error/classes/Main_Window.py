@@ -31,6 +31,8 @@ class Window(QMainWindow):
         self.cbx_jsons.currentIndexChanged.connect(self.cbx_paths_current_changed)
         self.btn_palette.clicked.connect(self.btn_palette_trigger)
         self.check_exception.clicked.connect(self.check_target_trigger)
+        self.cbx_ar_pos.setCurrentIndex(1)
+
 
     def cbx_arpos_current_changed(self):
         # self.clear_contents()
@@ -89,7 +91,7 @@ class Window(QMainWindow):
         else:
             self.set_cbx_enabled(True)
             self.set_table_header_visible(True)
-            self.cbx_ar_pos.setCurrentIndex(-1)
+            self.cbx_ar_pos.setCurrentIndex(0)
 
     def set_cbx_enabled(self, val: bool):
         self.cbx_jsons.setEnabled(val)
