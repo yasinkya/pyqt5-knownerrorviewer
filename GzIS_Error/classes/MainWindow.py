@@ -1,36 +1,26 @@
+from PyQt5.QtGui import QColor, QPalette
 from PyQt5.QtWidgets import QMainWindow
-from PyQt5.QtGui import QPalette, QColor
-from GzIS_Error.UIs import GzIs_error_main
 from GzIS_Error import global_variables, gzis_funcs
-from GzIS_Error.classes import table_widget_tests, table_widget_target
+from GzIS_Error.UIs.GzIS_main_window import Ui_MainWindow
+from GzIS_Error.classes import table_widget_target, table_widget_tests
 
 
-class Window(QMainWindow):
+class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
-        super(Window, self).__init__()
-        main_ui = GzIs_error_main.UiMainWindow()
-        main_ui.setup_ui(self)
-
-        self.cbx_jsons = main_ui.cbx_jsons
-        self.statusbar = main_ui.statusbar
-        self.cbx_ar_pos = main_ui.cbx_ar_pos
-        self.btn_palette = main_ui.btn_palette
-        self.cbx_isaccept = main_ui.cbx_isaccept
-        self.tbar_headers = main_ui.tbar_headers
-        self.lbl_isaccept = main_ui.lbl_isaccept
-        self.table_content = main_ui.table_content
-        self.check_exception = main_ui.check_exception
-
-        self.setup_widget()
+        super().__init__()
+        self.setupUi(self)
 
 
-    def setup_widget(self):
+    def setupUi(self, MainWindow):
+        super().setupUi(self)
+
         self.btn_palette.clicked.connect(self.btn_palette_trigger)
         self.check_exception.clicked.connect(self.check_target_trigger)
         self.tbar_headers.currentChanged.connect(self.tbar_changed_trigger)
         self.cbx_ar_pos.currentIndexChanged.connect(self.cbx_arpos_current_changed)
         self.cbx_jsons.currentIndexChanged.connect(self.cbx_paths_current_changed)
         self.cbx_ar_pos.setCurrentIndex(1)
+
 
     def cbx_arpos_current_changed(self):
         self.clear_contents()
@@ -98,3 +88,6 @@ class Window(QMainWindow):
     def set_table_header_visible(self, val: bool):
         self.table_content.verticalHeader().setVisible(val)
         self.table_content.horizontalHeader().setVisible(val)
+
+
+
