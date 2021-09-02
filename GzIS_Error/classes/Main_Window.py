@@ -39,7 +39,7 @@ class Window(QMainWindow):
         self.check_exception = QCheckBox()
         self.check_exception.setText("Exception Test Suites: ")
         self.check_exception.setLayoutDirection(Qt.RightToLeft)
-        self.check_exception.clicked.connect(self.rbt_target_trigger)
+        self.check_exception.clicked.connect(self.check_target_trigger)
 
         # filter combobox using as tests' is accept value
         self.lbl_isaccept = QLabel()
@@ -72,6 +72,7 @@ class Window(QMainWindow):
         self.layout_content.addWidget(self.tbar_headers)
         self.layout_content.addWidget(self.table_content)
 
+        self.set_items_stylesheets()
         self.setup_ui()
 
     def setup_ui(self):
@@ -136,9 +137,11 @@ class Window(QMainWindow):
 
     def tbar_changed_trigger(self, idx):
         json_data = global_variables.current_jsondata[self.tbar_headers.tabText(idx)]
+        # for test suites
         if not self.check_exception.isChecked():
             self.set_table_header_visible(True)
             table_widget_tests.init_widget(self.table_content, json_data["tests"])
+        # for target
         else:
             self.set_table_header_visible(False)
             table_widget_target.init_widget(self.table_content, json_data)
@@ -153,13 +156,16 @@ class Window(QMainWindow):
             global_variables.is_light = True
         self.setPalette(palette)
 
-    def rbt_target_trigger(self):
+    def check_target_trigger(self):
         self.clear_contents()
         if self.check_exception.isChecked():
             self.set_cbx_enabled(False)
             path = r"knownError\target.json"
             gzis_funcs.set_tabbar(path, self.tbar_headers, True)
             self.tbar_headers.blockSignals(False)
+            table_widget_target.init_widget(self.table_content,
+                                            global_variables.current_jsondata[self.tbar_headers.tabText(0)])
+            self.set_table_header_visible(False)
         else:
             self.set_cbx_enabled(True)
             self.cbx_ar_pos.setCurrentIndex(-1)
