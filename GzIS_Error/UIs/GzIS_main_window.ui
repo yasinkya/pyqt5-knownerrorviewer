@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>759</width>
+    <height>487</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="1">
+     <layout class="QHBoxLayout" name="lay_cboxes">
+      <item>
+       <widget class="QComboBox" name="cbx_ar_pos">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="cbx_jsons"/>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="1">
+     <layout class="QVBoxLayout" name="lay_contents">
+      <item>
+       <widget class="QTableWidget" name="table_contents"/>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="tilebar_custom">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>759</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFilter">
+    <property name="title">
+     <string>Filter</string>
+    </property>
+    <widget class="QMenu" name="menuTest_Suites_isAccept">
+     <property name="title">
+      <string>Test Suites isAccept</string>
+     </property>
+     <addaction name="actionAll"/>
+     <addaction name="actionTrue"/>
+     <addaction name="actionFalse"/>
+    </widget>
+    <addaction name="menuTest_Suites_isAccept"/>
+   </widget>
+   <addaction name="menuFilter"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionAll">
+   <property name="text">
+    <string>All</string>
+   </property>
+  </action>
+  <action name="actionTrue">
+   <property name="text">
+    <string>True</string>
+   </property>
+  </action>
+  <action name="actionFalse">
+   <property name="text">
+    <string>False</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

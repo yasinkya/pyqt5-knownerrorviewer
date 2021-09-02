@@ -13,7 +13,6 @@ class UiMainWindow(object):
     def __init__(self):
         super(UiMainWindow, self).__init__()
         self.centralwidget = QWidget()
-        self.main_layout = QGridLayout(self.centralwidget)
         self.statusbar = QStatusBar()
         self.btn_palette = QPushButton()
         self.check_exception = QCheckBox()
@@ -28,6 +27,7 @@ class UiMainWindow(object):
         self.menubar = QMenuBar()
         self.menu = QMenu()
         self.x_btn = QToolButton()
+        self.main_layout = QGridLayout(self.centralwidget)
 
     def setup_ui(self, main_window):
         main_window.setObjectName("MainWindow")
@@ -38,8 +38,7 @@ class UiMainWindow(object):
         self.x_btn.clicked.connect(main_window.close)
         main_window.menuBar().setCornerWidget(self.x_btn)
 
-        # todo: custom mainwindow tilebar
-        # self.setWindowFlag(Qt.FramelessWindowHint)
+        main_window.setWindowFlag(Qt.FramelessWindowHint)
 
         # Mainwindow Window icon
         fname = r'icons/raptiye.png'
@@ -102,7 +101,6 @@ class UiMainWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QPixmap('icons/palette.png'))
         self.btn_palette.setIcon(QIcon('icons/palette.png'))
-
 
         # when check_exception was clicked show other json (target.json)
         self.check_exception.setText("Exception Test Suites: ")
