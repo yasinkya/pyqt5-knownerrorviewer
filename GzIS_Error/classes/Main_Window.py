@@ -1,8 +1,8 @@
 from PyQt5 import QtGui
-from PyQt5.QtCore import Qt, QSize, QMetaObject, QCoreApplication
+from PyQt5.QtCore import Qt, QSize, QMetaObject, QCoreApplication, QRect
 from PyQt5.QtGui import QIcon, QPalette, QPixmap, QColor
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QStatusBar, QGridLayout, \
-    QSizePolicy, QTableWidget, QPushButton, QComboBox, QLabel, QCheckBox
+    QSizePolicy, QTableWidget, QPushButton, QComboBox, QLabel, QCheckBox, QMenuBar, QMenu, QToolButton
 from GzIS_Error import global_variables, gzis_funcs
 from GzIS_Error.classes import ComboBox, TabBar, table_widget_tests, table_widget_target
 from PIL import Image
@@ -68,6 +68,7 @@ class Window(QMainWindow):
         self.tbar_headers = TabBar.CreateTabbar()
         self.tbar_headers.currentChanged.connect(self.tbar_changed_trigger)
 
+        # this layout at main grid layout add tbar and tablewidget
         self.layout_content = QVBoxLayout()
         self.layout_content.addWidget(self.tbar_headers)
         self.layout_content.addWidget(self.table_content)
@@ -90,7 +91,6 @@ class Window(QMainWindow):
         self.cbx_ar_pos.currentIndexChanged.connect(self.cbx_arpos_current_changed)
         self.cbx_jsons.currentIndexChanged.connect(self.cbx_paths_current_changed)
         self.cbx_ar_pos.sync_widget(global_variables.json_paths)
-        self.cbx_ar_pos.setCurrentIndex(-1)
         self.cbx_jsons.blockSignals(False)
 
         size_policy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
@@ -99,18 +99,29 @@ class Window(QMainWindow):
         size_policy.setVerticalStretch(0)
         self.cbx_ar_pos.setSizePolicy(size_policy)
 
+        menubar = QMenuBar(self)
+        menubar.setObjectName("menubar")
+        self.setMenuBar(menubar)
+        self.menu = QMenu()
+        self.menu.setTitle("kak")
+        self.menu.addAction("kek")
+        self.menu.setObjectName("menu")
+        menubar.addAction(self.menu.menuAction())
+        x_btn = QToolButton()
+        x_btn.setText("X")
+        x_btn.clicked.connect(self.close)
+        self.menuBar().setCornerWidget(x_btn)
+
         self.main_layout.addLayout(self.layout_cbxes, 0, 0)
         self.main_layout.addLayout(self.layout_content, 1, 0, Qt.AlignTop)
 
         self.retranslate_ui()
-        QMetaObject.connectSlotsByName(self)
 
     def retranslate_ui(self):
         _translate = QCoreApplication.translate
         self.setWindowTitle(_translate("GzIS Error", "GzIS Error"))
 
     def cbx_arpos_current_changed(self):
-        # self.cbx_jsons.blockSignals(True)
         self.clear_contents()
         self.tbar_headers.blockSignals(False)
         gzis_funcs.sync_global_jsonfiles(self.cbx_ar_pos)
@@ -139,11 +150,9 @@ class Window(QMainWindow):
         json_data = global_variables.current_jsondata[self.tbar_headers.tabText(idx)]
         # for test suites
         if not self.check_exception.isChecked():
-            self.set_table_header_visible(True)
             table_widget_tests.init_widget(self.table_content, json_data["tests"])
         # for target
         else:
-            self.set_table_header_visible(False)
             table_widget_target.init_widget(self.table_content, json_data)
 
     def btn_palette_trigger(self):
@@ -160,14 +169,15 @@ class Window(QMainWindow):
         self.clear_contents()
         if self.check_exception.isChecked():
             self.set_cbx_enabled(False)
+            self.set_table_header_visible(False)
             path = r"knownError\target.json"
             gzis_funcs.set_tabbar(path, self.tbar_headers, True)
             self.tbar_headers.blockSignals(False)
             table_widget_target.init_widget(self.table_content,
                                             global_variables.current_jsondata[self.tbar_headers.tabText(0)])
-            self.set_table_header_visible(False)
         else:
             self.set_cbx_enabled(True)
+            self.set_table_header_visible(True)
             self.cbx_ar_pos.setCurrentIndex(-1)
 
     def set_cbx_enabled(self, val: bool):
