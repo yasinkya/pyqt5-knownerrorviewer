@@ -1,6 +1,6 @@
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt, QObject, QEvent
-from PyQt5.QtGui import QColor, QPalette, QPixmap, QIcon
+from PyQt5.QtGui import QColor, QPalette, QPixmap, QIcon, QDragMoveEvent
 from PyQt5.QtWidgets import QMainWindow, QTableWidget, QSizePolicy, QPushButton, QToolButton
 import global_variables, gzis_funcs
 from UIs.GzIS_main_window import Ui_MainWindow
@@ -27,9 +27,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tilebar_custom.setStyleSheet("QMenuBar{background-color: rgb(145,45,45); color: #fffff0}"
                                           "QMenu{background-color: rgb(70,70,70);}")
         self.tilebar_custom.setCornerWidget(self.btn_close)
-        self.tilebar_custom.installEventFilter(self)
+
+
 
     def eventFilter(self, obj: QObject, evn: QEvent):
         if obj == self.tilebar_custom:
-            print(evn)
+            print(evn.type())
+            if evn.type() ==2:
+                print(obj)
+                self.setWindowFlag(Qt.BypassGraphicsProxyWidget)
         return super().eventFilter(obj, evn)
