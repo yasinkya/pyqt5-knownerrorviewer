@@ -6,16 +6,16 @@ import global_variables as globvar
 
 def read_paths():
     for path in glob.glob(f"{globvar.folder}/*"):
-        if str(path).split("\\")[-1] in "summary-info":
+        if str(path).split("/")[-1] in "summary-info":
             continue
-        globvar.json_paths.append(str(path).split("\\")[-1])
+        globvar.json_paths.append(str(path).split("/")[-1])
 
 
 def sync_global_jsonfiles(combo_box: QComboBox):
     globvar.current_path = f"{globvar.folder}"
     globvar.json_files.clear()
     for file in glob.glob(f"{globvar.folder}/{combo_box.currentText()}/*.json"):
-        globvar.json_files.append(str(file).split("\\")[-1])
+        globvar.json_files.append(str(file).split("/")[-1])
 
 
 def set_tabbar(json_path, tabbar: QTabBar, target: bool):
