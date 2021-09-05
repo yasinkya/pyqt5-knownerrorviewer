@@ -4,11 +4,11 @@ import glob
 import global_variables as globvar
 
 
-def load_paths():
-    paths = []
-    for path in glob.glob("../jsons/*.json"):
-        paths.append(str(path).split("/")[-1])
-    globvar.json_paths = paths
+def read_paths():
+    for path in glob.glob(f"{globvar.folder}/*"):
+        if str(path).split("/")[-1] in "summary-info":
+            continue
+        globvar.json_paths.append(str(path).split("/")[-1])
 
 
 def read_json(file_name):

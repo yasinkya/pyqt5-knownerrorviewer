@@ -4,11 +4,7 @@ from PyQt5.QtWidgets import QComboBox, QTabBar, QTableWidget, QTreeWidget
 import global_variables as globvar
 
 
-def read_paths():
-    for path in glob.glob(f"{globvar.folder}/*"):
-        if str(path).split("/")[-1] in "summary-info":
-            continue
-        globvar.json_paths.append(str(path).split("/")[-1])
+
 
 
 def sync_global_jsonfiles(combo_box: QComboBox):
