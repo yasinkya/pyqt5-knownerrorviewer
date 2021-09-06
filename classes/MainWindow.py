@@ -1,6 +1,6 @@
 from PyQt5 import QtGui
-from PyQt5.QtCore import Qt, QObject, QEvent
-from PyQt5.QtGui import QColor, QPalette, QPixmap, QIcon, QDragMoveEvent
+from PyQt5.QtCore import Qt, QObject, QEvent, QPoint
+from PyQt5.QtGui import QColor, QPalette, QPixmap, QIcon, QDragMoveEvent, QMouseEvent
 from PyQt5.QtWidgets import QMainWindow, QTableWidget, QSizePolicy, QPushButton, QToolButton
 import global_variables
 import gzis_funcs
