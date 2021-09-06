@@ -14,11 +14,10 @@ args = parser.parse_args()
 
 def main():
     global_variables.folder = args.path
-
     json_func.read_paths()
     app = QApplication(sys.argv)
-    win = Main_Window.Window()
-    # win = MainWindow()
+    # win = Main_Window.Window()
+    win = MainWindow()
     win.show()
     sys.exit(app.exec())
 

@@ -2,7 +2,8 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import Qt, QObject, QEvent
 from PyQt5.QtGui import QColor, QPalette, QPixmap, QIcon, QDragMoveEvent
 from PyQt5.QtWidgets import QMainWindow, QTableWidget, QSizePolicy, QPushButton, QToolButton
-import global_variables, gzis_funcs
+import global_variables
+import gzis_funcs
 from UIs.GzIS_main_window import Ui_MainWindow
 from classes import table_widget_target, table_widget_tests, TabBar, ComboBox
 
@@ -10,9 +11,10 @@ from classes import table_widget_target, table_widget_tests, TabBar, ComboBox
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-
+        self.resize(700, 500)
         self.setWindowFlag(Qt.FramelessWindowHint)
         self.btn_close = QToolButton()
+        self.curpos = QPoint()
         self.setupUi(self)
 
     def setupUi(self, MainWindow):
@@ -28,9 +30,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                           "QMenu{background-color: rgb(70,70,70);}")
         self.tilebar_custom.setCornerWidget(self.btn_close)
 
+    def eventFilter(self, obj: QObject, evn: QMouseEvent):
 
-
-    def eventFilter(self, obj: QObject, evn: QEvent):
         if obj == self.tilebar_custom:
             print(evn.type())
             if evn.type() ==2:
