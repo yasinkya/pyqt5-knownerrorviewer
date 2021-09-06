@@ -1,24 +1,22 @@
-from PyQt5 import QtGui
 from PyQt5.QtCore import Qt, QObject, QEvent, QPoint
-from PyQt5.QtGui import QColor, QPalette, QPixmap, QIcon, QDragMoveEvent, QMouseEvent
-from PyQt5.QtWidgets import QMainWindow, QTableWidget, QSizePolicy, QPushButton, QToolButton
-import global_variables
-import gzis_funcs
-from UIs.GzIS_main_window import Ui_MainWindow
-from classes import table_widget_target, table_widget_tests, TabBar, ComboBox
+from PyQt5.QtGui import QMouseEvent
+from PyQt5.QtWidgets import QToolButton
+from classes.Main_Window import Window
 
 
-class MainWindow(QMainWindow, Ui_MainWindow):
+class MainWindow(Window):
     def __init__(self):
-        super().__init__()
+        super(Window, self).__init__()
         self.resize(700, 500)
-        self.setWindowFlag(Qt.FramelessWindowHint)
         self.btn_close = QToolButton()
         self.curpos = QPoint()
         self.setupUi(self)
 
+        self.setWindowFlag(Qt.FramelessWindowHint)
+
     def setupUi(self, MainWindow):
         super().setupUi(self)
+        print("custom tilebar")
 
         # Custom tilebar actions - close
         self.btn_close.setText("x")
@@ -26,15 +24,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                      "min-width: 1.6em; max-height: 1.5em;"
                                      "}")
         self.btn_close.clicked.connect(self.close)
-        self.tilebar_custom.setStyleSheet("QMenuBar{background-color: rgb(145,45,45); color: #fffff0}"
+        self.menubar.setStyleSheet("QMenuBar{background-color: rgb(145,45,45); color: #fffff0}"
                                           "QMenu{background-color: rgb(70,70,70);}")
-        self.tilebar_custom.setCornerWidget(self.btn_close)
+        self.menubar.setCornerWidget(self.btn_close)
 
-    def eventFilter(self, obj: QObject, evn: QMouseEvent):
+    def eventFilter(self, obj: QObject, _event: QMouseEvent):
+        if _event.type() == QEvent.MouseButtonPress:
+            self.curpos = _event.pos()
 
-        if obj == self.tilebar_custom:
-            print(evn.type())
-            if evn.type() ==2:
-                print(obj)
-                self.setWindowFlag(Qt.BypassGraphicsProxyWidget)
-        return super().eventFilter(obj, evn)
+        if _event.type() == QEvent.MouseMove:
+            if _event.buttons() & Qt.LeftButton:
+                offset = _event.pos()
+                self.move(self.pos() + offset - self.curpos)
+        return super().eventFilter(obj, _event)

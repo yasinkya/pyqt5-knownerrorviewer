@@ -21,14 +21,14 @@ class Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)
-        self.layout_content.addWidget(self.tbar_headers)
+        # self.layout_content.addWidget(self.tbar_headers)
         self.setup_widget()
         self.init_comboboxes()
         self.init_statusbar()
     def setup_widget(self):
-        self.btn_palette.clicked.connect(self.btn_palette_trigger)
-        self.check_exception.clicked.connect(self.check_target_trigger)
-        self.tbar_headers.currentChanged.connect(self.tbar_changed_trigger)
+        # self.btn_palette.clicked.connect(self.btn_palette_trigger)
+        # self.check_exception.clicked.connect(self.check_target_trigger)
+        # self.tbar_headers.currentChanged.connect(self.tbar_changed_trigger)
         self.cbx_ar_pos.currentIndexChanged.connect(self.cbx_arpos_current_changed)
         self.cbx_jsons.currentIndexChanged.connect(self.cbx_paths_current_changed)
         self.cbx_ar_pos.setCurrentIndex(1)
@@ -71,7 +71,7 @@ class Window(QMainWindow, Ui_MainWindow):
     def btn_palette_trigger(self):
         palette = QPalette()
         if global_variables.is_light:
-            palette.setBrush(self.backgroundRole(), QColor(45, 45, 45))
+            palette.setBrush(self.backgroundRole(), QColor(30, 30, 30))
             global_variables.is_light = False
         else:
             palette.setBrush(self.backgroundRole(), QColor(220, 220, 220))
@@ -107,11 +107,11 @@ class Window(QMainWindow, Ui_MainWindow):
         self.statusbar.setObjectName("statusbar")
         self.cbx_ar_pos.setObjectName("cbx_chooser")
 
-        self.tbar_headers.setObjectName("tabbar_headers")
+        # self.tbar_headers.setObjectName("tabbar_headers")
         self.centralwidget.setObjectName("centralwidget")
 
-        with open("UIs/GzIs_cbx_style_sheet.css", "r") as cbxsheet:
-            self.cbx_isaccept.setStyleSheet(str(cbxsheet.read()))
+        # with open("UIs/GzIs_cbx_style_sheet.css", "r") as cbxsheet:
+        #     self.cbx_isaccept.setStyleSheet(str(cbxsheet.read()))
 
         self.cbx_ar_pos.addItems(global_variables.json_paths)
         self.cbx_jsons.blockSignals(False)
@@ -126,26 +126,26 @@ class Window(QMainWindow, Ui_MainWindow):
         self.statusbar.setStyleSheet("QStatusBar{"
                                      "padding-left:8px;background: rgb(45,45,45);"
                                      "color:#fffff0;font-weight;}")
-        self.btn_palette.setStyleSheet("QPushButton{background-color: rgb(45 ,45, 45); margin-right: 10px; }")
-        self.check_exception.setStyleSheet("QCheckBox{color: #fffff0; margin-right: 10px; margin-left: 10px;}")
-        self.lbl_isaccept.setStyleSheet("QLabel{color: #fffff0; margin-left: 10px}")
+        # self.btn_palette.setStyleSheet("QPushButton{background-color: rgb(45 ,45, 45); margin-right: 10px; }")
+        # self.check_exception.setStyleSheet("QCheckBox{color: #fffff0; margin-right: 10px; margin-left: 10px;}")
+        # self.lbl_isaccept.setStyleSheet("QLabel{color: #fffff0; margin-left: 10px}")
         # Change Main window's palette with button at statusbar
         icon = QtGui.QIcon()
         icon.addPixmap(QPixmap('icons/palette.png'))
-        self.btn_palette.setIcon(QIcon('icons/palette.png'))
+        # self.btn_palette.setIcon(QIcon('icons/palette.png'))
 
         # when check_exception was clicked show other json (target.json)
-        self.check_exception.setText("Exception Test Suites: ")
-        self.check_exception.setLayoutDirection(Qt.RightToLeft)
+        # self.check_exception.setText("Exception Test Suites: ")
+        # self.check_exception.setLayoutDirection(Qt.RightToLeft)
 
         # filter combobox using as tests' is accept value
-        self.lbl_isaccept.setText("Is Accept :")
-        self.cbx_isaccept.addItems(["All", "True", "False"])
+        # self.lbl_isaccept.setText("Is Accept :")
+        # self.cbx_isaccept.addItems(["All", "True", "False"])
         # connect event - if is cbxisaccpet current text == false (or true)
         # remove items which item's accept value of isaccept  is True (for isaccpet= false)
-        self.cbx_isaccept.currentIndexChanged.connect(lambda: gzis_funcs.isaccepted_filter(
-            self.table_content, self.cbx_isaccept.currentText()))
-
-        # add widgets to status bar
-        self.statusbar.addPermanentWidget(self.check_exception, 0)
-        self.statusbar.addPermanentWidget(self.btn_palette, 0)
+        # self.cbx_isaccept.currentIndexChanged.connect(lambda: gzis_funcs.isaccepted_filter(
+        #     self.table_content, self.cbx_isaccept.currentText()))
+        #
+        # # add widgets to status bar
+        # self.statusbar.addPermanentWidget(self.check_exception, 0)
+        # self.statusbar.addPermanentWidget(self.btn_palette, 0)
