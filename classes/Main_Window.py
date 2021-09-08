@@ -2,7 +2,7 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QSizePolicy, QPushButton, QCheckBox, QLabel, QComboBox
 from PyQt5.QtGui import QPalette, QColor, QPixmap, QIcon
-import global_variables, gzis_funcs
+import globvars, gzis_funcs
 from classes import table_widget_tests, table_widget_target, TabBar
 from UIs.GzIs_error_main import Ui_MainWindow
 
@@ -38,17 +38,17 @@ class Window(QMainWindow, Ui_MainWindow):
         self.tbar_headers.blockSignals(False)
         gzis_funcs.sync_global_jsonfiles(self.cbx_ar_pos)
         self.cbx_jsons.clear()
-        self.cbx_jsons.addItems(global_variables.json_files)
+        self.cbx_jsons.addItems(globvars.json_files)
 
     def cbx_paths_current_changed(self):
         if self.cbx_jsons.currentIndex() != -1:
             self.clear_contents()
             self.statusbar.addPermanentWidget(self.lbl_isaccept, 0)
             self.statusbar.addPermanentWidget(self.cbx_isaccept, 0)
-            self.statusbar.showMessage(global_variables.current_path)
+            self.statusbar.showMessage(globvars.current_path)
             self.tbar_headers.blockSignals(False)
 
-            gzis_funcs.set_tabbar(f"{global_variables.folder}/{self.cbx_ar_pos.currentText()}/"
+            gzis_funcs.set_tabbar(f"{globvars.folder}/{self.cbx_ar_pos.currentText()}/"
                                   f"{self.cbx_jsons.currentText()}", self.tbar_headers, False)
 
     def clear_contents(self):
@@ -60,7 +60,7 @@ class Window(QMainWindow, Ui_MainWindow):
             self.tbar_headers.removeTab(0)
 
     def tbar_changed_trigger(self, idx):
-        json_data = global_variables.current_jsondata[self.tbar_headers.tabText(idx)]
+        json_data = globvars.current_jsondata[self.tbar_headers.tabText(idx)]
         # for test suites
         if not self.check_exception.isChecked():
             table_widget_tests.init_widget(self.table_content, json_data["tests"])
@@ -70,12 +70,12 @@ class Window(QMainWindow, Ui_MainWindow):
 
     def btn_palette_trigger(self):
         palette = QPalette()
-        if global_variables.is_light:
+        if globvars.is_light:
             palette.setBrush(self.backgroundRole(), QColor(30, 30, 30))
-            global_variables.is_light = False
+            globvars.is_light = False
         else:
             palette.setBrush(self.backgroundRole(), QColor(220, 220, 220))
-            global_variables.is_light = True
+            globvars.is_light = True
         self.setPalette(palette)
 
     def check_target_trigger(self):
@@ -87,7 +87,7 @@ class Window(QMainWindow, Ui_MainWindow):
             gzis_funcs.set_tabbar(path, self.tbar_headers, True)
             self.tbar_headers.blockSignals(False)
             table_widget_target.init_widget(self.table_content,
-                                            global_variables.current_jsondata[self.tbar_headers.tabText(0)])
+                                            globvars.current_jsondata[self.tbar_headers.tabText(0)])
         else:
             self.set_cbx_enabled(True)
             self.set_table_header_visible(True)
@@ -113,7 +113,7 @@ class Window(QMainWindow, Ui_MainWindow):
         # with open("UIs/GzIs_cbx_style_sheet.css", "r") as cbxsheet:
         #     self.cbx_isaccept.setStyleSheet(str(cbxsheet.read()))
 
-        self.cbx_ar_pos.addItems(global_variables.json_paths)
+        self.cbx_ar_pos.addItems(globvars.json_paths)
         self.cbx_jsons.blockSignals(False)
 
         size_policy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
