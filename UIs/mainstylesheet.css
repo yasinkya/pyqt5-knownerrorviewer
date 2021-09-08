@@ -1,3 +1,23 @@
+QMenuBar {
+    background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                      stop:0 lightgray, stop:1 darkgray);
+    spacing: 3px; /* spacing between menu bar items */
+}
+
+QMenuBar::item {
+    padding: 1px 4px;
+    background: transparent;
+    border-radius: 4px;
+}
+
+QMenuBar::item:selected { /* when selected using mouse or keyboard */
+    background: #a8a8a8;
+}
+
+QMenuBar::item:pressed {
+    background: #888888;
+}
+
 QComboBox {
     border: 1px solid gray;
     border-radius: 3px;
@@ -172,3 +192,13 @@ QTableWidget QTableCornerButton::section {
     background-color: #757575;
     border: 1px solid #fffff8;
 }
+
+/* --------------------------------------------------- MenuBar --------------------------------- */
+
+
+QMenuBar{
+    background-color: rgb(145,45,45); color: #fffff0
+    }
+Menu{
+    background-color: rgb(70,70,70);
+    }

@@ -20,12 +20,16 @@ class Window(QMainWindow, Ui_MainWindow):
         self.tbar_headers = QTabBar()
 
         self.setupUi(self)
-    def setupUi(self, MainWindow):
-        super().setupUi(MainWindow)
+
+    def setupUi(self, mainwindow):
+        super().setupUi(mainwindow)
         # self.layout_content.addWidget(self.tbar_headers)
         self.setup_widget()
         self.init_comboboxes()
         self.init_statusbar()
+
+        with open("UIs/mainstylesheet.css", "r") as style:
+            self.setStyleSheet(style.read())
 
     def setup_widget(self):
         # self.btn_palette.clicked.connect(self.btn_palette_trigger)

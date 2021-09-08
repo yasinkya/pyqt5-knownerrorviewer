@@ -1,34 +1,38 @@
+from typing import Union
 from PyQt5.QtCore import Qt, QObject, QEvent, QPoint
-from PyQt5.QtGui import QMouseEvent
-from PyQt5.QtWidgets import QToolButton
+from PyQt5.QtGui import QMouseEvent, QIcon
+from PyQt5.QtWidgets import QToolButton, QMenuBar, QMenu, QAction
 from classes.Main_Window import Window
 
 
 class MainWindow(Window):
+    act_close: Union[QAction, QAction]
+    menu_filter: Union[QMenu, QMenu]
+    menu_icon: Union[QMenu, QMenu]
+    left_menubar: Union[QMenuBar, QMenuBar]
+    right_menubar: Union[QMenuBar, QMenuBar]
+
     def __init__(self):
         super(Window, self).__init__()
-        self.resize(700, 500)
         self.btn_close = QToolButton()
         self.curpos = QPoint()
-        self.setupUi(self)
 
+        self.setupUi(self)
         self.setWindowFlag(Qt.FramelessWindowHint)
 
-    def setupUi(self, MainWindow):
-        super().setupUi(self)
-        print("custom tilebar")
+    def setupUi(self, mainwindow):
+        super().setupUi(mainwindow)
+        self.left_menubar = QMenuBar(self)
+        self.right_menubar = QMenuBar(self)
+        self.menu_icon = QMenu(self)
+        self.menu_filter = QMenu(self)
+        self.act_close = QAction(self)
+        self.init_custom_tilebar()
 
-        # Custom tilebar actions - close
-        self.btn_close.setText("x")
-        self.btn_close.setStyleSheet("QToolButton{ background-color: rgb(45,45,40); color: #fffff0; font-size: 15px;"
-                                     "min-width: 1.6em; max-height: 1.5em;"
-                                     "}")
-        self.btn_close.clicked.connect(self.close)
-        self.menubar.setStyleSheet("QMenuBar{background-color: rgb(145,45,45); color: #fffff0}"
-                                          "QMenu{background-color: rgb(70,70,70);}")
-        self.menubar.setCornerWidget(self.btn_close)
-
+    def init_custom_tilebar(self):
         self.menubar.installEventFilter(self)
+        self.init_left_menu()
+        self.init_right_menu()
 
     def eventFilter(self, obj: QObject, _event: QMouseEvent):
         if _event.type() == QEvent.MouseButtonPress:
@@ -40,15 +44,14 @@ class MainWindow(Window):
                 self.move(self.pos() + offset - self.curpos)
         return super().eventFilter(obj, _event)
 
-    def init_custom_tilebar(self):
-        self.menubar.installEventFilter(self)
-        self.init_left_menu()
-        self.init_right_menu()
-
     def init_left_menu(self):
         pass
 
     def init_right_menu(self):
         pass
+        self.act_close.setText("X")
+        self.act_close.triggered.connect(self.close)
 
+        self.right_menubar.addAction(self.act_close)
+        self.menubar.setCornerWidget(self.right_menubar, Qt.TopRightCorner)
 
