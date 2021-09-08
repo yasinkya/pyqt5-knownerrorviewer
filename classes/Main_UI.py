@@ -28,6 +28,8 @@ class MainWindow(Window):
                                           "QMenu{background-color: rgb(70,70,70);}")
         self.menubar.setCornerWidget(self.btn_close)
 
+        self.menubar.installEventFilter(self)
+
     def eventFilter(self, obj: QObject, _event: QMouseEvent):
         if _event.type() == QEvent.MouseButtonPress:
             self.curpos = _event.pos()
@@ -37,3 +39,16 @@ class MainWindow(Window):
                 offset = _event.pos()
                 self.move(self.pos() + offset - self.curpos)
         return super().eventFilter(obj, _event)
+
+    def init_custom_tilebar(self):
+        self.menubar.installEventFilter(self)
+        self.init_left_menu()
+        self.init_right_menu()
+
+    def init_left_menu(self):
+        pass
+
+    def init_right_menu(self):
+        pass
+
+

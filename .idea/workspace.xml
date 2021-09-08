@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2d25a380-9521-4b9b-b5a0-8bf05f14b3a7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/UIs/mainstylesheet.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UIs/GzIS_main_window.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UIs/GzIS_main_window.ui" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/MainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/Main_UI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Main_UI.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/Main_UI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/Main_Window.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/Main_Window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/global_variables.py" beforeDir="false" afterPath="$PROJECT_DIR$/globvars.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gzis_funcs.py" beforeDir="false" afterPath="$PROJECT_DIR$/gzis_funcs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/json_func.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +23,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.externalTools" />
   </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">

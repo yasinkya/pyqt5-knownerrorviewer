@@ -1,10 +1,11 @@
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QMainWindow, QSizePolicy, QPushButton, QCheckBox, QLabel, QComboBox
+from PyQt5.QtWidgets import QMainWindow, QSizePolicy, QPushButton, QCheckBox, QLabel, QComboBox, QTabBar
 from PyQt5.QtGui import QPalette, QColor, QPixmap, QIcon
 import globvars, gzis_funcs
 from classes import table_widget_tests, table_widget_target, TabBar
-from UIs.GzIs_error_main import Ui_MainWindow
+# from UIs.GzIs_error_main import Ui_MainWindow
+from UIs.ui_gzis_main import Ui_MainWindow
 
 
 class Window(QMainWindow, Ui_MainWindow):
@@ -16,7 +17,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.lbl_isaccept = QLabel()
         self.cbx_isaccept = QComboBox()
 
-        self.tbar_headers = TabBar.CreateTabbar()
+        self.tbar_headers = QTabBar()
 
         self.setupUi(self)
     def setupUi(self, MainWindow):
@@ -25,6 +26,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.setup_widget()
         self.init_comboboxes()
         self.init_statusbar()
+
     def setup_widget(self):
         # self.btn_palette.clicked.connect(self.btn_palette_trigger)
         # self.check_exception.clicked.connect(self.check_target_trigger)
