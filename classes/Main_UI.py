@@ -27,6 +27,8 @@ class MainWindow(Window):
         self.menu_icon = QMenu(self)
         self.menu_filter = QMenu(self)
         self.act_close = QAction(self)
+        self.act_minimize = QAction(self)
+        self.act_restore = QAction(self)
         self.init_custom_tilebar()
 
     def init_custom_tilebar(self):
@@ -49,9 +51,23 @@ class MainWindow(Window):
 
     def init_right_menu(self):
         pass
-        self.act_close.setText("X")
+        self.act_close.setIcon(QIcon("icons/closeicon.png"))
         self.act_close.triggered.connect(self.close)
 
+        self.act_minimize.setIcon(QIcon("icons/minimize.png"))
+        self.act_minimize.triggered.connect(self.showMinimized)
+
+        self.act_restore.setIcon(QIcon("icons/restore.png"))
+        self.act_restore.triggered.connect(self.trigger_restore)
+
+        self.right_menubar.addAction(self.act_minimize)
+        self.right_menubar.addAction(self.act_restore)
         self.right_menubar.addAction(self.act_close)
         self.menubar.setCornerWidget(self.right_menubar, Qt.TopRightCorner)
+
+    def trigger_restore(self):
+        if self.isMaximized():
+            self.showNormal()
+        else:
+            self.showMaximized()
 
